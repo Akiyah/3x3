@@ -1,4 +1,4 @@
-class Tile {
+export class Tile {
   constructor(x, y, n, status = null) {
     this.x = x;
     this.y = y;
@@ -29,5 +29,3 @@ class Tile {
     return this; // m == 0
   }
 }
- 
-module.exports = Tile;

@@ -2,13 +2,15 @@
   "name": "3x3",
   "version": "1.0.0",
   "main": "index.js",
+  "type": "module",
   "repository": "git@github.com:Akiyah/3x3.git",
   "author": "Akiyah",
   "license": "MIT",
   "devDependencies": {
+    "http-server": "^14.1.0",
     "jest": "^27.5.1"
   },
   "scripts": {
-    "test": "jest"
+    "test": "NODE_OPTIONS=--experimental-vm-modules jest"
   }
 }

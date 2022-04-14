@@ -1,4 +1,4 @@
-const Tile = require('../../../src/js/modules/tile');
+import { Tile } from '../../../src/js/modules/tile.js';
 
 describe('constructor', () => {
   test('no status', () => {
