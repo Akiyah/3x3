@@ -18,7 +18,7 @@ export class Board {
     keys.push(key);
 
     if (board.status() === "") {
-      board.blankPoints().map(([x, y]) => {
+      board.blankPoints().forEach(([x, y]) => {
         const nextBoard = board.step(x, y);
         Board.normalKeys(nextBoard, keys);
       });
@@ -73,34 +73,46 @@ export class Board {
     return this.mapPoints((x, y) => this.isBlank(x, y) ? [x, y] : null).flat().filter(p => p);
   }
 
-  rotate() {
-    const marks = this.mapPoints((x, y) => this.mark(y, 2 - x));
-    return new Board(marks);
-  }
-
   turn() {
     const marks = this.mapPoints((x, y) => this.mark(2 - x, y));
     return new Board(marks);
   }
 
-  translateBoards() {
+  rotate() {
+    const marks = this.mapPoints((x, y) => this.mark(y, 2 - x));
+    return new Board(marks);
+  }
+
+  translate(turn, rotate) {
     let board = this;
-    let boards = [];
-    for (let i = 0; i < 2; i++) {
-      for (let j = 0; j < 4; j++) {
-        boards.push(board);
-        board = board.rotate();
-      }
+    for (let t = 0; t < turn; t++) {
       board = board.turn();
     }
-    return boards;
+    for (let r = 0; r < rotate; r++) {
+      board = board.rotate();
+    }
+    return board;
+  }
+
+  boardsWithTranslation() {
+    let results = [];
+    for (let t = 0; t < 2; t++) {
+      for (let r = 0; r < 4; r++) {
+        results.push({
+          board: this.translate(t, r),
+          turn: t,
+          rotate: r
+        });
+      }
+    }
+    return results;
   }
 
   normalize() {
-    const boards = this.translateBoards();
-    const indexes = boards.map(board => board.index());
+    const boardsWT = this.boardsWithTranslation();
+    const indexes = boardsWT.map(boardWT => boardWT.board.index());
     const minIndex = Math.min(...indexes);
-    return boards.find(board => board.index() === minIndex);
+    return boardsWT.find(boardWT => boardWT.board.index() === minIndex).board;
   }
 
   random(n) {

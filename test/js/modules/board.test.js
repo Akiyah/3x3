@@ -155,19 +155,6 @@ test('#blankPoints', () => {
   ]);
 });
 
-test('#rotate', () => {
-  const board = new Board([
-    ["_", "_", "_"],
-    ["x", "_", "_"],
-    ["_", "o", "_"]
-  ]);
-  expect(board.rotate().marks).toEqual([
-    ["_", "x", "_"],
-    ["o", "_", "_"],
-    ["_", "_", "_"]
-  ]);
-});
-
 test('#turn', () => {
   const board = new Board([
     ["_", "_", "_"],
@@ -181,54 +168,114 @@ test('#turn', () => {
   ]);
 });
 
-test('#translateBoards', () => {
+test('#rotate', () => {
   const board = new Board([
     ["_", "_", "_"],
     ["x", "_", "_"],
     ["_", "o", "_"]
   ]);
-  const boards = board.translateBoards();
-  expect(boards).toHaveLength(8);
-  expect(boards[0].marks).toEqual([
-    ["_", "_", "_"],
-    ["x", "_", "_"],
-    ["_", "o", "_"]
-  ]);
-  expect(boards[1].marks).toEqual([
+  expect(board.rotate().marks).toEqual([
     ["_", "x", "_"],
     ["o", "_", "_"],
     ["_", "_", "_"]
   ]);
-  expect(boards[2].marks).toEqual([
-    ["_", "o", "_"],
-    ["_", "_", "x"],
-    ["_", "_", "_"]
-  ]);
-  expect(boards[3].marks).toEqual([
+});
+
+test('#translate', () => {
+  const board = new Board([
     ["_", "_", "_"],
-    ["_", "_", "o"],
-    ["_", "x", "_"]
+    ["x", "_", "_"],
+    ["_", "o", "_"]
   ]);
-  expect(boards[4].marks).toEqual([
+  expect(board.translate(1, 0).marks).toEqual([
     ["_", "_", "_"],
     ["_", "_", "x"],
     ["_", "o", "_"]
   ]);
-  expect(boards[5].marks).toEqual([
-    ["_", "_", "_"],
+  expect(board.translate(0, 1).marks).toEqual([
+    ["_", "x", "_"],
     ["o", "_", "_"],
-    ["_", "x", "_"]
+    ["_", "_", "_"]
   ]);
-  expect(boards[6].marks).toEqual([
+  expect(board.translate(1, 2).marks).toEqual([
     ["_", "o", "_"],
     ["x", "_", "_"],
     ["_", "_", "_"]
   ]);
-  expect(boards[7].marks).toEqual([
+});
+
+test('#boardsWithTranslation', () => {
+  const board = new Board([
+    ["_", "_", "_"],
+    ["x", "_", "_"],
+    ["_", "o", "_"]
+  ]);
+  const boardsWT = board.boardsWithTranslation();
+  expect(boardsWT).toHaveLength(8);
+
+  expect(boardsWT[0].board.marks).toEqual([
+    ["_", "_", "_"],
+    ["x", "_", "_"],
+    ["_", "o", "_"]
+  ]);
+  expect(boardsWT[0].turn).toBe(0);
+  expect(boardsWT[0].rotate).toBe(0);
+
+  expect(boardsWT[1].board.marks).toEqual([
+    ["_", "x", "_"],
+    ["o", "_", "_"],
+    ["_", "_", "_"]
+  ]);
+  expect(boardsWT[1].turn).toBe(0);
+  expect(boardsWT[1].rotate).toBe(1);
+
+  expect(boardsWT[2].board.marks).toEqual([
+    ["_", "o", "_"],
+    ["_", "_", "x"],
+    ["_", "_", "_"]
+  ]);
+  expect(boardsWT[2].turn).toBe(0);
+  expect(boardsWT[2].rotate).toBe(2);
+
+  expect(boardsWT[3].board.marks).toEqual([
+    ["_", "_", "_"],
+    ["_", "_", "o"],
+    ["_", "x", "_"]
+  ]);
+  expect(boardsWT[3].turn).toBe(0);
+  expect(boardsWT[3].rotate).toBe(3);
+
+  expect(boardsWT[4].board.marks).toEqual([
+    ["_", "_", "_"],
+    ["_", "_", "x"],
+    ["_", "o", "_"]
+  ]);
+  expect(boardsWT[4].turn).toBe(1);
+  expect(boardsWT[4].rotate).toBe(0);
+
+  expect(boardsWT[5].board.marks).toEqual([
+    ["_", "_", "_"],
+    ["o", "_", "_"],
+    ["_", "x", "_"]
+  ]);
+  expect(boardsWT[5].turn).toBe(1);
+  expect(boardsWT[5].rotate).toBe(1);
+
+  expect(boardsWT[6].board.marks).toEqual([
+    ["_", "o", "_"],
+    ["x", "_", "_"],
+    ["_", "_", "_"]
+  ]);
+  expect(boardsWT[6].turn).toBe(1);
+  expect(boardsWT[6].rotate).toBe(2);
+
+  expect(boardsWT[7].board.marks).toEqual([
     ["_", "x", "_"],
     ["_", "_", "o"],
     ["_", "_", "_"]
   ]);
+  expect(boardsWT[7].turn).toBe(1);
+  expect(boardsWT[7].rotate).toBe(3);
 });
 
 test('#normalize', () => {
