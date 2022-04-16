@@ -108,11 +108,15 @@ export class Board {
     return results;
   }
 
-  normalize() {
+  normalizeWT() {
     const boardsWT = this.boardsWithTranslation();
     const indexes = boardsWT.map(boardWT => boardWT.board.index());
     const minIndex = Math.min(...indexes);
-    return boardsWT.find(boardWT => boardWT.board.index() === minIndex).board;
+    return boardsWT.find(boardWT => boardWT.board.index() === minIndex);
+  }
+
+  normalize() {
+    return this.normalizeWT().board;
   }
 
   random(n) {

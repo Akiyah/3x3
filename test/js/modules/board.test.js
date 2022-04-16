@@ -278,11 +278,27 @@ test('#boardsWithTranslation', () => {
   expect(boardsWT[7].rotate).toBe(3);
 });
 
+test('#normalizeWT', () => {
+  const board = new Board([
+    ["_", "o", "_"],
+    ["x", "_", "_"],
+    ["_", "_", "_"]
+  ]);
+  const boardWT = board.normalizeWT();
+  expect(boardWT.board.marks).toEqual([
+    ["_", "x", "_"],
+    ["o", "_", "_"],
+    ["_", "_", "_"]
+  ]);
+  expect(boardWT.turn).toBe(1);
+  expect(boardWT.rotate).toBe(3);
+});
+
 test('#normalize', () => {
   const board = new Board([
-    ["_", "_", "_"],
+    ["_", "o", "_"],
     ["x", "_", "_"],
-    ["_", "o", "_"]
+    ["_", "_", "_"]
   ]);
   expect(board.normalize().marks).toEqual([
     ["_", "x", "_"],
