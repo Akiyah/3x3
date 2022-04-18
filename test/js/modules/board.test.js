@@ -99,11 +99,11 @@ test('#isBlank', () => {
   expect(board.isBlank(0, 1)).toBeFalsy();
 });
 
-test('#blankPoints', () => {
+test('#actions', () => {
   let board = new Board();
   board = board.step(1, 2);
   board = board.step(0, 1);
-  expect(board.blankPoints()).toEqual([
+  expect(board.actions()).toEqual([
     [0, 0], [1, 0], [2, 0],
     [1, 1], [2, 1],
     [0, 2], [2, 2]
@@ -172,10 +172,10 @@ describe('#isWin', () => {
   });
 });
 
-describe('#status', () => {
+describe('#winner', () => {
   test('no winners', () => {
     const board = new Board();
-    expect(board.status()).toEqual("");
+    expect(board.winner()).toBe(null);
   });
 
   test('o win', () => {
@@ -184,7 +184,7 @@ describe('#status', () => {
       ["x", "o", "x"],
       ["_", "o", "_"]
     ]);
-    expect(board.status()).toEqual("o win");
+    expect(board.winner()).toEqual("o");
   });
 
   test('x win', () => {
@@ -193,7 +193,7 @@ describe('#status', () => {
       ["_", "x", "_"],
       ["x", "o", "o"]
     ]);
-    expect(board.status()).toEqual("x win");
+    expect(board.winner()).toEqual("x");
   });
 
   test('draw', () => {
@@ -202,40 +202,6 @@ describe('#status', () => {
       ["x", "o", "o"],
       ["x", "o", "x"]
     ]);
-    expect(board.status()).toEqual("draw");
-  });
-});
-
-describe('#reword', () => {
-  test('no winners', () => {
-    const board = new Board();
-    expect(board.reword()).toBe(null);
-  });
-
-  test('o win', () => {
-    const board = new Board([
-      ["_", "o", "_"],
-      ["x", "o", "x"],
-      ["_", "o", "_"]
-    ]);
-    expect(board.reword()).toBe(1);
-  });
-
-  test('x win', () => {
-    const board = new Board([
-      ["o", "_", "x"],
-      ["_", "x", "_"],
-      ["x", "o", "o"]
-    ]);
-    expect(board.reword()).toBe(-1);
-  });
-
-  test('draw', () => {
-    const board = new Board([
-      ["o", "x", "o"],
-      ["x", "o", "o"],
-      ["x", "o", "x"]
-    ]);
-    expect(board.reword()).toBe(0);
+    expect(board.winner()).toEqual("-");
   });
 });

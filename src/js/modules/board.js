@@ -25,7 +25,7 @@ export class Board {
   }
 
   step(x, y) {
-    const k = 9 - this.blankPoints().length;
+    const k = 9 - this.actions().length;
     const mark = ((k % 2 == 0) ? 'o' : 'x');
 
     let marks = this.mapPoints((x0, y0) => this.mark(x0, y0));
@@ -37,7 +37,7 @@ export class Board {
     return this.mark(x, y) === "_";
   }
 
-  blankPoints() {
+  actions() {
     return this.mapPoints((x, y) => this.isBlank(x, y) ? [x, y] : null).flat().filter(p => p);
   }
 
@@ -60,33 +60,17 @@ export class Board {
     );
   }
 
-  status() {
+  winner() {
     if (this.isWin("o")) {
-      return "o win";
+      return "o";
     }
 
     if (this.isWin("x")) {
-      return "x win";
+      return "x";
     }
 
-    if (this.blankPoints() == 0) {
-      return "draw";
-    }
-
-    return "";
-  }
-
-  reword() {
-    if (this.isWin("o")) {
-      return 1;
-    }
-
-    if (this.isWin("x")) {
-      return -1;
-    }
-
-    if (this.blankPoints() == 0) {
-      return 0;
+    if (this.actions().length == 0) {
+      return "-";
     }
 
     return null;
