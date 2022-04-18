@@ -39,27 +39,6 @@ test('.create', () => {
   ]);
 });
 
-test('.normalKeys', () => {
-  const keys = Board.normalKeys();
-
-  expect(keys.length).toBe(765);
-  expect(keys).toContain(
-    "___" + "\n" +
-    "___" + "\n" +
-    "___"
-  );
-  expect(keys).toContain(
-    "_x_" + "\n" +
-    "o__" + "\n" +
-    "___"
-  );
-  expect(keys).not.toContain(
-    "___" + "\n" +
-    "x__" + "\n" +
-    "_o_"
-  );
-});
-
 test('#key', () => {
   let board = new Board();
   board = board.step(1, 2);
@@ -94,17 +73,6 @@ test('#mark', () => {
   expect(board.mark(0, 1)).toEqual("x");
 });
 
-test('#markIndex', () => {
-  const board = new Board([
-    ["_", "_", "_"],
-    ["x", "_", "_"],
-    ["_", "o", "_"]
-  ]);
-  expect(board.markIndex(0, 0)).toBe(0);
-  expect(board.markIndex(1, 2)).toBe(1);
-  expect(board.markIndex(0, 1)).toBe(2);
-});
-
 test('#step', () => {
   let board = new Board();
   board = board.step(1, 2);
@@ -120,19 +88,6 @@ test('#step', () => {
     ["x", "_", "_"],
     ["_", "o", "_"]
   ]);
-});
-
-test('#index', () => {
-  const board = new Board([
-    ["_", "_", "_"],
-    ["x", "_", "_"],
-    ["_", "o", "_"]
-  ]);
-  expect(board.index()).toEqual(
-    0 * 3 ** 0 + 0 * 3 ** 1 + 0 * 3 ** 2 +
-    2 * 3 ** 3 + 0 * 3 ** 4 + 0 * 3 ** 5 +
-    0 * 3 ** 6 + 1 * 3 ** 7 + 0 * 3 ** 8
-  );
 });
 
 test('#isBlank', () => {
@@ -152,158 +107,6 @@ test('#blankPoints', () => {
     [0, 0], [1, 0], [2, 0],
     [1, 1], [2, 1],
     [0, 2], [2, 2]
-  ]);
-});
-
-test('#turn', () => {
-  const board = new Board([
-    ["_", "_", "_"],
-    ["x", "_", "_"],
-    ["_", "o", "_"]
-  ]);
-  expect(board.turn().marks).toEqual([
-    ["_", "_", "_"],
-    ["_", "_", "x"],
-    ["_", "o", "_"]
-  ]);
-});
-
-test('#rotate', () => {
-  const board = new Board([
-    ["_", "_", "_"],
-    ["x", "_", "_"],
-    ["_", "o", "_"]
-  ]);
-  expect(board.rotate().marks).toEqual([
-    ["_", "x", "_"],
-    ["o", "_", "_"],
-    ["_", "_", "_"]
-  ]);
-});
-
-test('#translate', () => {
-  const board = new Board([
-    ["_", "_", "_"],
-    ["x", "_", "_"],
-    ["_", "o", "_"]
-  ]);
-  expect(board.translate(1, 0).marks).toEqual([
-    ["_", "_", "_"],
-    ["_", "_", "x"],
-    ["_", "o", "_"]
-  ]);
-  expect(board.translate(0, 1).marks).toEqual([
-    ["_", "x", "_"],
-    ["o", "_", "_"],
-    ["_", "_", "_"]
-  ]);
-  expect(board.translate(1, 2).marks).toEqual([
-    ["_", "o", "_"],
-    ["x", "_", "_"],
-    ["_", "_", "_"]
-  ]);
-});
-
-test('#boardsWithTranslation', () => {
-  const board = new Board([
-    ["_", "_", "_"],
-    ["x", "_", "_"],
-    ["_", "o", "_"]
-  ]);
-  const boardsWT = board.boardsWithTranslation();
-  expect(boardsWT).toHaveLength(8);
-
-  expect(boardsWT[0].board.marks).toEqual([
-    ["_", "_", "_"],
-    ["x", "_", "_"],
-    ["_", "o", "_"]
-  ]);
-  expect(boardsWT[0].turn).toBe(0);
-  expect(boardsWT[0].rotate).toBe(0);
-
-  expect(boardsWT[1].board.marks).toEqual([
-    ["_", "x", "_"],
-    ["o", "_", "_"],
-    ["_", "_", "_"]
-  ]);
-  expect(boardsWT[1].turn).toBe(0);
-  expect(boardsWT[1].rotate).toBe(1);
-
-  expect(boardsWT[2].board.marks).toEqual([
-    ["_", "o", "_"],
-    ["_", "_", "x"],
-    ["_", "_", "_"]
-  ]);
-  expect(boardsWT[2].turn).toBe(0);
-  expect(boardsWT[2].rotate).toBe(2);
-
-  expect(boardsWT[3].board.marks).toEqual([
-    ["_", "_", "_"],
-    ["_", "_", "o"],
-    ["_", "x", "_"]
-  ]);
-  expect(boardsWT[3].turn).toBe(0);
-  expect(boardsWT[3].rotate).toBe(3);
-
-  expect(boardsWT[4].board.marks).toEqual([
-    ["_", "_", "_"],
-    ["_", "_", "x"],
-    ["_", "o", "_"]
-  ]);
-  expect(boardsWT[4].turn).toBe(1);
-  expect(boardsWT[4].rotate).toBe(0);
-
-  expect(boardsWT[5].board.marks).toEqual([
-    ["_", "_", "_"],
-    ["o", "_", "_"],
-    ["_", "x", "_"]
-  ]);
-  expect(boardsWT[5].turn).toBe(1);
-  expect(boardsWT[5].rotate).toBe(1);
-
-  expect(boardsWT[6].board.marks).toEqual([
-    ["_", "o", "_"],
-    ["x", "_", "_"],
-    ["_", "_", "_"]
-  ]);
-  expect(boardsWT[6].turn).toBe(1);
-  expect(boardsWT[6].rotate).toBe(2);
-
-  expect(boardsWT[7].board.marks).toEqual([
-    ["_", "x", "_"],
-    ["_", "_", "o"],
-    ["_", "_", "_"]
-  ]);
-  expect(boardsWT[7].turn).toBe(1);
-  expect(boardsWT[7].rotate).toBe(3);
-});
-
-test('#normalizeWT', () => {
-  const board = new Board([
-    ["_", "o", "_"],
-    ["x", "_", "_"],
-    ["_", "_", "_"]
-  ]);
-  const boardWT = board.normalizeWT();
-  expect(boardWT.board.marks).toEqual([
-    ["_", "x", "_"],
-    ["o", "_", "_"],
-    ["_", "_", "_"]
-  ]);
-  expect(boardWT.turn).toBe(1);
-  expect(boardWT.rotate).toBe(3);
-});
-
-test('#normalize', () => {
-  const board = new Board([
-    ["_", "o", "_"],
-    ["x", "_", "_"],
-    ["_", "_", "_"]
-  ]);
-  expect(board.normalize().marks).toEqual([
-    ["_", "x", "_"],
-    ["o", "_", "_"],
-    ["_", "_", "_"]
   ]);
 });
 

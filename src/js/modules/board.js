@@ -10,23 +10,6 @@ export class Board {
     return new Board(marks);
   }
 
-  static normalKeys(board = new Board(), keys = []) {
-    const key = board.normalize().key();
-    if (keys.includes(key)) {
-      return;
-    }
-    keys.push(key);
-
-    if (board.status() === "") {
-      board.blankPoints().forEach(([x, y]) => {
-        const nextBoard = board.step(x, y);
-        Board.normalKeys(nextBoard, keys);
-      });
-    }
-
-    return keys;
-  }
-
   key() {
     return this.marks.map(row =>
       row.map(mark => mark).join("")
@@ -41,17 +24,6 @@ export class Board {
     return this.marks[y][x];
   }
 
-  markIndex(x, y) {
-    const mark = this.mark(x, y);
-    if (mark === '_') {
-      return 0;
-    } else if (mark === 'o') {
-      return 1;
-    } else {
-      return 2;
-    }
-  }
-
   step(x, y) {
     const k = 9 - this.blankPoints().length;
     const mark = ((k % 2 == 0) ? 'o' : 'x');
@@ -61,62 +33,12 @@ export class Board {
     return new Board(marks);
   }
 
-  index() {
-    return this.mapPoints((x, y) => this.markIndex(x, y) * 3 ** (x + 3 * y)).flat().reduce((s, e) => s + e);
-  }
-
   isBlank(x, y) {
     return this.mark(x, y) === "_";
   }
 
   blankPoints() {
     return this.mapPoints((x, y) => this.isBlank(x, y) ? [x, y] : null).flat().filter(p => p);
-  }
-
-  turn() {
-    const marks = this.mapPoints((x, y) => this.mark(2 - x, y));
-    return new Board(marks);
-  }
-
-  rotate() {
-    const marks = this.mapPoints((x, y) => this.mark(y, 2 - x));
-    return new Board(marks);
-  }
-
-  translate(turn, rotate) {
-    let board = this;
-    for (let t = 0; t < turn; t++) {
-      board = board.turn();
-    }
-    for (let r = 0; r < rotate; r++) {
-      board = board.rotate();
-    }
-    return board;
-  }
-
-  boardsWithTranslation() {
-    let results = [];
-    for (let t = 0; t < 2; t++) {
-      for (let r = 0; r < 4; r++) {
-        results.push({
-          board: this.translate(t, r),
-          turn: t,
-          rotate: r
-        });
-      }
-    }
-    return results;
-  }
-
-  normalizeWT() {
-    const boardsWT = this.boardsWithTranslation();
-    const indexes = boardsWT.map(boardWT => boardWT.board.index());
-    const minIndex = Math.min(...indexes);
-    return boardsWT.find(boardWT => boardWT.board.index() === minIndex);
-  }
-
-  normalize() {
-    return this.normalizeWT().board;
   }
 
   random(n) {
