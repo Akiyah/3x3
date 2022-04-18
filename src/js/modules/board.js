@@ -41,6 +41,12 @@ export class Board {
     return this.mapPoints((x, y) => this.isBlank(x, y) ? [x, y] : null).flat().filter(p => p);
   }
 
+  randomAction() {
+    const actions = this.actions();
+    const i = this.random(actions.length);
+    return actions[i];
+  }
+
   random(n) {
     return Math.floor(Math.random() * n);
   }

@@ -110,6 +110,13 @@ test('#actions', () => {
   ]);
 });
 
+test('#randomAction', () => {
+  let board = new Board();
+  board = board.step(1, 2);
+  board = board.step(0, 1);
+  expect(board.actions()).toContainEqual(board.randomAction());
+});
+
 test('#random', () => {
   let board = new Board();
   let results = [];
