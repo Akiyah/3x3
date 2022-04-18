@@ -15,7 +15,8 @@ test('constructor', () => {
     const nextBoard = board0.step(x, y);
 
     expect(board0.winner()).toBe(null);
-    expect(nextBoard.key()).toBe(board1.key());
+    expect(nextBoard.state()).toBe(board1.state());
   }
   expect(episode[l - 1].board.winner()).not.toBe(null);
+  expect(episode[l - 1].action).toBe(null);
 });

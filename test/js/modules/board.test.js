@@ -27,11 +27,11 @@ describe('constructor', () => {
 });
 
 test('.create', () => {
-  const key =
+  const state =
     "___" + "\n" +
     "x__" + "\n" +
     "_o_";
-  const board = Board.create(key);
+  const board = Board.create(state);
   expect(board.marks).toEqual([
     ["_", "_", "_"],
     ["x", "_", "_"],
@@ -39,11 +39,11 @@ test('.create', () => {
   ]);
 });
 
-test('#key', () => {
+test('#state', () => {
   let board = new Board();
   board = board.step(1, 2);
   board = board.step(0, 1);
-  expect(board.key()).toEqual(
+  expect(board.state()).toEqual(
     "___" + "\n" +
     "x__" + "\n" +
     "_o_"
