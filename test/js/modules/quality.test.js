@@ -41,6 +41,23 @@ test('#get/#set/#m', () => {
   ]);
 });
 
+test('#value', () => {
+  const quality = new Quality();
+  const state =
+    "___" + "\n" +
+    "x__" + "\n" +
+    "_o_";
+  const board = Board.create(state);
+
+  expect(quality.value(board)).toEqual(0);
+
+  quality.set(board, [0, 0], 0.1);
+  quality.set(board, [1, 0], 0.2);
+  quality.set(board, [2, 1], 0.3);
+
+  expect(quality.value(board)).toEqual(0.3);
+});
+
 test('#policy', () => {
   const quality = new Quality();
   const state =

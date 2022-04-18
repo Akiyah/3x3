@@ -14,4 +14,7 @@ export class Game {
     episode.push({ board: board, action: null });
     return episode;
   }
+
+  train(episode, quarity) {
+  }
 }

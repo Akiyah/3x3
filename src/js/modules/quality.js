@@ -28,13 +28,17 @@ export class Quality {
     this.m(board)[y][x] = value;
   }
 
-  policy(board) {
-    const vas = board.actions().map((action) => {
-      return { value: this.get(board, action), action: action };
+  value(board) {
+    const vs = board.actions().map((action) => {
+      return this.get(board, action);
     });
-    const max = Math.max(...vas.map((va) => va.value));
-    return vas.filter((va) => {
-      return va.value === max;
-    }).shift().action;
+    return Math.max(...vs);
+  }
+
+  policy(board) {
+    const max = this.value(board);
+    return board.actions().filter((action) => {
+      return this.get(board, action) === max;
+    }).shift();
   }
 }
