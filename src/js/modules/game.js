@@ -28,6 +28,6 @@ export class Game {
     return episode;
   }
 
-  train(episode, quarity) {
+  train(episode) {
   }
 }

@@ -1,25 +1,21 @@
 import { Game } from '../../../src/js/modules/game.js';
 import { Board } from '../../../src/js/modules/board.js';
 
+const game = new Game();
+const board = new Board();
+
 test('constructor', () => {
-  const game = new Game();
   expect(game.quality.map).toEqual({});
 });
 
 describe('#createAction', () => {
   test('epsilon = 1', () => {
-    const game = new Game();
-    const board = new Board();
-
     const action = game.createAction(board, 1);
     expect([0, 1, 2]).toContain(action[0]);
     expect([0, 1, 2]).toContain(action[1]);
   });
 
   test('epsilon = 0', () => {
-    const game = new Game();
-    const board = new Board();
-
     game.quality.set(board, [2, 1], 1);
 
     const action = game.createAction(board, 0);
@@ -29,7 +25,6 @@ describe('#createAction', () => {
 
 describe('#createEpisode', () => {
   test('epsilon = 1', () => {
-    const game = new Game();
     const episode = game.createEpisode(1);
 
     const l = episode.length;
@@ -86,7 +81,6 @@ describe('#createEpisode', () => {
       ["_", "_", "o"]
     ]);
 
-    const game = new Game();
     game.quality.set(board0, action0, 1);
     game.quality.set(board1, action1, 1);
     game.quality.set(board2, action2, 1);
