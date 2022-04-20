@@ -6,11 +6,11 @@ test('constructor', () => {
   expect(game.quality.map).toEqual({});
 });
 
-describe('#createAction', () => {
+describe('#findAction', () => {
   test('epsilon = 1', () => {
     const game = new Game();
     const board = new Board();
-    const action = game.createAction(board, 1);
+    const action = game.findAction(board, 1);
     expect([0, 1, 2]).toContain(action[0]);
     expect([0, 1, 2]).toContain(action[1]);
   });
@@ -20,15 +20,15 @@ describe('#createAction', () => {
     const board = new Board();
     game.quality.set(board, [2, 1], 1);
 
-    const action = game.createAction(board, 0);
+    const action = game.findAction(board, 0);
     expect(action).toEqual([2, 1]);
   });
 });
 
-describe('#createEpisode', () => {
+describe('#findEpisode', () => {
   test('epsilon = 1', () => {
     const game = new Game();
-    const episode = game.createEpisode(1);
+    const episode = game.findEpisode(1);
 
     const l = episode.length;
     expect(l).toBeGreaterThanOrEqual(6);
@@ -91,7 +91,7 @@ describe('#createEpisode', () => {
     game.quality.set(board3, action3, 1);
     game.quality.set(board4, action4, 1);
 
-    const episode = game.createEpisode(0);
+    const episode = game.findEpisode(0);
 
     expect(episode.length).toBe(6);
 

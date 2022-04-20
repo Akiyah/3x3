@@ -9,7 +9,7 @@ export class Game {
     this.quality = quality;
   }
 
-  createAction(board, epsilon) {
+  findAction(board, epsilon) {
     if (Math.random() < epsilon) {
       return board.randomAction();
     } else {
@@ -17,12 +17,12 @@ export class Game {
     }
   }
 
-  createEpisode(epsilon) {
+  findEpisode(epsilon) {
     let board = new Board();
     const episode = [];
 
     while(board.winner() === null) {
-      const action = this.createAction(board, epsilon);
+      const action = this.findAction(board, epsilon);
       episode.push({ board: board, action: action });
       board = board.step(...action);
     }
