@@ -41,21 +41,34 @@ test('#get/#set/#m', () => {
   ]);
 });
 
-test('#value', () => {
-  const quality = new Quality();
-  const state =
-    "___" + "\n" +
-    "x__" + "\n" +
-    "_o_";
-  const board = Board.create(state);
+describe('#value', () => {
+  test('exist actions', () => {
+    const quality = new Quality();
+    const state =
+      "___" + "\n" +
+      "x__" + "\n" +
+      "_o_";
+    const board = Board.create(state);
 
-  expect(quality.value(board)).toEqual(0);
+    expect(quality.value(board)).toEqual(0);
 
-  quality.set(board, [0, 0], 0.1);
-  quality.set(board, [1, 0], 0.2);
-  quality.set(board, [2, 1], 0.3);
+    quality.set(board, [0, 0], 0.1);
+    quality.set(board, [1, 0], 0.2);
+    quality.set(board, [2, 1], 0.3);
 
-  expect(quality.value(board)).toEqual(0.3);
+    expect(quality.value(board)).toEqual(0.3);
+  });
+
+  test('no actions', () => {
+    const quality = new Quality();
+    const state =
+      "oxo" + "\n" +
+      "oxo" + "\n" +
+      "xox";
+    const board = Board.create(state);
+
+    expect(quality.value(board)).toEqual(0);
+  });
 });
 
 test('#policy', () => {

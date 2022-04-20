@@ -29,6 +29,10 @@ export class Quality {
   }
 
   value(board) {
+    const actions = board.actions();
+    if (actions.length == 0) {
+      return 0;
+    }
     const vs = board.actions().map((action) => {
       return this.get(board, action);
     });
