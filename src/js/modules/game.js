@@ -40,24 +40,43 @@ export class Game {
   }
 
   train(episode) {
-    const episode_o = [
-      episode[0],
-      episode[2],
-      episode[4],
-      episode[5]
-    ];
+    const l = episode.length;
+    const eventLast = episode[l - 1];
+    const boardLast = eventLast.board;
 
-    const episode_x = [
-      episode[1],
-      episode[3],
-      episode[5]
-    ];
+    let rewardO = 0;
+    let rewardX = 0;
 
-    this.trainOne(episode_o[2].board, episode_o[2].action, episode_o[3].board, 1);
-    this.trainOne(episode_o[1].board, episode_o[1].action, episode_o[2].board, 0);
-    this.trainOne(episode_o[0].board, episode_o[0].action, episode_o[1].board, 0);
+    if (boardLast.winner() == "o") {
+      rewardO = 1;
+      rewardX = -1;
+    }
 
-    this.trainOne(episode_x[1].board, episode_x[1].action, episode_x[2].board, -1);
-    this.trainOne(episode_x[0].board, episode_x[0].action, episode_x[1].board, 0);
+    if (boardLast.winner() == "x") {
+      rewardO = -1;
+      rewardX = 1;
+    }
+
+    const episodeO = episode.filter((_event, i) => {
+      return (i % 2 == 0) && (i < l - 1);
+    }).concat(eventLast);
+
+    const episodeX = episode.filter((_event, i) => {
+      return (i % 2 == 1) && (i < l - 1);
+    }).concat(eventLast);
+
+    for (let i = 0; i < episodeO.length - 1; i++) {
+      const event0 = episodeO[episodeO.length - 2 - i];
+      const event1 = episodeO[episodeO.length - 1 - i];
+      const reward = (i == 0) ? rewardO : 0;
+      this.trainOne(event0.board, event0.action, event1.board, reward);
+    }
+
+    for (let i = 0; i < episodeX.length - 1; i++) {
+      const event0 = episodeX[episodeX.length - 2 - i];
+      const event1 = episodeX[episodeX.length - 1 - i];
+      const reward = (i == 0) ? rewardX : 0;
+      this.trainOne(event0.board, event0.action, event1.board, reward);
+    }
   }
 }

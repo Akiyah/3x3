@@ -148,38 +148,80 @@ describe('#trainOne', () => {
 });
 
 describe('#train', () => {
-  const game = new Game();
-  const actions = [
-    [1, 1],
-    [1, 0],
-    [0, 0],
-    [2, 1],
-    [2, 2]
-  ];
+  test('o win', () => {
+    const game = new Game();
+    const actions = [
+      [1, 1],
+      [1, 0],
+      [0, 0],
+      [2, 1],
+      [2, 2]
+    ];
 
-  let board = new Board();
-  const boards = [board].concat(actions.map((action) => {
-    board = board.step(...action);
-    return board;
-  }));
+    let board = new Board();
+    const boards = [board].concat(actions.map((action) => {
+      board = board.step(...action);
+      return board;
+    }));
 
-  const episode = boards.map((board, i) => {
-    return { board: board, action: actions[i] };
+    const episode = boards.map((board, i) => {
+      return { board: board, action: actions[i] };
+    });
+
+    game.train(episode);
+
+    expect(game.quality.get(boards[0], actions[0])).toBe(0.2**3);
+    expect(game.quality.get(boards[1], actions[1])).toBe(0);
+    expect(game.quality.get(boards[2], actions[2])).toBe(0.2**2);
+    expect(game.quality.get(boards[3], actions[3])).toBe(-0.2);
+    expect(game.quality.get(boards[4], actions[4])).toBe(0.2);
+
+    game.train(episode);
+
+    expect(game.quality.get(boards[0], actions[0])).toBe(0.02720000000000001);
+    expect(game.quality.get(boards[1], actions[1])).toBe(0);
+    expect(game.quality.get(boards[2], actions[2])).toBe(0.10400000000000002);
+    expect(game.quality.get(boards[3], actions[3])).toBe(-0.2 * (1 - 0.2) - 0.2);
+    expect(game.quality.get(boards[4], actions[4])).toBe(0.2 * (1 - 0.2) + 0.2);
   });
 
-  game.train(episode);
+  test('x win', () => {
+    const game = new Game();
+    const actions = [
+      [0, 0],
+      [1, 1],
+      [0, 1],
+      [0, 2],
+      [2, 1],
+      [2, 0]
+    ];
 
-  expect(game.quality.get(boards[0], actions[0])).toBe(0.2**3);
-  expect(game.quality.get(boards[1], actions[1])).toBe(0);
-  expect(game.quality.get(boards[2], actions[2])).toBe(0.2**2);
-  expect(game.quality.get(boards[3], actions[3])).toBe(-0.2);
-  expect(game.quality.get(boards[4], actions[4])).toBe(0.2);
+    let board = new Board();
+    const boards = [board].concat(actions.map((action) => {
+      board = board.step(...action);
+      return board;
+    }));
 
-  game.train(episode);
+    const episode = boards.map((board, i) => {
+      return { board: board, action: actions[i] };
+    });
 
-  expect(game.quality.get(boards[0], actions[0])).toBe(0.02720000000000001);
-  expect(game.quality.get(boards[1], actions[1])).toBe(0);
-  expect(game.quality.get(boards[2], actions[2])).toBe(0.10400000000000002);
-  expect(game.quality.get(boards[3], actions[3])).toBe(-0.2 * (1 - 0.2) - 0.2);
-  expect(game.quality.get(boards[4], actions[4])).toBe(0.2 * (1 - 0.2) + 0.2);
+    game.train(episode);
+
+    expect(game.quality.get(boards[0], actions[0])).toBe(0);
+    expect(game.quality.get(boards[1], actions[1])).toBe(0.2**3);
+    expect(game.quality.get(boards[2], actions[2])).toBe(0);
+    expect(game.quality.get(boards[3], actions[3])).toBe(0.2**2);
+    expect(game.quality.get(boards[4], actions[4])).toBe(-0.2);
+    expect(game.quality.get(boards[5], actions[5])).toBe(0.2);
+
+    game.train(episode);
+
+    expect(game.quality.get(boards[0], actions[0])).toBe(0);
+    expect(game.quality.get(boards[1], actions[1])).toBe(0.02720000000000001);
+    expect(game.quality.get(boards[2], actions[2])).toBe(0);
+    expect(game.quality.get(boards[3], actions[3])).toBe(0.10400000000000002);
+    expect(game.quality.get(boards[4], actions[4])).toBe(-0.2 * (1 - 0.2) - 0.2);
+    expect(game.quality.get(boards[5], actions[5])).toBe(0.2 * (1 - 0.2) + 0.2);
+  });
 });
