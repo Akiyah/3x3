@@ -1,21 +1,23 @@
 import { Game } from '../../../src/js/modules/game.js';
 import { Board } from '../../../src/js/modules/board.js';
 
-const game = new Game();
-const board = new Board();
-
 test('constructor', () => {
+  const game = new Game();
   expect(game.quality.map).toEqual({});
 });
 
 describe('#createAction', () => {
   test('epsilon = 1', () => {
+    const game = new Game();
+    const board = new Board();
     const action = game.createAction(board, 1);
     expect([0, 1, 2]).toContain(action[0]);
     expect([0, 1, 2]).toContain(action[1]);
   });
 
   test('epsilon = 0', () => {
+    const game = new Game();
+    const board = new Board();
     game.quality.set(board, [2, 1], 1);
 
     const action = game.createAction(board, 0);
@@ -25,6 +27,7 @@ describe('#createAction', () => {
 
 describe('#createEpisode', () => {
   test('epsilon = 1', () => {
+    const game = new Game();
     const episode = game.createEpisode(1);
 
     const l = episode.length;
@@ -45,6 +48,7 @@ describe('#createEpisode', () => {
   });
 
   test('epsilon = 0', () => {
+    const game = new Game();
     const board0 = new Board([
       ["_", "_", "_"],
       ["_", "_", "_"],
@@ -105,4 +109,77 @@ describe('#createEpisode', () => {
     expect(episode[4].action).toEqual(action4);
     expect(episode[5].action).toEqual(null);
   });
+});
+
+
+describe('#trainOne', () => {
+  test('reward == 0', () => {
+    const game = new Game();
+    const board0 = new Board();
+    const action0 = [1, 1];
+    const board1 = board0.step(...action0);
+    const action1 = [1, 0];
+    const board2 = board1.step(...action1);
+    game.quality.set(board2, [0, 0], 0.5);
+
+    game.trainOne(board0, action0, board2, 0);
+    expect(game.quality.get(board0, action0)).toBe(0.5 * 0.2);
+
+    game.trainOne(board0, action0, board2, 0);
+    expect(game.quality.get(board0, action0)).toBe(0.5 * 0.2 * (1 - 0.2) + 0.5 * 0.2);
+  });
+
+  test('reward != 0', () => {
+    const game = new Game();
+    const board0 = new Board([
+      ["o", "x", "_"],
+      ["_", "o", "x"],
+      ["_", "_", "_"]
+    ]);
+    const action0 = [2, 2];
+    const board1 = board0.step(...action0);
+
+    game.trainOne(board0, action0, board1, 1);
+    expect(game.quality.get(board0, action0)).toBe(0.2);
+
+    game.trainOne(board0, action0, board1, 1);
+    expect(game.quality.get(board0, action0)).toBe(0.2 * (1 - 0.2) + 0.2);
+  });
+});
+
+describe('#train', () => {
+  const game = new Game();
+  const actions = [
+    [1, 1],
+    [1, 0],
+    [0, 0],
+    [2, 1],
+    [2, 2]
+  ];
+
+  let board = new Board();
+  const boards = [board].concat(actions.map((action) => {
+    board = board.step(...action);
+    return board;
+  }));
+
+  const episode = boards.map((board, i) => {
+    return { board: board, action: actions[i] };
+  });
+
+  game.train(episode);
+
+  expect(game.quality.get(boards[0], actions[0])).toBe(0.2**3);
+  expect(game.quality.get(boards[1], actions[1])).toBe(0);
+  expect(game.quality.get(boards[2], actions[2])).toBe(0.2**2);
+  expect(game.quality.get(boards[3], actions[3])).toBe(-0.2);
+  expect(game.quality.get(boards[4], actions[4])).toBe(0.2);
+
+  game.train(episode);
+
+  expect(game.quality.get(boards[0], actions[0])).toBe(0.02720000000000001);
+  expect(game.quality.get(boards[1], actions[1])).toBe(0);
+  expect(game.quality.get(boards[2], actions[2])).toBe(0.10400000000000002);
+  expect(game.quality.get(boards[3], actions[3])).toBe(-0.2 * (1 - 0.2) - 0.2);
+  expect(game.quality.get(boards[4], actions[4])).toBe(0.2 * (1 - 0.2) + 0.2);
 });
