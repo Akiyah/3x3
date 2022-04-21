@@ -37,8 +37,7 @@ describe('#findEpisode', () => {
     for (let s = 0; s < l - 1; s++) {
       const board0 = episode[s].board;
       const board1 = episode[s + 1].board;
-      const [x, y] = episode[s].action;
-      const nextBoard = board0.step([x, y]);
+      const nextBoard = board0.step(episode[s].action);
 
       expect(board0.winner()).toBe(null);
       expect(nextBoard.state()).toBe(board1.state());
@@ -251,11 +250,6 @@ describe('#train', () => {
 
     game.train(episode);
 
-    //boards.forEach((board) => {
-    //  console.log(board.state());
-    //  console.log(game.quality.map[board.state()]);
-    //});
-
     expect(game.quality.get(boards[0], actions[0])).toBe(0);
     expect(game.quality.get(boards[1], actions[1])).toBe(0);
     expect(game.quality.get(boards[2], actions[2])).toBe(0);
@@ -280,8 +274,8 @@ describe('#train', () => {
   });
 });
 
-
-test('o win', () => {
+/*
+test('train x 10000', () => {
   const game = new Game();
 
   for (let j = 0; j < 10; j++) {
@@ -316,3 +310,4 @@ test('o win', () => {
   });
 
 });
+*/

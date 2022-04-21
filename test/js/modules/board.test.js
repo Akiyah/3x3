@@ -68,9 +68,9 @@ test('#mark', () => {
     ["x", "_", "_"],
     ["_", "o", "_"]
   ]);
-  expect(board.mark(0, 0)).toEqual("_");
-  expect(board.mark(1, 2)).toEqual("o");
-  expect(board.mark(0, 1)).toEqual("x");
+  expect(board.mark([0, 0])).toEqual("_");
+  expect(board.mark([1, 2])).toEqual("o");
+  expect(board.mark([0, 1])).toEqual("x");
 });
 
 test('#step', () => {
@@ -94,9 +94,9 @@ test('#isBlank', () => {
   let board = new Board();
   board = board.step([1, 2]);
   board = board.step([0, 1]);
-  expect(board.isBlank(0, 0)).toBeTruthy();
-  expect(board.isBlank(1, 2)).toBeFalsy();
-  expect(board.isBlank(0, 1)).toBeFalsy();
+  expect(board.isBlank([0, 0])).toBeTruthy();
+  expect(board.isBlank([1, 2])).toBeFalsy();
+  expect(board.isBlank([0, 1])).toBeFalsy();
 });
 
 test('#actions', () => {
