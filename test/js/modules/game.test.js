@@ -38,7 +38,7 @@ describe('#findEpisode', () => {
       const board0 = episode[s].board;
       const board1 = episode[s + 1].board;
       const [x, y] = episode[s].action;
-      const nextBoard = board0.step(x, y);
+      const nextBoard = board0.step([x, y]);
 
       expect(board0.winner()).toBe(null);
       expect(nextBoard.state()).toBe(board1.state());
@@ -117,9 +117,9 @@ describe('#trainOne', () => {
     const game = new Game();
     const board0 = new Board();
     const action0 = [1, 1];
-    const board1 = board0.step(...action0);
+    const board1 = board0.step(action0);
     const action1 = [1, 0];
-    const board2 = board1.step(...action1);
+    const board2 = board1.step(action1);
     game.quality.set(board2, [0, 0], 0.5);
 
     game.trainOne(board0, action0, board2, 0);
@@ -137,7 +137,7 @@ describe('#trainOne', () => {
       ["_", "_", "_"]
     ]);
     const action0 = [2, 2];
-    const board1 = board0.step(...action0);
+    const board1 = board0.step(action0);
 
     game.trainOne(board0, action0, board1, 1);
     expect(game.quality.get(board0, action0)).toBe(0.2);
@@ -160,7 +160,7 @@ describe('#train', () => {
 
     let board = new Board();
     const boards = [board].concat(actions.map((action) => {
-      board = board.step(...action);
+      board = board.step(action);
       return board;
     }));
 
@@ -198,7 +198,7 @@ describe('#train', () => {
 
     let board = new Board();
     const boards = [board].concat(actions.map((action) => {
-      board = board.step(...action);
+      board = board.step(action);
       return board;
     }));
 
@@ -241,7 +241,7 @@ describe('#train', () => {
 
     let board = new Board();
     const boards = [board].concat(actions.map((action) => {
-      board = board.step(...action);
+      board = board.step(action);
       return board;
     }));
 
@@ -278,4 +278,41 @@ describe('#train', () => {
     expect(game.quality.get(boards[7], actions[7])).toBe(0);
     expect(game.quality.get(boards[8], actions[8])).toBe(0);
   });
+});
+
+
+test('o win', () => {
+  const game = new Game();
+
+  for (let j = 0; j < 10; j++) {
+    let output = {};
+    output["o"] = 0;
+    output["x"] = 0;
+    output["-"] = 0;
+    output["null"] = 0;
+
+    for (let i = 0; i < 10000; i++) {
+      const episode = game.findEpisode(0.1);
+      game.train(episode);
+
+      const event = episode[episode.length-1];
+      const board = event.board;
+      if (board.winner()) {
+        output[board.winner()]++;
+      } else {
+        output["null"]++;
+      }
+    }
+    console.log(output);
+  }
+
+
+  const episode = game.findEpisode(0);
+  console.log(episode);
+  episode.forEach((event) => {
+    console.log(event.board.state());
+    console.log(event.action);
+    console.log(game.quality.m(event.board));
+  });
+
 });

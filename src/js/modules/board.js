@@ -17,18 +17,19 @@ export class Board {
   }
 
   mapPoints(callback) {
-    return [0, 1, 2].map(y => [0, 1, 2].map(x => callback(x, y)));
+    return [0, 1, 2].map(y => [0, 1, 2].map(x => callback([x, y])));
   }
 
   mark(x, y) {
     return this.marks[y][x];
   }
 
-  step(x, y) {
+  step(action) {
+    const [x, y] = action;
     const k = 9 - this.actions().length;
     const mark = ((k % 2 == 0) ? 'o' : 'x');
 
-    let marks = this.mapPoints((x0, y0) => this.mark(x0, y0));
+    let marks = this.mapPoints(([x0, y0]) => this.mark(x0, y0));
     marks[y][x] = mark;
     return new Board(marks);
   }
@@ -38,7 +39,7 @@ export class Board {
   }
 
   actions() {
-    return this.mapPoints((x, y) => this.isBlank(x, y) ? [x, y] : null).flat().filter(p => p);
+    return this.mapPoints(([x, y]) => this.isBlank(x, y) ? [x, y] : null).flat().filter(p => p);
   }
 
   randomAction() {

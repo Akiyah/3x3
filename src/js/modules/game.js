@@ -24,7 +24,7 @@ export class Game {
     while(board.winner() === null) {
       const action = this.findAction(board, epsilon);
       episode.push({ board: board, action: action });
-      board = board.step(...action);
+      board = board.step(action);
     }
 
     episode.push({ board: board, action: null });

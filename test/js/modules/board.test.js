@@ -41,8 +41,8 @@ test('.create', () => {
 
 test('#state', () => {
   let board = new Board();
-  board = board.step(1, 2);
-  board = board.step(0, 1);
+  board = board.step([1, 2]);
+  board = board.step([0, 1]);
   expect(board.state()).toEqual(
     "___" + "\n" +
     "x__" + "\n" +
@@ -52,9 +52,9 @@ test('#state', () => {
 
 test('#mapPoints', () => {
   let board = new Board();
-  board = board.step(1, 2);
-  board = board.step(0, 1);
-  const result = board.mapPoints((x, y) => [x, y]);
+  board = board.step([1, 2]);
+  board = board.step([0, 1]);
+  const result = board.mapPoints(([x, y]) => [x, y]);
   expect(result).toEqual([
     [[0, 0], [1, 0], [2, 0]],
     [[0, 1], [1, 1], [2, 1]],
@@ -75,14 +75,14 @@ test('#mark', () => {
 
 test('#step', () => {
   let board = new Board();
-  board = board.step(1, 2);
+  board = board.step([1, 2]);
   expect(board.marks).toEqual([
     ["_", "_", "_"],
     ["_", "_", "_"],
     ["_", "o", "_"]
   ]);
 
-  board = board.step(0, 1);
+  board = board.step([0, 1]);
   expect(board.marks).toEqual([
     ["_", "_", "_"],
     ["x", "_", "_"],
@@ -92,8 +92,8 @@ test('#step', () => {
 
 test('#isBlank', () => {
   let board = new Board();
-  board = board.step(1, 2);
-  board = board.step(0, 1);
+  board = board.step([1, 2]);
+  board = board.step([0, 1]);
   expect(board.isBlank(0, 0)).toBeTruthy();
   expect(board.isBlank(1, 2)).toBeFalsy();
   expect(board.isBlank(0, 1)).toBeFalsy();
@@ -101,8 +101,8 @@ test('#isBlank', () => {
 
 test('#actions', () => {
   let board = new Board();
-  board = board.step(1, 2);
-  board = board.step(0, 1);
+  board = board.step([1, 2]);
+  board = board.step([0, 1]);
   expect(board.actions()).toEqual([
     [0, 0], [1, 0], [2, 0],
     [1, 1], [2, 1],
@@ -112,8 +112,8 @@ test('#actions', () => {
 
 test('#randomAction', () => {
   let board = new Board();
-  board = board.step(1, 2);
-  board = board.step(0, 1);
+  board = board.step([1, 2]);
+  board = board.step([0, 1]);
   expect(board.actions()).toContainEqual(board.randomAction());
 });
 
