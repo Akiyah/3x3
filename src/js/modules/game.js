@@ -9,50 +9,50 @@ export class Game {
     this.quality = quality;
   }
 
-  findAction(board, epsilon) {
+  findAction(state, epsilon) {
     if (Math.random() < epsilon) {
-      return board.randomAction();
+      return state.randomAction();
     } else {
-      return this.quality.policy(board);
+      return this.quality.policy(state);
     }
   }
 
   findEpisode(epsilon) {
-    let board = new Board();
+    let state = new Board();
     const episode = [];
 
-    while(board.winner() === null) {
-      const action = this.findAction(board, epsilon);
-      episode.push({ board: board, action: action });
-      board = board.step(action);
+    while(state.winner() === null) {
+      const action = this.findAction(state, epsilon);
+      episode.push({ state: state, action: action });
+      state = state.step(action);
     }
 
-    episode.push({ board: board, action: null });
+    episode.push({ state: state, action: null });
     return episode;
   }
 
 
-  trainOne(board0, action0, board1, reward) {
-    let q0 = this.quality.get(board0, action0);
-    const q1 = this.quality.value(board1);
+  trainOne(state0, action0, state1, reward) {
+    let q0 = this.quality.get(state0, action0);
+    const q1 = this.quality.value(state1);
     q0 = q0 + α * (reward + γ * q1 - q0);
-    this.quality.set(board0, action0, q0);
+    this.quality.set(state0, action0, q0);
   }
 
   train(episode) {
     const l = episode.length;
     const eventLast = episode[l - 1];
-    const boardLast = eventLast.board;
+    const stateLast = eventLast.state;
 
     let rewardO = 0;
     let rewardX = 0;
 
-    if (boardLast.winner() == "o") {
+    if (stateLast.winner() == "o") {
       rewardO = 1;
       rewardX = -1;
     }
 
-    if (boardLast.winner() == "x") {
+    if (stateLast.winner() == "x") {
       rewardO = -1;
       rewardX = 1;
     }
@@ -69,14 +69,14 @@ export class Game {
       const event0 = episodeO[episodeO.length - 2 - i];
       const event1 = episodeO[episodeO.length - 1 - i];
       const reward = (i == 0) ? rewardO : 0;
-      this.trainOne(event0.board, event0.action, event1.board, reward);
+      this.trainOne(event0.state, event0.action, event1.state, reward);
     }
 
     for (let i = 0; i < episodeX.length - 1; i++) {
       const event0 = episodeX[episodeX.length - 2 - i];
       const event1 = episodeX[episodeX.length - 1 - i];
       const reward = (i == 0) ? rewardX : 0;
-      this.trainOne(event0.board, event0.action, event1.board, reward);
+      this.trainOne(event0.state, event0.action, event1.state, reward);
     }
   }
 }

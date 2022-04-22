@@ -2,9 +2,9 @@ import { Board } from '../../../src/js/modules/board.js';
 
 describe('constructor', () => {
   test('no params', () => {
-    const board = new Board();
+    const state = new Board();
 
-    expect(board.marks).toEqual([
+    expect(state.marks).toEqual([
       ["_", "_", "_"],
       ["_", "_", "_"],
       ["_", "_", "_"]
@@ -12,13 +12,13 @@ describe('constructor', () => {
   });
 
   test('with params', () => {
-    const board = new Board([
+    const state = new Board([
       ["_", "_", "_"],
       ["_", "_", "_"],
       ["_", "o", "_"]
     ]);
 
-    expect(board.marks).toEqual([
+    expect(state.marks).toEqual([
       ["_", "_", "_"],
       ["_", "_", "_"],
       ["_", "o", "_"]
@@ -27,10 +27,10 @@ describe('constructor', () => {
 });
 
 test('#toString', () => {
-  let board = new Board();
-  board = board.step([1, 2]);
-  board = board.step([0, 1]);
-  expect(board.toString()).toEqual(
+  let state = new Board();
+  state = state.step([1, 2]);
+  state = state.step([0, 1]);
+  expect(state.toString()).toEqual(
     "___" + "\n" +
     "x__" + "\n" +
     "_o_"
@@ -38,10 +38,10 @@ test('#toString', () => {
 });
 
 test('#mapPoints', () => {
-  let board = new Board();
-  board = board.step([1, 2]);
-  board = board.step([0, 1]);
-  const result = board.mapPoints(([x, y]) => [x, y]);
+  let state = new Board();
+  state = state.step([1, 2]);
+  state = state.step([0, 1]);
+  const result = state.mapPoints(([x, y]) => [x, y]);
   expect(result).toEqual([
     [[0, 0], [1, 0], [2, 0]],
     [[0, 1], [1, 1], [2, 1]],
@@ -50,27 +50,27 @@ test('#mapPoints', () => {
 });
 
 test('#mark', () => {
-  const board = new Board([
+  const state = new Board([
     ["_", "_", "_"],
     ["x", "_", "_"],
     ["_", "o", "_"]
   ]);
-  expect(board.mark([0, 0])).toEqual("_");
-  expect(board.mark([1, 2])).toEqual("o");
-  expect(board.mark([0, 1])).toEqual("x");
+  expect(state.mark([0, 0])).toEqual("_");
+  expect(state.mark([1, 2])).toEqual("o");
+  expect(state.mark([0, 1])).toEqual("x");
 });
 
 test('#step', () => {
-  let board = new Board();
-  board = board.step([1, 2]);
-  expect(board.marks).toEqual([
+  let state = new Board();
+  state = state.step([1, 2]);
+  expect(state.marks).toEqual([
     ["_", "_", "_"],
     ["_", "_", "_"],
     ["_", "o", "_"]
   ]);
 
-  board = board.step([0, 1]);
-  expect(board.marks).toEqual([
+  state = state.step([0, 1]);
+  expect(state.marks).toEqual([
     ["_", "_", "_"],
     ["x", "_", "_"],
     ["_", "o", "_"]
@@ -78,19 +78,19 @@ test('#step', () => {
 });
 
 test('#enable', () => {
-  let board = new Board();
-  board = board.step([1, 2]);
-  board = board.step([0, 1]);
-  expect(board.enable([0, 0])).toBeTruthy();
-  expect(board.enable([1, 2])).toBeFalsy();
-  expect(board.enable([0, 1])).toBeFalsy();
+  let state = new Board();
+  state = state.step([1, 2]);
+  state = state.step([0, 1]);
+  expect(state.enable([0, 0])).toBeTruthy();
+  expect(state.enable([1, 2])).toBeFalsy();
+  expect(state.enable([0, 1])).toBeFalsy();
 });
 
 test('#actions', () => {
-  let board = new Board();
-  board = board.step([1, 2]);
-  board = board.step([0, 1]);
-  expect(board.actions()).toEqual([
+  let state = new Board();
+  state = state.step([1, 2]);
+  state = state.step([0, 1]);
+  expect(state.actions()).toEqual([
     [0, 0], [1, 0], [2, 0],
     [1, 1], [2, 1],
     [0, 2], [2, 2]
@@ -98,25 +98,25 @@ test('#actions', () => {
 });
 
 test('#randomAction', () => {
-  let board = new Board();
-  board = board.step([1, 2]);
-  board = board.step([0, 1]);
-  expect(board.actions()).toContainEqual(board.randomAction());
+  let state = new Board();
+  state = state.step([1, 2]);
+  state = state.step([0, 1]);
+  expect(state.actions()).toContainEqual(state.randomAction());
 });
 
 test('#random', () => {
-  let board = new Board();
+  let state = new Board();
   let results = [];
   for (let i = 0; i < 100; i++) {
-    results.push(board.random(10));
+    results.push(state.random(10));
   }
   expect(Math.min(...results)).toBe(0);
   expect(Math.max(...results)).toBe(9);
 });
 
 test('#lines', () => {
-  const board = new Board();
-  expect(board.lines()).toEqual([
+  const state = new Board();
+  expect(state.lines()).toEqual([
     [[0, 0], [0, 1], [0, 2]], // |
     [[1, 0], [1, 1], [1, 2]], // |
     [[2, 0], [2, 1], [2, 2]], // |
@@ -130,72 +130,72 @@ test('#lines', () => {
 
 describe('#isWin', () => {
   test('no winners', () => {
-    const board = new Board();
-    expect(board.isWin('o')).toBeFalsy();
-    expect(board.isWin('x')).toBeFalsy();
+    const state = new Board();
+    expect(state.isWin('o')).toBeFalsy();
+    expect(state.isWin('x')).toBeFalsy();
   });
 
   test('o win', () => {
-    const board = new Board([
+    const state = new Board([
       ["_", "o", "_"],
       ["x", "o", "x"],
       ["_", "o", "_"]
     ]);
-    expect(board.isWin('o')).toBeTruthy();
-    expect(board.isWin('x')).toBeFalsy();
+    expect(state.isWin('o')).toBeTruthy();
+    expect(state.isWin('x')).toBeFalsy();
   });
 
   test('x win', () => {
-    const board = new Board([
+    const state = new Board([
       ["o", "_", "x"],
       ["_", "x", "_"],
       ["x", "o", "o"]
     ]);
-    expect(board.isWin('o')).toBeFalsy();
-    expect(board.isWin('x')).toBeTruthy();
+    expect(state.isWin('o')).toBeFalsy();
+    expect(state.isWin('x')).toBeTruthy();
   });
 
   test('draw?', () => {
-    const board = new Board([
+    const state = new Board([
       ["o", "x", "o"],
       ["x", "o", "o"],
       ["x", "o", "x"]
     ]);
-    expect(board.isWin('o')).toBeFalsy();
-    expect(board.isWin('x')).toBeFalsy();
+    expect(state.isWin('o')).toBeFalsy();
+    expect(state.isWin('x')).toBeFalsy();
   });
 });
 
 describe('#winner', () => {
   test('no winners', () => {
-    const board = new Board();
-    expect(board.winner()).toBe(null);
+    const state = new Board();
+    expect(state.winner()).toBe(null);
   });
 
   test('o win', () => {
-    const board = new Board([
+    const state = new Board([
       ["_", "o", "_"],
       ["x", "o", "x"],
       ["_", "o", "_"]
     ]);
-    expect(board.winner()).toEqual("o");
+    expect(state.winner()).toEqual("o");
   });
 
   test('x win', () => {
-    const board = new Board([
+    const state = new Board([
       ["o", "_", "x"],
       ["_", "x", "_"],
       ["x", "o", "o"]
     ]);
-    expect(board.winner()).toEqual("x");
+    expect(state.winner()).toEqual("x");
   });
 
   test('draw', () => {
-    const board = new Board([
+    const state = new Board([
       ["o", "x", "o"],
       ["x", "o", "o"],
       ["x", "o", "x"]
     ]);
-    expect(board.winner()).toEqual("-");
+    expect(state.winner()).toEqual("-");
   });
 });

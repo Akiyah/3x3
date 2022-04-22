@@ -3,40 +3,40 @@ export class Quality {
     this.map = {};
   }
 
-  m(board) {
-    const s = board.toString();
+  m(state) {
+    const s = state.toString();
     if (!this.map[s]) {
       this.map[s] = {};
-      board.actions().forEach((action) => {
+      state.actions().forEach((action) => {
         this.map[s][action.toString()] = 0;
       });
     }
     return this.map[s];
   }
 
-  get(board, action) {
-    return this.m(board)[action.toString()];
+  get(state, action) {
+    return this.m(state)[action.toString()];
   }
 
-  set(board, action, value) {
-    this.m(board)[action.toString()] = value;
+  set(state, action, value) {
+    this.m(state)[action.toString()] = value;
   }
 
-  value(board) {
-    const actions = board.actions();
+  value(state) {
+    const actions = state.actions();
     if (actions.length == 0) {
       return 0;
     }
-    const vs = board.actions().map((action) => {
-      return this.get(board, action);
+    const vs = state.actions().map((action) => {
+      return this.get(state, action);
     });
     return Math.max(...vs);
   }
 
-  policy(board) {
-    const max = this.value(board);
-    return board.actions().filter((action) => {
-      return this.get(board, action) === max;
+  policy(state) {
+    const max = this.value(state);
+    return state.actions().filter((action) => {
+      return this.get(state, action) === max;
     }).shift();
   }
 }
