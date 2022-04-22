@@ -22,17 +22,17 @@ export class Board {
     const k = 9 - this.actions().length;
     const mark = ((k % 2 == 0) ? 'o' : 'x');
 
-    let marks = this.mapPoints(([x0, y0]) => this.mark([x0, y0]));
+    let marks = this.mapPoints((action0) => this.mark(action0));
     marks[y][x] = mark;
     return new Board(marks);
   }
 
-  isBlank([x, y]) {
-    return this.mark([x, y]) === "_";
+  enable(action) {
+    return this.mark(action) === "_";
   }
 
   actions() {
-    return this.mapPoints(([x, y]) => this.isBlank([x, y]) ? [x, y] : null).flat().filter(p => p);
+    return this.mapPoints((action) => this.enable(action) ? action : null).flat().filter(p => p);
   }
 
   randomAction() {
@@ -56,7 +56,7 @@ export class Board {
 
   isWin(mark) {
     return this.lines().some(line =>
-      line.every(([x, y]) => this.mark([x, y]) == mark)
+      line.every((action) => this.mark(action) == mark)
     );
   }
 

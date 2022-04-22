@@ -77,13 +77,13 @@ test('#step', () => {
   ]);
 });
 
-test('#isBlank', () => {
+test('#enable', () => {
   let board = new Board();
   board = board.step([1, 2]);
   board = board.step([0, 1]);
-  expect(board.isBlank([0, 0])).toBeTruthy();
-  expect(board.isBlank([1, 2])).toBeFalsy();
-  expect(board.isBlank([0, 1])).toBeFalsy();
+  expect(board.enable([0, 0])).toBeTruthy();
+  expect(board.enable([1, 2])).toBeFalsy();
+  expect(board.enable([0, 1])).toBeFalsy();
 });
 
 test('#actions', () => {
