@@ -1,5 +1,5 @@
 import { Game } from '../../../src/js/modules/game.js';
-import { Board } from '../../../src/js/modules/board.js';
+import { State } from '../../../src/js/modules/board.js';
 
 test('constructor', () => {
   const game = new Game();
@@ -9,7 +9,7 @@ test('constructor', () => {
 describe('#findAction', () => {
   test('epsilon = 1', () => {
     const game = new Game();
-    const state = new Board();
+    const state = new State();
     const action = game.findAction(state, 1);
     expect([0, 1, 2]).toContain(action[0]);
     expect([0, 1, 2]).toContain(action[1]);
@@ -17,7 +17,7 @@ describe('#findAction', () => {
 
   test('epsilon = 0', () => {
     const game = new Game();
-    const state = new Board();
+    const state = new State();
     game.quality.set(state, [2, 1], 1);
 
     const action = game.findAction(state, 0);
@@ -37,10 +37,10 @@ describe('#findEpisode', () => {
     for (let s = 0; s < l - 1; s++) {
       const state0 = episode[s].state;
       const state1 = episode[s + 1].state;
-      const nextBoard = state0.step(episode[s].action);
+      const nextState = state0.step(episode[s].action);
 
       expect(state0.winner()).toBe(null);
-      expect(nextBoard.toString()).toBe(state1.toString());
+      expect(nextState.toString()).toBe(state1.toString());
     }
     expect(episode[l - 1].state.winner()).not.toBe(null);
     expect(episode[l - 1].action).toBe(null);
@@ -48,37 +48,37 @@ describe('#findEpisode', () => {
 
   test('epsilon = 0', () => {
     const game = new Game();
-    const state0 = new Board([
+    const state0 = new State([
       ["_", "_", "_"],
       ["_", "_", "_"],
       ["_", "_", "_"]
     ]);
     const action0 = [1, 1];
-    const state1 = new Board([
+    const state1 = new State([
       ["_", "_", "_"],
       ["_", "o", "_"],
       ["_", "_", "_"]
     ]);
     const action1 = [1, 0];
-    const state2 = new Board([
+    const state2 = new State([
       ["_", "x", "_"],
       ["_", "o", "_"],
       ["_", "_", "_"]
     ]);
     const action2 = [0, 0];
-    const state3 = new Board([
+    const state3 = new State([
       ["o", "x", "_"],
       ["_", "o", "_"],
       ["_", "_", "_"]
     ]);
     const action3 = [2, 1];
-    const state4 = new Board([
+    const state4 = new State([
       ["o", "x", "_"],
       ["_", "o", "x"],
       ["_", "_", "_"]
     ]);
     const action4 = [2, 2];
-    const state5 = new Board([
+    const state5 = new State([
       ["o", "x", "_"],
       ["_", "o", "x"],
       ["_", "_", "o"]
@@ -114,7 +114,7 @@ describe('#findEpisode', () => {
 describe('#trainOne', () => {
   test('reward == 0', () => {
     const game = new Game();
-    const state0 = new Board();
+    const state0 = new State();
     const action0 = [1, 1];
     const state1 = state0.step(action0);
     const action1 = [1, 0];
@@ -130,7 +130,7 @@ describe('#trainOne', () => {
 
   test('reward != 0', () => {
     const game = new Game();
-    const state0 = new Board([
+    const state0 = new State([
       ["o", "x", "_"],
       ["_", "o", "x"],
       ["_", "_", "_"]
@@ -157,7 +157,7 @@ describe('#train', () => {
       [2, 2]
     ];
 
-    let state = new Board();
+    let state = new State();
     const states = [state].concat(actions.map((action) => {
       state = state.step(action);
       return state;
@@ -195,7 +195,7 @@ describe('#train', () => {
       [2, 0]
     ];
 
-    let state = new Board();
+    let state = new State();
     const states = [state].concat(actions.map((action) => {
       state = state.step(action);
       return state;
@@ -238,7 +238,7 @@ describe('#train', () => {
       [2, 0]
     ];
 
-    let state = new Board();
+    let state = new State();
     const states = [state].concat(actions.map((action) => {
       state = state.step(action);
       return state;

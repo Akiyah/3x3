@@ -1,4 +1,4 @@
-import { Board } from './board.js';
+import { State } from './board.js';
 import { Quality } from './quality.js';
 
 const α = 0.2;
@@ -18,7 +18,7 @@ export class Game {
   }
 
   findEpisode(epsilon) {
-    let state = new Board();
+    let state = new State();
     const episode = [];
 
     while(state.winner() === null) {

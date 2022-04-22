@@ -1,5 +1,5 @@
 import { Quality } from '../../../src/js/modules/quality.js';
-import { Board } from '../../../src/js/modules/board.js';
+import { State } from '../../../src/js/modules/board.js';
 
 test('constructor', () => {
   const quality = new Quality();
@@ -8,7 +8,7 @@ test('constructor', () => {
 
 test('#get/#set/#m', () => {
   const quality = new Quality();
-  const state = new Board([
+  const state = new State([
     ["_", "_", "_"],
     ["x", "_", "_"],
     ["_", "o", "_"]
@@ -52,7 +52,7 @@ test('#get/#set/#m', () => {
 describe('#value', () => {
   test('exist actions', () => {
     const quality = new Quality();
-    const state = new Board([
+    const state = new State([
       ["_", "_", "_"],
       ["x", "_", "_"],
       ["_", "o", "_"]
@@ -69,7 +69,7 @@ describe('#value', () => {
 
   test('no actions', () => {
     const quality = new Quality();
-    const state = new Board([
+    const state = new State([
       ["o", "x", "o"],
       ["o", "x", "o"],
       ["x", "o", "x"]
@@ -81,7 +81,7 @@ describe('#value', () => {
 
 test('#policy', () => {
   const quality = new Quality();
-  const state = new Board([
+  const state = new State([
     ["_", "_", "_"],
     ["x", "_", "_"],
     ["_", "o", "_"]

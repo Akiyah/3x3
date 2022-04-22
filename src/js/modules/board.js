@@ -1,4 +1,4 @@
-export class Board {
+export class State {
   constructor(marks = this.mapPoints(() => "_")) {
     this.marks = marks;
   }
@@ -24,7 +24,7 @@ export class Board {
 
     let marks = this.mapPoints((action0) => this.mark(action0));
     marks[y][x] = mark;
-    return new Board(marks);
+    return new State(marks);
   }
 
   enable(action) {

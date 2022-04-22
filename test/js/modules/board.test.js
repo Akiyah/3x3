@@ -1,8 +1,8 @@
-import { Board } from '../../../src/js/modules/board.js';
+import { State } from '../../../src/js/modules/board.js';
 
 describe('constructor', () => {
   test('no params', () => {
-    const state = new Board();
+    const state = new State();
 
     expect(state.marks).toEqual([
       ["_", "_", "_"],
@@ -12,7 +12,7 @@ describe('constructor', () => {
   });
 
   test('with params', () => {
-    const state = new Board([
+    const state = new State([
       ["_", "_", "_"],
       ["_", "_", "_"],
       ["_", "o", "_"]
@@ -27,7 +27,7 @@ describe('constructor', () => {
 });
 
 test('#toString', () => {
-  let state = new Board();
+  let state = new State();
   state = state.step([1, 2]);
   state = state.step([0, 1]);
   expect(state.toString()).toEqual(
@@ -38,7 +38,7 @@ test('#toString', () => {
 });
 
 test('#mapPoints', () => {
-  let state = new Board();
+  let state = new State();
   state = state.step([1, 2]);
   state = state.step([0, 1]);
   const result = state.mapPoints(([x, y]) => [x, y]);
@@ -50,7 +50,7 @@ test('#mapPoints', () => {
 });
 
 test('#mark', () => {
-  const state = new Board([
+  const state = new State([
     ["_", "_", "_"],
     ["x", "_", "_"],
     ["_", "o", "_"]
@@ -61,7 +61,7 @@ test('#mark', () => {
 });
 
 test('#step', () => {
-  let state = new Board();
+  let state = new State();
   state = state.step([1, 2]);
   expect(state.marks).toEqual([
     ["_", "_", "_"],
@@ -78,7 +78,7 @@ test('#step', () => {
 });
 
 test('#enable', () => {
-  let state = new Board();
+  let state = new State();
   state = state.step([1, 2]);
   state = state.step([0, 1]);
   expect(state.enable([0, 0])).toBeTruthy();
@@ -87,7 +87,7 @@ test('#enable', () => {
 });
 
 test('#actions', () => {
-  let state = new Board();
+  let state = new State();
   state = state.step([1, 2]);
   state = state.step([0, 1]);
   expect(state.actions()).toEqual([
@@ -98,14 +98,14 @@ test('#actions', () => {
 });
 
 test('#randomAction', () => {
-  let state = new Board();
+  let state = new State();
   state = state.step([1, 2]);
   state = state.step([0, 1]);
   expect(state.actions()).toContainEqual(state.randomAction());
 });
 
 test('#random', () => {
-  let state = new Board();
+  let state = new State();
   let results = [];
   for (let i = 0; i < 100; i++) {
     results.push(state.random(10));
@@ -115,7 +115,7 @@ test('#random', () => {
 });
 
 test('#lines', () => {
-  const state = new Board();
+  const state = new State();
   expect(state.lines()).toEqual([
     [[0, 0], [0, 1], [0, 2]], // |
     [[1, 0], [1, 1], [1, 2]], // |
@@ -130,13 +130,13 @@ test('#lines', () => {
 
 describe('#isWin', () => {
   test('no winners', () => {
-    const state = new Board();
+    const state = new State();
     expect(state.isWin('o')).toBeFalsy();
     expect(state.isWin('x')).toBeFalsy();
   });
 
   test('o win', () => {
-    const state = new Board([
+    const state = new State([
       ["_", "o", "_"],
       ["x", "o", "x"],
       ["_", "o", "_"]
@@ -146,7 +146,7 @@ describe('#isWin', () => {
   });
 
   test('x win', () => {
-    const state = new Board([
+    const state = new State([
       ["o", "_", "x"],
       ["_", "x", "_"],
       ["x", "o", "o"]
@@ -156,7 +156,7 @@ describe('#isWin', () => {
   });
 
   test('draw?', () => {
-    const state = new Board([
+    const state = new State([
       ["o", "x", "o"],
       ["x", "o", "o"],
       ["x", "o", "x"]
@@ -168,12 +168,12 @@ describe('#isWin', () => {
 
 describe('#winner', () => {
   test('no winners', () => {
-    const state = new Board();
+    const state = new State();
     expect(state.winner()).toBe(null);
   });
 
   test('o win', () => {
-    const state = new Board([
+    const state = new State([
       ["_", "o", "_"],
       ["x", "o", "x"],
       ["_", "o", "_"]
@@ -182,7 +182,7 @@ describe('#winner', () => {
   });
 
   test('x win', () => {
-    const state = new Board([
+    const state = new State([
       ["o", "_", "x"],
       ["_", "x", "_"],
       ["x", "o", "o"]
@@ -191,7 +191,7 @@ describe('#winner', () => {
   });
 
   test('draw', () => {
-    const state = new Board([
+    const state = new State([
       ["o", "x", "o"],
       ["x", "o", "o"],
       ["x", "o", "x"]
