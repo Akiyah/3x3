@@ -3,13 +3,6 @@ export class Board {
     this.marks = marks;
   }
 
-  static create(state) {
-    const marks = state.split("\n").map(row => {
-      return row.split("");
-    });
-    return new Board(marks);
-  }
-
   state() {
     return this.marks.map(row =>
       row.map(mark => mark).join("")

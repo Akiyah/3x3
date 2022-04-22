@@ -8,11 +8,11 @@ test('constructor', () => {
 
 test('#get/#set/#m', () => {
   const quality = new Quality();
-  const state =
-    "___" + "\n" +
-    "x__" + "\n" +
-    "_o_";
-  const board = Board.create(state);
+  const board = new Board([
+    ["_", "_", "_"],
+    ["x", "_", "_"],
+    ["_", "o", "_"]
+  ]);
 
   expect(quality.m(board)).toEqual([
     [0, 0, 0],
@@ -44,11 +44,11 @@ test('#get/#set/#m', () => {
 describe('#value', () => {
   test('exist actions', () => {
     const quality = new Quality();
-    const state =
-      "___" + "\n" +
-      "x__" + "\n" +
-      "_o_";
-    const board = Board.create(state);
+    const board = new Board([
+      ["_", "_", "_"],
+      ["x", "_", "_"],
+      ["_", "o", "_"]
+    ]);
 
     expect(quality.value(board)).toEqual(0);
 
@@ -61,11 +61,11 @@ describe('#value', () => {
 
   test('no actions', () => {
     const quality = new Quality();
-    const state =
-      "oxo" + "\n" +
-      "oxo" + "\n" +
-      "xox";
-    const board = Board.create(state);
+    const board = new Board([
+      ["o", "x", "o"],
+      ["o", "x", "o"],
+      ["x", "o", "x"]
+    ]);
 
     expect(quality.value(board)).toEqual(0);
   });
@@ -73,11 +73,11 @@ describe('#value', () => {
 
 test('#policy', () => {
   const quality = new Quality();
-  const state =
-    "___" + "\n" +
-    "x__" + "\n" +
-    "_o_";
-  const board = Board.create(state);
+  const board = new Board([
+    ["_", "_", "_"],
+    ["x", "_", "_"],
+    ["_", "o", "_"]
+  ]);
 
   expect(quality.policy(board)).toEqual([0, 0]);
 

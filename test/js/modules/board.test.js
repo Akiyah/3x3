@@ -26,19 +26,6 @@ describe('constructor', () => {
   });
 });
 
-test('.create', () => {
-  const state =
-    "___" + "\n" +
-    "x__" + "\n" +
-    "_o_";
-  const board = Board.create(state);
-  expect(board.marks).toEqual([
-    ["_", "_", "_"],
-    ["x", "_", "_"],
-    ["_", "o", "_"]
-  ]);
-});
-
 test('#state', () => {
   let board = new Board();
   board = board.step([1, 2]);
