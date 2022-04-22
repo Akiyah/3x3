@@ -47,8 +47,8 @@ export class State {
 
   lines() {
     let lines = [];
-    lines = lines.concat([0, 1, 2].map(x => [0, 1, 2].map(y => [x, y]))); // |
-    lines = lines.concat([0, 1, 2].map(y => [0, 1, 2].map(x => [x, y]))); // -
+    lines = lines.concat(this.mapPoints(([y, x]) => [x, y])); // |
+    lines = lines.concat(this.mapPoints(([x, y]) => [x, y])); // -
     lines = lines.concat([[0, 1, 2].map(i => [i, i])]); // \
     lines = lines.concat([[0, 1, 2].map(i => [i, 2 - i])]); // /
     return lines;
