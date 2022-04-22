@@ -40,7 +40,7 @@ describe('#findEpisode', () => {
       const nextBoard = board0.step(episode[s].action);
 
       expect(board0.winner()).toBe(null);
-      expect(nextBoard.state()).toBe(board1.state());
+      expect(nextBoard.toString()).toBe(board1.toString());
     }
     expect(episode[l - 1].board.winner()).not.toBe(null);
     expect(episode[l - 1].action).toBe(null);
@@ -94,12 +94,12 @@ describe('#findEpisode', () => {
 
     expect(episode.length).toBe(6);
 
-    expect(episode[0].board.state()).toBe(board0.state());
-    expect(episode[1].board.state()).toBe(board1.state());
-    expect(episode[2].board.state()).toBe(board2.state());
-    expect(episode[3].board.state()).toBe(board3.state());
-    expect(episode[4].board.state()).toBe(board4.state());
-    expect(episode[5].board.state()).toBe(board5.state());
+    expect(episode[0].board.toString()).toBe(board0.toString());
+    expect(episode[1].board.toString()).toBe(board1.toString());
+    expect(episode[2].board.toString()).toBe(board2.toString());
+    expect(episode[3].board.toString()).toBe(board3.toString());
+    expect(episode[4].board.toString()).toBe(board4.toString());
+    expect(episode[5].board.toString()).toBe(board5.toString());
 
     expect(episode[0].action).toEqual(action0);
     expect(episode[1].action).toEqual(action1);
@@ -304,7 +304,7 @@ test('train x 10000', () => {
   const episode = game.findEpisode(0);
   console.log(episode);
   episode.forEach((event) => {
-    console.log(event.board.state());
+    console.log(event.board.toString());
     console.log(event.action);
     console.log(game.quality.m(event.board));
   });

@@ -4,7 +4,7 @@ export class Quality {
   }
 
   m(board) {
-    const state = board.state();
+    const state = board.toString();
     if (!this.map[state]) {
       this.map[state] = [
         [null, null, null],

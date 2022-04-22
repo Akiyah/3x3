@@ -3,7 +3,7 @@ export class Board {
     this.marks = marks;
   }
 
-  state() {
+  toString() {
     return this.marks.map(row =>
       row.map(mark => mark).join("")
     ).join("\n");

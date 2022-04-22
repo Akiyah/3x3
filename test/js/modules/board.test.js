@@ -26,11 +26,11 @@ describe('constructor', () => {
   });
 });
 
-test('#state', () => {
+test('#toString', () => {
   let board = new Board();
   board = board.step([1, 2]);
   board = board.step([0, 1]);
-  expect(board.state()).toEqual(
+  expect(board.toString()).toEqual(
     "___" + "\n" +
     "x__" + "\n" +
     "_o_"
