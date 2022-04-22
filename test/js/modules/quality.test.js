@@ -14,15 +14,19 @@ test('#get/#set/#m', () => {
     ["_", "o", "_"]
   ]);
 
-  expect(quality.m(board)).toEqual([
-    [0, 0, 0],
-    [null, 0, 0],
-    [0, null, 0]
-  ]);
+  expect(quality.m(board)).toEqual({
+    "0,0": 0,
+    "1,0": 0,
+    "2,0": 0,
+    "1,1": 0,
+    "2,1": 0,
+    "0,2": 0,
+    "2,2": 0
+  });
 
   expect(quality.get(board, [0, 0])).toBe(0);
   expect(quality.get(board, [1, 0])).toBe(0);
-  expect(quality.get(board, [0, 1])).toBe(null);
+  expect(quality.get(board, [0, 1])).toBe(undefined);
   expect(quality.get(board, [2, 1])).toBe(0);
 
   quality.set(board, [0, 0], 0.1);
@@ -31,14 +35,18 @@ test('#get/#set/#m', () => {
 
   expect(quality.get(board, [0, 0])).toBe(0.1);
   expect(quality.get(board, [1, 0])).toBe(0.2);
-  expect(quality.get(board, [0, 1])).toBe(null);
+  expect(quality.get(board, [0, 1])).toBe(undefined);
   expect(quality.get(board, [2, 1])).toBe(0.3);
 
-  expect(quality.m(board)).toEqual([
-    [0.1, 0.2, 0],
-    [null, 0, 0.3],
-    [0, null, 0]
-  ]);
+  expect(quality.m(board)).toEqual({
+    "0,0": 0.1,
+    "1,0": 0.2,
+    "2,0": 0,
+    "1,1": 0,
+    "2,1": 0.3,
+    "0,2": 0,
+    "2,2": 0
+  });
 });
 
 describe('#value', () => {

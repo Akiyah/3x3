@@ -4,28 +4,22 @@ export class Quality {
   }
 
   m(board) {
-    const state = board.toString();
-    if (!this.map[state]) {
-      this.map[state] = [
-        [null, null, null],
-        [null, null, null],
-        [null, null, null]
-      ];
-      board.actions().forEach(([x, y]) => {
-        this.map[state][y][x] = 0;
+    const s = board.toString();
+    if (!this.map[s]) {
+      this.map[s] = {};
+      board.actions().forEach((action) => {
+        this.map[s][action.toString()] = 0;
       });
     }
-    return this.map[state];
+    return this.map[s];
   }
 
   get(board, action) {
-    const [x, y] = action;
-    return this.m(board)[y][x];
+    return this.m(board)[action.toString()];
   }
 
   set(board, action, value) {
-    const [x, y] = action;
-    this.m(board)[y][x] = value;
+    this.m(board)[action.toString()] = value;
   }
 
   value(board) {
