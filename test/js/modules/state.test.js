@@ -1,4 +1,4 @@
-import { State } from '../../../src/js/modules/board.js';
+import { State } from '../../../src/js/modules/state.js';
 
 describe('constructor', () => {
   test('no params', () => {

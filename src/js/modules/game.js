@@ -1,4 +1,4 @@
-import { State } from './board.js';
+import { State } from './state.js';
 import { Quality } from './quality.js';
 
 const α = 0.2;

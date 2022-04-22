@@ -1,5 +1,5 @@
 import { Quality } from '../../../src/js/modules/quality.js';
-import { State } from '../../../src/js/modules/board.js';
+import { State } from '../../../src/js/modules/state.js';
 
 test('constructor', () => {
   const quality = new Quality();
