@@ -94,7 +94,8 @@ function initialize() {
       game.train(episode);
       count++;
     }
-    document.getElementById("count").innerText = `learn ${count} episodes.`;
+    document.getElementById("episodes").innerText = `learn ${count} episodes.`;
+    document.getElementById("q_table_count").innerText = `Q-table count = ${game.quality.count()}`;
     if (100 * 1000 <= count) {
       clearInterval(timer);
     }

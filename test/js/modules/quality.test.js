@@ -100,3 +100,27 @@ test('#policy', () => {
 
   expect(quality.policy(state)).toEqual([2, 1]);
 });
+
+test('#count', () => {
+  const quality = new Quality();
+  const state0 = new State();
+  const state1 = new State([
+    [" ", " ", " "],
+    ["x", " ", " "],
+    [" ", "o", " "]
+  ]);
+
+  expect(quality.count()).toBe(0);
+
+  quality.set(state0, [0, 0], 0.1);
+  expect(quality.count()).toBe(1);
+
+  quality.set(state0, [1, 0], 0.2);
+  expect(quality.count()).toBe(2);
+
+  quality.set(state1, [2, 1], 0.3);
+  expect(quality.count()).toBe(3);
+
+  quality.set(state1, [2, 2], 0);
+  expect(quality.count()).toBe(4);
+});

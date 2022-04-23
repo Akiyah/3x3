@@ -37,4 +37,10 @@ export class Quality {
       return this.get(state, action) === qMax;
     }).shift();
   }
+
+  count() {
+    return Object.entries(this.map).reduce((sum, [stateString, qs]) => {
+      return sum + Object.entries(qs).length;
+    }, 0);
+  }
 }
