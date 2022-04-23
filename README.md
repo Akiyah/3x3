@@ -6,7 +6,7 @@
 yarn
 ```
 
-## run
+## run(local)
 ```
 yarn http-server .
 ```
