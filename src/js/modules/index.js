@@ -9,7 +9,7 @@ function td(x, y) {
 };
 
 function setMark(x, y, mark) {
-  td(x, y).innerText = mark == "_" ? "" : mark;
+  td(x, y).innerText = mark;
 };
 
 function refreshMarks(state) {
@@ -52,7 +52,6 @@ function clear(states) {
 }
 
 function click(game, states, x, y) {
-  console.log([game, states, x, y]);
   if (lastState(states).winner()) {
     clear(states);
     refresh(states);

@@ -5,23 +5,23 @@ describe('constructor', () => {
     const state = new State();
 
     expect(state.marks).toEqual([
-      ["_", "_", "_"],
-      ["_", "_", "_"],
-      ["_", "_", "_"]
+      [" ", " ", " "],
+      [" ", " ", " "],
+      [" ", " ", " "]
     ]);
   });
 
   test('with params', () => {
     const state = new State([
-      ["_", "_", "_"],
-      ["_", "_", "_"],
-      ["_", "o", "_"]
+      [" ", " ", " "],
+      [" ", " ", " "],
+      [" ", "o", " "]
     ]);
 
     expect(state.marks).toEqual([
-      ["_", "_", "_"],
-      ["_", "_", "_"],
-      ["_", "o", "_"]
+      [" ", " ", " "],
+      [" ", " ", " "],
+      [" ", "o", " "]
     ]);
   });
 });
@@ -31,9 +31,9 @@ test('#toString', () => {
   state = state.step([1, 2]);
   state = state.step([0, 1]);
   expect(state.toString()).toEqual(
-    "___" + "\n" +
-    "x__" + "\n" +
-    "_o_"
+    "   " + "\n" +
+    "x  " + "\n" +
+    " o "
   );
 });
 
@@ -51,11 +51,11 @@ test('#mapPoints', () => {
 
 test('#mark', () => {
   const state = new State([
-    ["_", "_", "_"],
-    ["x", "_", "_"],
-    ["_", "o", "_"]
+    [" ", " ", " "],
+    ["x", " ", " "],
+    [" ", "o", " "]
   ]);
-  expect(state.mark([0, 0])).toEqual("_");
+  expect(state.mark([0, 0])).toEqual(" ");
   expect(state.mark([1, 2])).toEqual("o");
   expect(state.mark([0, 1])).toEqual("x");
 });
@@ -64,16 +64,16 @@ test('#step', () => {
   let state = new State();
   state = state.step([1, 2]);
   expect(state.marks).toEqual([
-    ["_", "_", "_"],
-    ["_", "_", "_"],
-    ["_", "o", "_"]
+    [" ", " ", " "],
+    [" ", " ", " "],
+    [" ", "o", " "]
   ]);
 
   state = state.step([0, 1]);
   expect(state.marks).toEqual([
-    ["_", "_", "_"],
-    ["x", "_", "_"],
-    ["_", "o", "_"]
+    [" ", " ", " "],
+    ["x", " ", " "],
+    [" ", "o", " "]
   ]);
 });
 
@@ -137,9 +137,9 @@ describe('#isWin', () => {
 
   test('o win', () => {
     const state = new State([
-      ["_", "o", "_"],
+      [" ", "o", " "],
       ["x", "o", "x"],
-      ["_", "o", "_"]
+      [" ", "o", " "]
     ]);
     expect(state.isWin('o')).toBeTruthy();
     expect(state.isWin('x')).toBeFalsy();
@@ -147,8 +147,8 @@ describe('#isWin', () => {
 
   test('x win', () => {
     const state = new State([
-      ["o", "_", "x"],
-      ["_", "x", "_"],
+      ["o", " ", "x"],
+      [" ", "x", " "],
       ["x", "o", "o"]
     ]);
     expect(state.isWin('o')).toBeFalsy();
@@ -174,17 +174,17 @@ describe('#winner', () => {
 
   test('o win', () => {
     const state = new State([
-      ["_", "o", "_"],
+      [" ", "o", " "],
       ["x", "o", "x"],
-      ["_", "o", "_"]
+      [" ", "o", " "]
     ]);
     expect(state.winner()).toEqual("o");
   });
 
   test('x win', () => {
     const state = new State([
-      ["o", "_", "x"],
-      ["_", "x", "_"],
+      ["o", " ", "x"],
+      [" ", "x", " "],
       ["x", "o", "o"]
     ]);
     expect(state.winner()).toEqual("x");

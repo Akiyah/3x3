@@ -49,39 +49,39 @@ describe('#findEpisode', () => {
   test('epsilon = 0', () => {
     const game = new Game();
     const state0 = new State([
-      ["_", "_", "_"],
-      ["_", "_", "_"],
-      ["_", "_", "_"]
+      [" ", " ", " "],
+      [" ", " ", " "],
+      [" ", " ", " "]
     ]);
     const action0 = [1, 1];
     const state1 = new State([
-      ["_", "_", "_"],
-      ["_", "o", "_"],
-      ["_", "_", "_"]
+      [" ", " ", " "],
+      [" ", "o", " "],
+      [" ", " ", " "]
     ]);
     const action1 = [1, 0];
     const state2 = new State([
-      ["_", "x", "_"],
-      ["_", "o", "_"],
-      ["_", "_", "_"]
+      [" ", "x", " "],
+      [" ", "o", " "],
+      [" ", " ", " "]
     ]);
     const action2 = [0, 0];
     const state3 = new State([
-      ["o", "x", "_"],
-      ["_", "o", "_"],
-      ["_", "_", "_"]
+      ["o", "x", " "],
+      [" ", "o", " "],
+      [" ", " ", " "]
     ]);
     const action3 = [2, 1];
     const state4 = new State([
-      ["o", "x", "_"],
-      ["_", "o", "x"],
-      ["_", "_", "_"]
+      ["o", "x", " "],
+      [" ", "o", "x"],
+      [" ", " ", " "]
     ]);
     const action4 = [2, 2];
     const state5 = new State([
-      ["o", "x", "_"],
-      ["_", "o", "x"],
-      ["_", "_", "o"]
+      ["o", "x", " "],
+      [" ", "o", "x"],
+      [" ", " ", "o"]
     ]);
 
     game.quality.set(state0, action0, 1);
@@ -131,9 +131,9 @@ describe('#trainOne', () => {
   test('reward != 0', () => {
     const game = new Game();
     const state0 = new State([
-      ["o", "x", "_"],
-      ["_", "o", "x"],
-      ["_", "_", "_"]
+      ["o", "x", " "],
+      [" ", "o", "x"],
+      [" ", " ", " "]
     ]);
     const action0 = [2, 2];
     const state1 = state0.step(action0);
@@ -273,41 +273,3 @@ describe('#train', () => {
     expect(game.quality.get(states[8], actions[8])).toBe(0);
   });
 });
-
-/*
-test('train x 10000', () => {
-  const game = new Game();
-
-  for (let j = 0; j < 10; j++) {
-    let output = {};
-    output["o"] = 0;
-    output["x"] = 0;
-    output["-"] = 0;
-    output["null"] = 0;
-
-    for (let i = 0; i < 10000; i++) {
-      const episode = game.findEpisode(0.1);
-      game.train(episode);
-
-      const event = episode[episode.length-1];
-      const state = event.state;
-      if (state.winner()) {
-        output[state.winner()]++;
-      } else {
-        output["null"]++;
-      }
-    }
-    console.log(output);
-  }
-
-
-  const episode = game.findEpisode(0);
-  console.log(episode);
-  episode.forEach((event) => {
-    console.log(event.state.toString());
-    console.log(event.action);
-    console.log(game.quality.m(event.state));
-  });
-
-});
-*/

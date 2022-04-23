@@ -1,5 +1,5 @@
 export class State {
-  constructor(marks = this.mapPoints(() => "_")) {
+  constructor(marks = this.mapPoints(() => " ")) {
     this.marks = marks;
   }
 
@@ -28,7 +28,7 @@ export class State {
   }
 
   enable(action) {
-    return this.mark(action) === "_";
+    return this.mark(action) === " ";
   }
 
   actions() {

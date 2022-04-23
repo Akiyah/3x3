@@ -9,9 +9,9 @@ test('constructor', () => {
 test('#get/#set/#m', () => {
   const quality = new Quality();
   const state = new State([
-    ["_", "_", "_"],
-    ["x", "_", "_"],
-    ["_", "o", "_"]
+    [" ", " ", " "],
+    ["x", " ", " "],
+    [" ", "o", " "]
   ]);
 
   expect(quality.m(state)).toEqual({});
@@ -41,9 +41,9 @@ describe('#value', () => {
   test('exist actions', () => {
     const quality = new Quality();
     const state = new State([
-      ["_", "_", "_"],
-      ["x", "_", "_"],
-      ["_", "o", "_"]
+      [" ", " ", " "],
+      ["x", " ", " "],
+      [" ", "o", " "]
     ]);
 
     expect(quality.value(state)).toEqual(0);
@@ -58,9 +58,9 @@ describe('#value', () => {
   test('exist minus actions', () => {
     const quality = new Quality();
     const state = new State([
-      ["_", "_", "_"],
-      ["x", "_", "_"],
-      ["_", "o", "_"]
+      [" ", " ", " "],
+      ["x", " ", " "],
+      [" ", "o", " "]
     ]);
 
     expect(quality.value(state)).toEqual(0);
@@ -87,9 +87,9 @@ describe('#value', () => {
 test('#policy', () => {
   const quality = new Quality();
   const state = new State([
-    ["_", "_", "_"],
-    ["x", "_", "_"],
-    ["_", "o", "_"]
+    [" ", " ", " "],
+    ["x", " ", " "],
+    [" ", "o", " "]
   ]);
 
   expect(quality.policy(state)).toEqual([0, 0]);
