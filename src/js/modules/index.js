@@ -5,32 +5,31 @@ const game = new Game();
 
 let count = 0;
 const timer = setInterval(() => {
-  for (let i = 0; i < 1000; i++) {
+  for (let i = 0; i < 100; i++) {
     const episode = game.findEpisode(0.1);
     game.train(episode);
+    count++;
   }
-  count++;
-  console.log(count);
-  document.getElementById("count").innerText = `learn ${count * 1000} episodes.`;
-  if (count > 1000) {
+  document.getElementById("count").innerText = `learn ${count} episodes.`;
+  if (100 * 1000 <= count) {
     clearInterval(timer);
-    console.log("clear");
   }
-}, 1000);
+}, 100);
 
-function mark(x, y) {
+function td(x, y) {
   const boardDiv = document.getElementById("board");
   const trDivs = boardDiv.getElementsByTagName("tr");
   const tdDivs = trDivs[y].getElementsByTagName("td");
-  const mark = tdDivs[x].innerText;
+  return tdDivs[x];
+};
+
+function mark(x, y) {
+  const mark = td(x, y).innerText;
   return mark == "" ? "_" : mark;
 };
 
 function setMark(x, y, mark) {
-  const boardDiv = document.getElementById("board");
-  const trDivs = boardDiv.getElementsByTagName("tr");
-  const tdDivs = trDivs[y].getElementsByTagName("td");
-  tdDivs[x].innerText = mark;
+  td(x, y).innerText = mark;
 };
 
 function marks() {
@@ -41,6 +40,20 @@ function marks() {
   ]
 };
 
+function currentState() {
+  return new State(marks());
+};
+
+function clear() {
+  const resultDiv = document.getElementById("result");
+  resultDiv.innerText = "";
+  [0, 1, 2].forEach(y => {
+    [0, 1, 2].forEach(x => {
+      setMark(x, y, "");
+    });
+  });
+};
+
 let winner = null;
 
 function result(w) {
@@ -48,16 +61,7 @@ function result(w) {
   const resultDiv = document.getElementById("result");
 
   if (w == null) {
-    resultDiv.innerText = "";
-    setMark(0, 0, "");
-    setMark(1, 0, "");
-    setMark(2, 0, "");
-    setMark(0, 1, "");
-    setMark(1, 1, "");
-    setMark(2, 1, "");
-    setMark(0, 2, "");
-    setMark(1, 2, "");
-    setMark(2, 2, "");
+    clear();
     return;
   }
 
@@ -98,18 +102,8 @@ function move(e, x, y) {
   }
 };
 
-const boardDiv = document.getElementById("board");
-const trDivs = boardDiv.getElementsByTagName("tr");
-const tdDivs0 = trDivs[0].getElementsByTagName("td");
-const tdDivs1 = trDivs[1].getElementsByTagName("td");
-const tdDivs2 = trDivs[2].getElementsByTagName("td");
-
-tdDivs0[0].addEventListener("click", (e) => move(e, 0, 0));
-tdDivs0[1].addEventListener("click", (e) => move(e, 1, 0));
-tdDivs0[2].addEventListener("click", (e) => move(e, 2, 0));
-tdDivs1[0].addEventListener("click", (e) => move(e, 0, 1));
-tdDivs1[1].addEventListener("click", (e) => move(e, 1, 1));
-tdDivs1[2].addEventListener("click", (e) => move(e, 2, 1));
-tdDivs2[0].addEventListener("click", (e) => move(e, 0, 2));
-tdDivs2[1].addEventListener("click", (e) => move(e, 1, 2));
-tdDivs2[2].addEventListener("click", (e) => move(e, 2, 2));
+[0, 1, 2].forEach(y => {
+  [0, 1, 2].forEach(x => {
+    td(x, y).addEventListener("click", (e) => move(e, x, y))
+  });
+});
