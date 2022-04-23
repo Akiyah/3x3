@@ -14,19 +14,11 @@ test('#get/#set/#m', () => {
     ["_", "o", "_"]
   ]);
 
-  expect(quality.m(state)).toEqual({
-    "0,0": 0,
-    "1,0": 0,
-    "2,0": 0,
-    "1,1": 0,
-    "2,1": 0,
-    "0,2": 0,
-    "2,2": 0
-  });
+  expect(quality.m(state)).toEqual({});
 
   expect(quality.get(state, [0, 0])).toBe(0);
   expect(quality.get(state, [1, 0])).toBe(0);
-  expect(quality.get(state, [0, 1])).toBe(undefined);
+  expect(quality.get(state, [0, 1])).toBe(0); // not enable action
   expect(quality.get(state, [2, 1])).toBe(0);
 
   quality.set(state, [0, 0], 0.1);
@@ -35,17 +27,13 @@ test('#get/#set/#m', () => {
 
   expect(quality.get(state, [0, 0])).toBe(0.1);
   expect(quality.get(state, [1, 0])).toBe(0.2);
-  expect(quality.get(state, [0, 1])).toBe(undefined);
+  expect(quality.get(state, [0, 1])).toBe(0); // not enable action
   expect(quality.get(state, [2, 1])).toBe(0.3);
 
   expect(quality.m(state)).toEqual({
     "0,0": 0.1,
     "1,0": 0.2,
-    "2,0": 0,
-    "1,1": 0,
-    "2,1": 0.3,
-    "0,2": 0,
-    "2,2": 0
+    "2,1": 0.3
   });
 });
 
@@ -65,6 +53,23 @@ describe('#value', () => {
     quality.set(state, [2, 1], 0.3);
 
     expect(quality.value(state)).toEqual(0.3);
+  });
+
+  test('exist minus actions', () => {
+    const quality = new Quality();
+    const state = new State([
+      ["_", "_", "_"],
+      ["x", "_", "_"],
+      ["_", "o", "_"]
+    ]);
+
+    expect(quality.value(state)).toEqual(0);
+
+    quality.set(state, [0, 0], -0.1);
+    quality.set(state, [1, 0], -0.2);
+    quality.set(state, [2, 1], -0.3);
+
+    expect(quality.value(state)).toEqual(0);
   });
 
   test('no actions', () => {

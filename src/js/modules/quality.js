@@ -7,19 +7,17 @@ export class Quality {
     const s = state.toString();
     if (!this.map[s]) {
       this.map[s] = {};
-      state.actions().forEach((action) => {
-        this.map[s][action.toString()] = 0;
-      });
     }
     return this.map[s];
   }
 
   get(state, action) {
-    return this.m(state)[action.toString()];
+    const q = this.m(state)[action.toString()];
+    return q ? q : 0;
   }
 
-  set(state, action, value) {
-    this.m(state)[action.toString()] = value;
+  set(state, action, q) {
+    this.m(state)[action.toString()] = q;
   }
 
   value(state) {
@@ -27,16 +25,16 @@ export class Quality {
     if (actions.length == 0) {
       return 0;
     }
-    const vs = state.actions().map((action) => {
+    const qs = state.actions().map((action) => {
       return this.get(state, action);
     });
-    return Math.max(...vs);
+    return Math.max(...qs);
   }
 
   policy(state) {
-    const max = this.value(state);
+    const qMax = this.value(state);
     return state.actions().filter((action) => {
-      return this.get(state, action) === max;
+      return this.get(state, action) === qMax;
     }).shift();
   }
 }
