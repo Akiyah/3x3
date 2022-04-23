@@ -1,5 +1,5 @@
-import { Game } from '../src/js/modules/game.js';
-import { State } from '../src/js/modules/state.js';
+import { Game } from './game.js';
+import { State } from './state.js';
 
 const game = new Game();
 
