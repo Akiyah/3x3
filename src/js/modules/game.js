@@ -38,7 +38,7 @@ export class Game {
     this.quality.set(state0, action0, q0);
   }
 
-  trainOneSide(episode, player) {
+  trainOnePlayer(episode, player) {
     const l = episode.length;
     const eventLast = episode[l - 1];
     const stateLast = eventLast.state;
@@ -72,7 +72,7 @@ export class Game {
       return (i % 2 == 1) && (i < l - 1);
     }).concat(eventLast);
 
-    this.trainOneSide(episodeO, "o");
-    this.trainOneSide(episodeX, "x");
+    this.trainOnePlayer(episodeO, "o");
+    this.trainOnePlayer(episodeX, "x");
   }
 }

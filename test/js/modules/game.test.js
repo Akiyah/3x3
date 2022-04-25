@@ -145,7 +145,7 @@ describe('#trainEvent', () => {
   });
 });
 
-describe('#trainOneSide', () => {
+describe('#trainOnePlayer', () => {
   test('o win', () => {
     const game = new Game();
     const actions = [
@@ -175,7 +175,7 @@ describe('#trainOneSide', () => {
       { state: states[5], action: null }
     ];
 
-    game.trainOneSide(episodeO, "o");
+    game.trainOnePlayer(episodeO, "o");
 
     expect(game.quality.get(states[0], actions[0])).toBe(0.2**3);
     expect(game.quality.get(states[1], actions[1])).toBe(0);
@@ -183,7 +183,7 @@ describe('#trainOneSide', () => {
     expect(game.quality.get(states[3], actions[3])).toBe(0);
     expect(game.quality.get(states[4], actions[4])).toBe(0.2);
 
-    game.trainOneSide(episodeX, "x");
+    game.trainOnePlayer(episodeX, "x");
 
     expect(game.quality.get(states[0], actions[0])).toBe(0.2**3);
     expect(game.quality.get(states[1], actions[1])).toBe(0);
@@ -223,7 +223,7 @@ describe('#trainOneSide', () => {
       { state: states[6], action: null }
     ];
 
-    game.trainOneSide(episodeO, "o");
+    game.trainOnePlayer(episodeO, "o");
 
     expect(game.quality.get(states[0], actions[0])).toBe(0);
     expect(game.quality.get(states[1], actions[1])).toBe(0);
@@ -232,7 +232,7 @@ describe('#trainOneSide', () => {
     expect(game.quality.get(states[4], actions[4])).toBe(-0.2);
     expect(game.quality.get(states[5], actions[5])).toBe(0);
 
-    game.trainOneSide(episodeX, "x");
+    game.trainOnePlayer(episodeX, "x");
 
     expect(game.quality.get(states[0], actions[0])).toBe(0);
     expect(game.quality.get(states[1], actions[1])).toBe(0.2**3);
@@ -279,7 +279,7 @@ describe('#trainOneSide', () => {
       { state: states[9], action: null }
     ];
 
-    game.trainOneSide(episodeO, "o");
+    game.trainOnePlayer(episodeO, "o");
 
     expect(game.quality.get(states[0], actions[0])).toBe(0);
     expect(game.quality.get(states[1], actions[1])).toBe(0);
@@ -291,7 +291,7 @@ describe('#trainOneSide', () => {
     expect(game.quality.get(states[7], actions[7])).toBe(0);
     expect(game.quality.get(states[8], actions[8])).toBe(0);
 
-    game.trainOneSide(episodeX, "x");
+    game.trainOnePlayer(episodeX, "x");
 
     expect(game.quality.get(states[0], actions[0])).toBe(0);
     expect(game.quality.get(states[1], actions[1])).toBe(0);
