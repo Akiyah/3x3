@@ -1,5 +1,6 @@
 import { Game } from './game.js';
 import { State } from './state.js';
+import { Action } from './action.js';
 
 function td(x, y) {
   const boardDiv = document.getElementById("board");
@@ -11,7 +12,7 @@ function td(x, y) {
 function refresh(state) {
   [0, 1, 2].forEach(y => {
     [0, 1, 2].forEach(x => {
-      td(x, y).innerText = state.mark([x, y]);
+      td(x, y).innerText = state.mark(new Action(x, y));
     });
   });
 
@@ -34,11 +35,11 @@ function click(env, x, y) {
     return;
   }
 
-  if (!env.state.enable([x, y])) {
+  if (!env.state.enable(new Action(x, y))) {
     return;
   }
 
-  env.state = env.state.step([x, y]);
+  env.state = env.state.step(new Action(x, y));
   if (env.state.winner()) {
     refresh(env.state);
     return;

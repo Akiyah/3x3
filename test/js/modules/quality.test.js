@@ -1,3 +1,4 @@
+import { Action } from '../../../src/js/modules/action.js';
 import { Quality } from '../../../src/js/modules/quality.js';
 import { State } from '../../../src/js/modules/state.js';
 
@@ -16,24 +17,24 @@ test('#get/#set/#m', () => {
 
   expect(quality.m(state)).toEqual({});
 
-  expect(quality.get(state, [0, 0])).toBe(0);
-  expect(quality.get(state, [1, 0])).toBe(0);
-  expect(quality.get(state, [0, 1])).toBe(0); // not enable action
-  expect(quality.get(state, [2, 1])).toBe(0);
+  expect(quality.get(state, new Action(0, 0))).toBe(0);
+  expect(quality.get(state, new Action(1, 0))).toBe(0);
+  expect(quality.get(state, new Action(0, 1))).toBe(0); // not enable action
+  expect(quality.get(state, new Action(2, 1))).toBe(0);
 
-  quality.set(state, [0, 0], 0.1);
-  quality.set(state, [1, 0], 0.2);
-  quality.set(state, [2, 1], 0.3);
+  quality.set(state, new Action(0, 0), 0.1);
+  quality.set(state, new Action(1, 0), 0.2);
+  quality.set(state, new Action(2, 1), 0.3);
 
-  expect(quality.get(state, [0, 0])).toBe(0.1);
-  expect(quality.get(state, [1, 0])).toBe(0.2);
-  expect(quality.get(state, [0, 1])).toBe(0); // not enable action
-  expect(quality.get(state, [2, 1])).toBe(0.3);
+  expect(quality.get(state, new Action(0, 0))).toBe(0.1);
+  expect(quality.get(state, new Action(1, 0))).toBe(0.2);
+  expect(quality.get(state, new Action(0, 1))).toBe(0); // not enable action
+  expect(quality.get(state, new Action(2, 1))).toBe(0.3);
 
   expect(quality.m(state)).toEqual({
-    "0,0": 0.1,
-    "1,0": 0.2,
-    "2,1": 0.3
+    "[0, 0]": 0.1,
+    "[1, 0]": 0.2,
+    "[2, 1]": 0.3
   });
 });
 
@@ -48,9 +49,9 @@ describe('#value', () => {
 
     expect(quality.value(state)).toEqual(0);
 
-    quality.set(state, [0, 0], 0.1);
-    quality.set(state, [1, 0], 0.2);
-    quality.set(state, [2, 1], 0.3);
+    quality.set(state, new Action(0, 0), 0.1);
+    quality.set(state, new Action(1, 0), 0.2);
+    quality.set(state, new Action(2, 1), 0.3);
 
     expect(quality.value(state)).toEqual(0.3);
   });
@@ -65,9 +66,9 @@ describe('#value', () => {
 
     expect(quality.value(state)).toEqual(0);
 
-    quality.set(state, [0, 0], -0.1);
-    quality.set(state, [1, 0], -0.2);
-    quality.set(state, [2, 1], -0.3);
+    quality.set(state, new Action(0, 0), -0.1);
+    quality.set(state, new Action(1, 0), -0.2);
+    quality.set(state, new Action(2, 1), -0.3);
 
     expect(quality.value(state)).toEqual(0);
   });
@@ -92,13 +93,13 @@ test('#policy', () => {
     [" ", "o", " "]
   ]);
 
-  expect(quality.policy(state)).toEqual([0, 0]);
+  expect(quality.policy(state)).toEqual(new Action(0, 0));
 
-  quality.set(state, [0, 0], 0.1);
-  quality.set(state, [1, 0], 0.2);
-  quality.set(state, [2, 1], 0.3);
+  quality.set(state, new Action(0, 0), 0.1);
+  quality.set(state, new Action(1, 0), 0.2);
+  quality.set(state, new Action(2, 1), 0.3);
 
-  expect(quality.policy(state)).toEqual([2, 1]);
+  expect(quality.policy(state)).toEqual(new Action(2, 1));
 });
 
 test('#count', () => {
@@ -112,15 +113,15 @@ test('#count', () => {
 
   expect(quality.count()).toBe(0);
 
-  quality.set(state0, [0, 0], 0.1);
+  quality.set(state0, new Action(0, 0), 0.1);
   expect(quality.count()).toBe(1);
 
-  quality.set(state0, [1, 0], 0.2);
+  quality.set(state0, new Action(1, 0), 0.2);
   expect(quality.count()).toBe(2);
 
-  quality.set(state1, [2, 1], 0.3);
+  quality.set(state1, new Action(2, 1), 0.3);
   expect(quality.count()).toBe(3);
 
-  quality.set(state1, [2, 2], 0);
+  quality.set(state1, new Action(2, 2), 0);
   expect(quality.count()).toBe(4);
 });

@@ -1,3 +1,4 @@
+import { Action } from '../../../src/js/modules/action.js';
 import { Game } from '../../../src/js/modules/game.js';
 import { State } from '../../../src/js/modules/state.js';
 
@@ -12,17 +13,17 @@ describe('#findAction', () => {
     const game = new Game();
     const state = new State();
     const action = game.findAction(state, 1);
-    expect([0, 1, 2]).toContain(action[0]);
-    expect([0, 1, 2]).toContain(action[1]);
+    expect([0, 1, 2]).toContain(action.x);
+    expect([0, 1, 2]).toContain(action.y);
   });
 
   test('epsilon = 0', () => {
     const game = new Game();
     const state = new State();
-    game.quality.set(state, [2, 1], 1);
+    game.quality.set(state, new Action(2, 1), 1);
 
     const action = game.findAction(state, 0);
-    expect(action).toEqual([2, 1]);
+    expect(action).toEqual(new Action(2, 1));
   });
 });
 
@@ -54,31 +55,31 @@ describe('#findEpisode', () => {
       [" ", " ", " "],
       [" ", " ", " "]
     ]);
-    const action0 = [1, 1];
+    const action0 = new Action(1, 1);
     const state1 = new State([
       [" ", " ", " "],
       [" ", "o", " "],
       [" ", " ", " "]
     ]);
-    const action1 = [1, 0];
+    const action1 = new Action(1, 0);
     const state2 = new State([
       [" ", "x", " "],
       [" ", "o", " "],
       [" ", " ", " "]
     ]);
-    const action2 = [0, 0];
+    const action2 = new Action(0, 0);
     const state3 = new State([
       ["o", "x", " "],
       [" ", "o", " "],
       [" ", " ", " "]
     ]);
-    const action3 = [2, 1];
+    const action3 = new Action(2, 1);
     const state4 = new State([
       ["o", "x", " "],
       [" ", "o", "x"],
       [" ", " ", " "]
     ]);
-    const action4 = [2, 2];
+    const action4 = new Action(2, 2);
     const state5 = new State([
       ["o", "x", " "],
       [" ", "o", "x"],
@@ -115,11 +116,11 @@ describe('#trainEvent', () => {
   test('reward == 0', () => {
     const game = new Game();
     const state0 = new State();
-    const action0 = [1, 1];
+    const action0 = new Action(1, 1);
     const state1 = state0.step(action0);
-    const action1 = [1, 0];
+    const action1 = new Action(1, 0);
     const state2 = state1.step(action1);
-    game.quality.set(state2, [0, 0], 0.5);
+    game.quality.set(state2, new Action(0, 0), 0.5);
 
     game.trainEvent(state0, action0, state2, 0);
     expect(game.quality.get(state0, action0)).toBe(0.5 * 0.2);
@@ -135,7 +136,7 @@ describe('#trainEvent', () => {
       [" ", "o", "x"],
       [" ", " ", " "]
     ]);
-    const action0 = [2, 2];
+    const action0 = new Action(2, 2);
     const state1 = state0.step(action0);
 
     game.trainEvent(state0, action0, state1, 1);
@@ -150,11 +151,11 @@ describe('#trainOnePlayer', () => {
   test('o win', () => {
     const game = new Game();
     const actions = [
-      [1, 1],
-      [1, 0],
-      [0, 0],
-      [2, 1],
-      [2, 2]
+      new Action(1, 1),
+      new Action(1, 0),
+      new Action(0, 0),
+      new Action(2, 1),
+      new Action(2, 2)
     ];
 
     let state = new State();
@@ -196,12 +197,12 @@ describe('#trainOnePlayer', () => {
   test('x win', () => {
     const game = new Game();
     const actions = [
-      [0, 0],
-      [1, 1],
-      [0, 1],
-      [0, 2],
-      [2, 1],
-      [2, 0]
+      new Action(0, 0),
+      new Action(1, 1),
+      new Action(0, 1),
+      new Action(0, 2),
+      new Action(2, 1),
+      new Action(2, 0)
     ];
 
     let state = new State();
@@ -246,15 +247,15 @@ describe('#trainOnePlayer', () => {
   test('draw', () => {
     const game = new Game();
     const actions = [
-      [0, 0],
-      [1, 1],
-      [0, 1],
-      [0, 2],
-      [2, 1],
-      [1, 0],
-      [1, 2],
-      [2, 2],
-      [2, 0]
+      new Action(0, 0),
+      new Action(1, 1),
+      new Action(0, 1),
+      new Action(0, 2),
+      new Action(2, 1),
+      new Action(1, 0),
+      new Action(1, 2),
+      new Action(2, 2),
+      new Action(2, 0)
     ];
 
     let state = new State();
@@ -310,11 +311,11 @@ describe('#train', () => {
   test('o win', () => {
     const game = new Game();
     const actions = [
-      [1, 1],
-      [1, 0],
-      [0, 0],
-      [2, 1],
-      [2, 2]
+      new Action(1, 1),
+      new Action(1, 0),
+      new Action(0, 0),
+      new Action(2, 1),
+      new Action(2, 2)
     ];
 
     let state = new State();
@@ -351,12 +352,12 @@ describe('#train', () => {
   test('x win', () => {
     const game = new Game();
     const actions = [
-      [0, 0],
-      [1, 1],
-      [0, 1],
-      [0, 2],
-      [2, 1],
-      [2, 0]
+      new Action(0, 0),
+      new Action(1, 1),
+      new Action(0, 1),
+      new Action(0, 2),
+      new Action(2, 1),
+      new Action(2, 0)
     ];
 
     let state = new State();
@@ -395,15 +396,15 @@ describe('#train', () => {
   test('draw', () => {
     const game = new Game();
     const actions = [
-      [0, 0],
-      [1, 1],
-      [0, 1],
-      [0, 2],
-      [2, 1],
-      [1, 0],
-      [1, 2],
-      [2, 2],
-      [2, 0]
+      new Action(0, 0),
+      new Action(1, 1),
+      new Action(0, 1),
+      new Action(0, 2),
+      new Action(2, 1),
+      new Action(1, 0),
+      new Action(1, 2),
+      new Action(2, 2),
+      new Action(2, 0)
     ];
 
     let state = new State();

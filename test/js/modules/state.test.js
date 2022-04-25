@@ -1,3 +1,4 @@
+import { Action } from '../../../src/js/modules/action.js';
 import { State } from '../../../src/js/modules/state.js';
 
 describe('constructor', () => {
@@ -28,8 +29,8 @@ describe('constructor', () => {
 
 test('#toString', () => {
   let state = new State();
-  state = state.step([1, 2]);
-  state = state.step([0, 1]);
+  state = state.step(new Action(1, 2));
+  state = state.step(new Action(0, 1));
   expect(state.toString()).toEqual(
     "   " + "\n" +
     "x  " + "\n" +
@@ -39,13 +40,13 @@ test('#toString', () => {
 
 test('#mapPoints', () => {
   let state = new State();
-  state = state.step([1, 2]);
-  state = state.step([0, 1]);
-  const result = state.mapPoints(([x, y]) => [x, y]);
+  state = state.step(new Action(1, 2));
+  state = state.step(new Action(0, 1));
+  const result = state.mapPoints((action) => action);
   expect(result).toEqual([
-    [[0, 0], [1, 0], [2, 0]],
-    [[0, 1], [1, 1], [2, 1]],
-    [[0, 2], [1, 2], [2, 2]]
+    [new Action(0, 0), new Action(1, 0), new Action(2, 0)],
+    [new Action(0, 1), new Action(1, 1), new Action(2, 1)],
+    [new Action(0, 2), new Action(1, 2), new Action(2, 2)]
   ]);
 });
 
@@ -55,21 +56,21 @@ test('#mark', () => {
     ["x", " ", " "],
     [" ", "o", " "]
   ]);
-  expect(state.mark([0, 0])).toEqual(" ");
-  expect(state.mark([1, 2])).toEqual("o");
-  expect(state.mark([0, 1])).toEqual("x");
+  expect(state.mark(new Action(0, 0))).toEqual(" ");
+  expect(state.mark(new Action(1, 2))).toEqual("o");
+  expect(state.mark(new Action(0, 1))).toEqual("x");
 });
 
 test('#step', () => {
   let state = new State();
-  state = state.step([1, 2]);
+  state = state.step(new Action(1, 2));
   expect(state.marks).toEqual([
     [" ", " ", " "],
     [" ", " ", " "],
     [" ", "o", " "]
   ]);
 
-  state = state.step([0, 1]);
+  state = state.step(new Action(0, 1));
   expect(state.marks).toEqual([
     [" ", " ", " "],
     ["x", " ", " "],
@@ -79,28 +80,28 @@ test('#step', () => {
 
 test('#enable', () => {
   let state = new State();
-  state = state.step([1, 2]);
-  state = state.step([0, 1]);
-  expect(state.enable([0, 0])).toBeTruthy();
-  expect(state.enable([1, 2])).toBeFalsy();
-  expect(state.enable([0, 1])).toBeFalsy();
+  state = state.step(new Action(1, 2));
+  state = state.step(new Action(0, 1));
+  expect(state.enable(new Action(0, 0))).toBeTruthy();
+  expect(state.enable(new Action(1, 2))).toBeFalsy();
+  expect(state.enable(new Action(0, 1))).toBeFalsy();
 });
 
 test('#actions', () => {
   let state = new State();
-  state = state.step([1, 2]);
-  state = state.step([0, 1]);
+  state = state.step(new Action(1, 2));
+  state = state.step(new Action(0, 1));
   expect(state.actions()).toEqual([
-    [0, 0], [1, 0], [2, 0],
-    [1, 1], [2, 1],
-    [0, 2], [2, 2]
+    new Action(0, 0), new Action(1, 0), new Action(2, 0),
+    new Action(1, 1), new Action(2, 1),
+    new Action(0, 2), new Action(2, 2)
   ]);
 });
 
 test('#randomAction', () => {
   let state = new State();
-  state = state.step([1, 2]);
-  state = state.step([0, 1]);
+  state = state.step(new Action(1, 2));
+  state = state.step(new Action(0, 1));
   expect(state.actions()).toContainEqual(state.randomAction());
 });
 
@@ -117,14 +118,14 @@ test('#random', () => {
 test('#lines', () => {
   const state = new State();
   expect(state.lines()).toEqual([
-    [[0, 0], [0, 1], [0, 2]], // |
-    [[1, 0], [1, 1], [1, 2]], // |
-    [[2, 0], [2, 1], [2, 2]], // |
-    [[0, 0], [1, 0], [2, 0]], // -
-    [[0, 1], [1, 1], [2, 1]], // -
-    [[0, 2], [1, 2], [2, 2]], // -
-    [[0, 0], [1, 1], [2, 2]], // \
-    [[0, 2], [1, 1], [2, 0]]  // /
+    [new Action(0, 0), new Action(0, 1), new Action(0, 2)], // |
+    [new Action(1, 0), new Action(1, 1), new Action(1, 2)], // |
+    [new Action(2, 0), new Action(2, 1), new Action(2, 2)], // |
+    [new Action(0, 0), new Action(1, 0), new Action(2, 0)], // -
+    [new Action(0, 1), new Action(1, 1), new Action(2, 1)], // -
+    [new Action(0, 2), new Action(1, 2), new Action(2, 2)], // -
+    [new Action(0, 0), new Action(1, 1), new Action(2, 2)], // \
+    [new Action(0, 2), new Action(1, 1), new Action(2, 0)]  // /
   ]);
 });
 

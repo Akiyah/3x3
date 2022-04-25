@@ -1,3 +1,5 @@
+import { Action } from "./action.js";
+
 export class State {
   constructor(marks = this.mapPoints(() => " ")) {
     this.marks = marks;
@@ -10,15 +12,18 @@ export class State {
   }
 
   mapPoints(callback) {
-    return [0, 1, 2].map(y => [0, 1, 2].map(x => callback([x, y])));
+    return [0, 1, 2].map(y => [0, 1, 2].map(x => callback(new Action(x, y))));
   }
 
-  mark([x, y]) {
+  mark(action) {
+    const x = action.x;
+    const y = action.y;
     return this.marks[y][x];
   }
 
   step(action) {
-    const [x, y] = action;
+    const x = action.x;
+    const y = action.y;
     const k = 9 - this.actions().length;
     const mark = ((k % 2 == 0) ? 'o' : 'x');
 
@@ -47,10 +52,10 @@ export class State {
 
   lines() {
     let lines = [];
-    lines = lines.concat(this.mapPoints(([y, x]) => [x, y])); // |
-    lines = lines.concat(this.mapPoints(([x, y]) => [x, y])); // -
-    lines = lines.concat([[0, 1, 2].map(i => [i, i])]); // \
-    lines = lines.concat([[0, 1, 2].map(i => [i, 2 - i])]); // /
+    lines = lines.concat(this.mapPoints((action) => new Action(action.y, action.x))); // |
+    lines = lines.concat(this.mapPoints((action) => new Action(action.x, action.y))); // -
+    lines = lines.concat([[0, 1, 2].map(i => new Action(i, i))]); // \
+    lines = lines.concat([[0, 1, 2].map(i => new Action(i, 2 - i))]); // /
     return lines;
   }
 
