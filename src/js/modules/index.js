@@ -21,20 +21,8 @@ function refreshMarks(state) {
 }
 
 function refreshResult(state) {
-  const resultDiv = document.getElementById("result");
-  const winner = state.winner();
-
-  if (!winner) {
-    resultDiv.innerText = "";
-    return;
-  }
-
-  if (winner == "-") {
-    resultDiv.innerText = "Draw";
-    return;
-  }
-
-  resultDiv.innerText = `${winner} win`;
+  const winnerSpan = document.getElementById("winner");
+  winnerSpan.innerText = state.winner();
 }
 
 function lastState(states) {
@@ -87,16 +75,16 @@ function initialize() {
   });
   clear(states);
 
-  let count = 0;
+  let episodes = 0;
   const timer = setInterval(() => {
     for (let i = 0; i < 100; i++) {
       const episode = game.findEpisode(0.1);
       game.train(episode);
-      count++;
+      episodes++;
     }
-    document.getElementById("episodes").innerText = `learn ${count} episodes.`;
-    document.getElementById("q_table_count").innerText = `Q-table count = ${game.quality.count()}`;
-    if (100 * 1000 <= count) {
+    document.getElementById("episodes").innerText = episodes;
+    document.getElementById("q_table_count").innerText = game.quality.count();
+    if (100 * 1000 <= episodes) {
       clearInterval(timer);
     }
   }, 100);
