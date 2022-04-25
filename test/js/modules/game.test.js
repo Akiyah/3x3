@@ -111,7 +111,7 @@ describe('#findEpisode', () => {
 });
 
 
-describe('#trainOne', () => {
+describe('#trainEvent', () => {
   test('reward == 0', () => {
     const game = new Game();
     const state0 = new State();
@@ -121,10 +121,10 @@ describe('#trainOne', () => {
     const state2 = state1.step(action1);
     game.quality.set(state2, [0, 0], 0.5);
 
-    game.trainOne(state0, action0, state2, 0);
+    game.trainEvent(state0, action0, state2, 0);
     expect(game.quality.get(state0, action0)).toBe(0.5 * 0.2);
 
-    game.trainOne(state0, action0, state2, 0);
+    game.trainEvent(state0, action0, state2, 0);
     expect(game.quality.get(state0, action0)).toBe(0.5 * 0.2 * (1 - 0.2) + 0.5 * 0.2);
   });
 
@@ -138,10 +138,10 @@ describe('#trainOne', () => {
     const action0 = [2, 2];
     const state1 = state0.step(action0);
 
-    game.trainOne(state0, action0, state1, 1);
+    game.trainEvent(state0, action0, state1, 1);
     expect(game.quality.get(state0, action0)).toBe(0.2);
 
-    game.trainOne(state0, action0, state1, 1);
+    game.trainEvent(state0, action0, state1, 1);
     expect(game.quality.get(state0, action0)).toBe(0.2 * (1 - 0.2) + 0.2);
   });
 });

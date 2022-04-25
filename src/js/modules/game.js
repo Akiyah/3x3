@@ -32,7 +32,7 @@ export class Game {
   }
 
 
-  trainOne(state0, action0, state1, reward) {
+  trainEvent(state0, action0, state1, reward) {
     let q0 = this.quality.get(state0, action0);
     const q1 = this.quality.value(state1);
     q0 = q0 + α * (reward + γ * q1 - q0);
@@ -69,14 +69,14 @@ export class Game {
       const event0 = episodeO[episodeO.length - 2 - i];
       const event1 = episodeO[episodeO.length - 1 - i];
       const reward = (i == 0) ? rewardO : 0;
-      this.trainOne(event0.state, event0.action, event1.state, reward);
+      this.trainEvent(event0.state, event0.action, event1.state, reward);
     }
 
     for (let i = 0; i < episodeX.length - 1; i++) {
       const event0 = episodeX[episodeX.length - 2 - i];
       const event1 = episodeX[episodeX.length - 1 - i];
       const reward = (i == 0) ? rewardX : 0;
-      this.trainOne(event0.state, event0.action, event1.state, reward);
+      this.trainEvent(event0.state, event0.action, event1.state, reward);
     }
   }
 }
