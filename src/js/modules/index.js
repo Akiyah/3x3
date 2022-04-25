@@ -18,9 +18,18 @@ function refresh(state) {
   document.getElementById("winner").innerText = state.winner();
 }
 
+function clear(env) {
+  env.state = new State();
+
+  if (document.getElementById("player").value == "x") {
+    const action = env.game.findAction(env.state, 0);
+    env.state = env.state.step(action);
+  }
+}
+
 function click(env, x, y) {
   if (env.state.winner()) {
-    env.state = new State();
+    clear(env);
     refresh(env.state);
     return;
   }
@@ -43,7 +52,7 @@ function click(env, x, y) {
 function initialize() {
   const env = {
     game: new Game(),
-    state: new State()
+    state: null
   };
 
   [0, 1, 2].forEach(y => {
@@ -51,6 +60,7 @@ function initialize() {
       td(x, y).addEventListener("click", () => click(env, x, y))
     });
   });
+  clear(env);
 
   const timer = setInterval(() => {
     for (let i = 0; i < 100; i++) {
