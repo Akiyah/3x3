@@ -7,6 +7,7 @@ const γ = 1;
 export class Game {
   constructor(quality = new Quality()) {
     this.quality = quality;
+    this.trainCount = 0;
   }
 
   findAction(state, epsilon) {
@@ -74,5 +75,7 @@ export class Game {
 
     this.trainOnePlayer(episodeO, "o");
     this.trainOnePlayer(episodeX, "x");
+
+    this.trainCount++;
   }
 }

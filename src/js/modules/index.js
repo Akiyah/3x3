@@ -15,8 +15,7 @@ function refresh(state) {
     });
   });
 
-  const winnerSpan = document.getElementById("winner");
-  winnerSpan.innerText = state.winner();
+  document.getElementById("winner").innerText = state.winner();
 }
 
 function click(env, x, y) {
@@ -44,8 +43,7 @@ function click(env, x, y) {
 function initialize() {
   const env = {
     game: new Game(),
-    state: new State(),
-    episodes: 0
+    state: new State()
   };
 
   [0, 1, 2].forEach(y => {
@@ -58,11 +56,10 @@ function initialize() {
     for (let i = 0; i < 100; i++) {
       const episode = env.game.findEpisode(0.1);
       env.game.train(episode);
-      env.episodes++;
     }
-    document.getElementById("episodes").innerText = env.episodes;
+    document.getElementById("train_count").innerText = env.game.trainCount;
     document.getElementById("q_table_count").innerText = env.game.quality.count();
-    if (100 * 1000 <= env.episodes) {
+    if (100 * 1000 <= env.game.trainCount) {
       clearInterval(timer);
     }
   }, 100);

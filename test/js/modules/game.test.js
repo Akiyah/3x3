@@ -4,6 +4,7 @@ import { State } from '../../../src/js/modules/state.js';
 test('constructor', () => {
   const game = new Game();
   expect(game.quality.map).toEqual({});
+  expect(game.trainCount).toBe(0);
 });
 
 describe('#findAction', () => {
@@ -328,6 +329,8 @@ describe('#train', () => {
 
     game.train(episode);
 
+    expect(game.trainCount).toBe(1);
+
     expect(game.quality.get(states[0], actions[0])).toBe(0.2**3);
     expect(game.quality.get(states[1], actions[1])).toBe(0);
     expect(game.quality.get(states[2], actions[2])).toBe(0.2**2);
@@ -335,6 +338,8 @@ describe('#train', () => {
     expect(game.quality.get(states[4], actions[4])).toBe(0.2);
 
     game.train(episode);
+
+    expect(game.trainCount).toBe(2);
 
     expect(game.quality.get(states[0], actions[0])).toBe(0.02720000000000001);
     expect(game.quality.get(states[1], actions[1])).toBe(0);
@@ -366,6 +371,8 @@ describe('#train', () => {
 
     game.train(episode);
 
+    expect(game.trainCount).toBe(1);
+
     expect(game.quality.get(states[0], actions[0])).toBe(0);
     expect(game.quality.get(states[1], actions[1])).toBe(0.2**3);
     expect(game.quality.get(states[2], actions[2])).toBe(0);
@@ -374,6 +381,8 @@ describe('#train', () => {
     expect(game.quality.get(states[5], actions[5])).toBe(0.2);
 
     game.train(episode);
+
+    expect(game.trainCount).toBe(2);
 
     expect(game.quality.get(states[0], actions[0])).toBe(0);
     expect(game.quality.get(states[1], actions[1])).toBe(0.02720000000000001);
@@ -409,6 +418,8 @@ describe('#train', () => {
 
     game.train(episode);
 
+    expect(game.trainCount).toBe(1);
+
     expect(game.quality.get(states[0], actions[0])).toBe(0);
     expect(game.quality.get(states[1], actions[1])).toBe(0);
     expect(game.quality.get(states[2], actions[2])).toBe(0);
@@ -420,6 +431,8 @@ describe('#train', () => {
     expect(game.quality.get(states[8], actions[8])).toBe(0);
 
     game.train(episode);
+
+    expect(game.trainCount).toBe(2);
 
     expect(game.quality.get(states[0], actions[0])).toBe(0);
     expect(game.quality.get(states[1], actions[1])).toBe(0);
