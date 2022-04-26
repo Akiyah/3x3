@@ -22,6 +22,6 @@ export class Episode {
 
     return this.events.filter((_event, i) => {
       return (i % 2 == 1) && (i < l - 1);
-    }).concat(lastEvent);    
+    }).concat(lastEvent);
   }
 }
