@@ -1,5 +1,6 @@
 import { State } from './state.js';
 import { Quality } from './quality.js';
+import { Episode } from './episode.js';
 
 const α = 0.2;
 const γ = 1;
@@ -20,15 +21,15 @@ export class Game {
 
   findEpisode(epsilon) {
     let state = new State();
-    const episode = [];
+    const episode = new Episode();
 
     while(state.winner() === null) {
       const action = this.findAction(state, epsilon);
-      episode.push({ state: state, action: action });
+      episode.push(state, action);
       state = state.step(action);
     }
 
-    episode.push({ state: state, action: null });
+    episode.push(state, null);
     return episode;
   }
 
@@ -62,19 +63,8 @@ export class Game {
   }
 
   train(episode) {
-    const l = episode.length;
-    const eventLast = episode[l - 1];
-
-    const episodeO = episode.filter((_event, i) => {
-      return (i % 2 == 0) && (i < l - 1);
-    }).concat(eventLast);
-
-    const episodeX = episode.filter((_event, i) => {
-      return (i % 2 == 1) && (i < l - 1);
-    }).concat(eventLast);
-
-    this.trainOnePlayer(episodeO, "o");
-    this.trainOnePlayer(episodeX, "x");
+    this.trainOnePlayer(episode.episodeO(), "o");
+    this.trainOnePlayer(episode.episodeX(), "x");
 
     this.trainCount++;
   }

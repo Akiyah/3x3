@@ -1,6 +1,7 @@
 import { Action } from '../../../src/js/modules/action.js';
 import { Game } from '../../../src/js/modules/game.js';
 import { State } from '../../../src/js/modules/state.js';
+import { Episode } from '../../../src/js/modules/episode.js';
 
 test('constructor', () => {
   const game = new Game();
@@ -32,20 +33,20 @@ describe('#findEpisode', () => {
     const game = new Game();
     const episode = game.findEpisode(1);
 
-    const l = episode.length;
+    const l = episode.events.length;
     expect(l).toBeGreaterThanOrEqual(6);
     expect(l).toBeLessThanOrEqual(10);
 
     for (let s = 0; s < l - 1; s++) {
-      const state0 = episode[s].state;
-      const state1 = episode[s + 1].state;
-      const nextState = state0.step(episode[s].action);
+      const state0 = episode.events[s].state;
+      const state1 = episode.events[s + 1].state;
+      const nextState = state0.step(episode.events[s].action);
 
       expect(state0.winner()).toBe(null);
       expect(nextState.toString()).toBe(state1.toString());
     }
-    expect(episode[l - 1].state.winner()).not.toBe(null);
-    expect(episode[l - 1].action).toBe(null);
+    expect(episode.events[l - 1].state.winner()).not.toBe(null);
+    expect(episode.events[l - 1].action).toBe(null);
   });
 
   test('epsilon = 0', () => {
@@ -94,21 +95,21 @@ describe('#findEpisode', () => {
 
     const episode = game.findEpisode(0);
 
-    expect(episode.length).toBe(6);
+    expect(episode.events.length).toBe(6);
 
-    expect(episode[0].state.toString()).toBe(state0.toString());
-    expect(episode[1].state.toString()).toBe(state1.toString());
-    expect(episode[2].state.toString()).toBe(state2.toString());
-    expect(episode[3].state.toString()).toBe(state3.toString());
-    expect(episode[4].state.toString()).toBe(state4.toString());
-    expect(episode[5].state.toString()).toBe(state5.toString());
+    expect(episode.events[0].state.toString()).toBe(state0.toString());
+    expect(episode.events[1].state.toString()).toBe(state1.toString());
+    expect(episode.events[2].state.toString()).toBe(state2.toString());
+    expect(episode.events[3].state.toString()).toBe(state3.toString());
+    expect(episode.events[4].state.toString()).toBe(state4.toString());
+    expect(episode.events[5].state.toString()).toBe(state5.toString());
 
-    expect(episode[0].action).toEqual(action0);
-    expect(episode[1].action).toEqual(action1);
-    expect(episode[2].action).toEqual(action2);
-    expect(episode[3].action).toEqual(action3);
-    expect(episode[4].action).toEqual(action4);
-    expect(episode[5].action).toEqual(null);
+    expect(episode.events[0].action).toEqual(action0);
+    expect(episode.events[1].action).toEqual(action1);
+    expect(episode.events[2].action).toEqual(action2);
+    expect(episode.events[3].action).toEqual(action3);
+    expect(episode.events[4].action).toEqual(action4);
+    expect(episode.events[5].action).toEqual(null);
   });
 });
 
@@ -324,8 +325,9 @@ describe('#train', () => {
       return state;
     }));
 
-    const episode = states.map((state, i) => {
-      return { state: state, action: actions[i] };
+    const episode = new Episode();
+    states.forEach((state, i) => {
+      episode.push(state, actions[i]);
     });
 
     game.train(episode);
@@ -366,8 +368,9 @@ describe('#train', () => {
       return state;
     }));
 
-    const episode = states.map((state, i) => {
-      return { state: state, action: actions[i] };
+    const episode = new Episode();
+    states.forEach((state, i) => {
+      episode.push(state, actions[i]);
     });
 
     game.train(episode);
@@ -413,8 +416,9 @@ describe('#train', () => {
       return state;
     }));
 
-    const episode = states.map((state, i) => {
-      return { state: state, action: actions[i] };
+    const episode = new Episode();
+    states.forEach((state, i) => {
+      episode.push(state, actions[i]);
     });
 
     game.train(episode);
