@@ -12,10 +12,3 @@ test('#toString', () => {
 
   expect(action.toString()).toBe("[1, 2]");
 });
-
-test('.create', () => {
-  const action = Action.create("[1, 2]");
-
-  expect(action.x).toBe(1);
-  expect(action.y).toBe(2);
-});
