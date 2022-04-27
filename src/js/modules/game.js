@@ -41,8 +41,8 @@ export class Game {
   }
 
   trainOnePlayer(episode, player) {
-    const l = episode.length;
-    const eventLast = episode[l - 1];
+    const l = episode.events.length;
+    const eventLast = episode.events[l - 1];
     const stateLast = eventLast.state;
 
     let reward = 0;
@@ -55,8 +55,8 @@ export class Game {
     }
 
     for (let i = 0; i < l - 1; i++) {
-      const event0 = episode[l - 2 - i];
-      const event1 = episode[l - 1 - i];
+      const event0 = episode.events[l - 2 - i];
+      const event1 = episode.events[l - 1 - i];
       const r = (i == 0) ? reward : 0;
       this.trainEvent(event0.state, event0.action, event1.state, r);
     }

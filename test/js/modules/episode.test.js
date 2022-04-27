@@ -50,14 +50,14 @@ describe('#episodeO/#episodeX', () => {
   }
   episode.push(states[l], null);
 
-  expect(episode.episodeO()).toEqual([
+  expect(episode.episodeO().events).toEqual([
     { state: states[0], action: actions[0] },
     { state: states[2], action: actions[2] },
     { state: states[4], action: actions[4] },
     { state: states[5], action: null }
   ]);
 
-  expect(episode.episodeX()).toEqual([
+  expect(episode.episodeX().events).toEqual([
     { state: states[1], action: actions[1] },
     { state: states[3], action: actions[3] },
     { state: states[5], action: null }

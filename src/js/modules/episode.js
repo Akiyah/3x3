@@ -10,18 +10,31 @@ export class Episode {
   episodeO() {
     const l = this.events.length;
     const lastEvent = this.events[l - 1];
+    const episode = new Episode();
 
-    return this.events.filter((_event, i) => {
-      return (i % 2 == 0) && (i < l - 1);
-    }).concat(lastEvent);
+    this.events.forEach((event, i) => {
+      if ((i % 2 == 0) && (i < l - 1)) {
+        episode.push(event.state, event.action);
+      }
+    });
+
+    episode.push(lastEvent.state, lastEvent.action);
+    return episode;
   }
 
   episodeX() {
     const l = this.events.length;
     const lastEvent = this.events[l - 1];
+    const episode = new Episode();
 
-    return this.events.filter((_event, i) => {
-      return (i % 2 == 1) && (i < l - 1);
-    }).concat(lastEvent);
+    this.events.forEach((event, i) => {
+      if ((i % 2 == 1) && (i < l - 1)) {
+        episode.push(event.state, event.action);
+      }
+    });
+
+    episode.push(lastEvent.state, lastEvent.action);
+    return episode;
+
   }
 }
