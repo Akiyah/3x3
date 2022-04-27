@@ -63,8 +63,8 @@ export class Game {
   }
 
   train(episode) {
-    this.trainOnePlayer(episode.episodeO(), "o");
-    this.trainOnePlayer(episode.episodeX(), "x");
+    this.trainOnePlayer(episode.playerEpisode("o"), "o");
+    this.trainOnePlayer(episode.playerEpisode("x"), "x");
 
     this.trainCount++;
   }
