@@ -28,7 +28,7 @@ test('#push', () => {
   ]);
 });
 
-describe('#episodeO/#episodeX', () => {
+describe('#playerEpisode', () => {
   const episode = new Episode();
   const actions = [
     new Action(0, 0),
