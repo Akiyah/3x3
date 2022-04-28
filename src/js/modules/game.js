@@ -40,7 +40,7 @@ export class Game {
     this.quality.set(state0, action0, q0);
   }
 
-  trainOnePlayer(episode, player) {
+  trainOnePlayer(episode) {
     const l = episode.events.length;
 
     for (let i = 0; i < l - 1; i++) {
@@ -51,8 +51,8 @@ export class Game {
   }
 
   train(episode) {
-    this.trainOnePlayer(episode.playerEpisode("o"), "o");
-    this.trainOnePlayer(episode.playerEpisode("x"), "x");
+    this.trainOnePlayer(episode.playerEpisode("o"));
+    this.trainOnePlayer(episode.playerEpisode("x"));
 
     this.trainCount++;
   }
