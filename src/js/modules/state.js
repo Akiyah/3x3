@@ -21,14 +21,20 @@ export class State {
     return this.marks[y][x];
   }
 
+  currentPlayer() {
+    return (this.actions().length % 2 == 0) ? 'o' : 'x';
+  }
+
+  nextPlayer() {
+    return (this.actions().length % 2 == 0) ? 'x' : 'o';
+  }
+
   step(action) {
     const x = action.x;
     const y = action.y;
-    const k = 9 - this.actions().length;
-    const mark = ((k % 2 == 0) ? 'o' : 'x');
 
     let marks = this.mapPoints((action0) => this.mark(action0));
-    marks[y][x] = mark;
+    marks[y][x] = this.nextPlayer();
     return new State(marks);
   }
 
