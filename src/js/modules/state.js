@@ -80,4 +80,16 @@ export class State {
 
     return null;
   }
+
+  reward() {
+    if (this.isWin("o")) {
+      return 1;
+    }
+
+    if (this.isWin("x")) {
+      return -1;
+    }
+
+    return 0;
+  }
 }

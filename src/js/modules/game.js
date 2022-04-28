@@ -25,11 +25,11 @@ export class Game {
 
     while(state.winner() === null) {
       const action = this.findAction(state, epsilon);
-      episode.push(state, action);
+      episode.push(state, action, state.reward());
       state = state.step(action);
     }
 
-    episode.push(state, null);
+    episode.push(state, null, state.reward());
     return episode;
   }
 
@@ -42,23 +42,11 @@ export class Game {
 
   trainOnePlayer(episode, player) {
     const l = episode.events.length;
-    const eventLast = episode.events[l - 1];
-    const stateLast = eventLast.state;
-
-    let reward = 0;
-    if (stateLast.winner() == "-") {
-      reward = 0;
-    } else if (stateLast.winner() == player) {
-      reward = 1;
-    } else {
-      reward = -1;
-    }
 
     for (let i = 0; i < l - 1; i++) {
       const event0 = episode.events[l - 2 - i];
       const event1 = episode.events[l - 1 - i];
-      const r = (i == 0) ? reward : 0;
-      this.trainEvent(event0.state, event0.action, event1.state, r);
+      this.trainEvent(event0.state, event0.action, event1.state, event1.reward);
     }
   }
 

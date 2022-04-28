@@ -200,3 +200,37 @@ describe('#winner', () => {
     expect(state.winner()).toEqual("-");
   });
 });
+
+describe('#reward', () => {
+  test('no winners', () => {
+    const state = new State();
+    expect(state.reward()).toBe(0);
+  });
+
+  test('o win', () => {
+    const state = new State([
+      [" ", "o", " "],
+      ["x", "o", "x"],
+      [" ", "o", " "]
+    ]);
+    expect(state.reward()).toBe(1);
+  });
+
+  test('x win', () => {
+    const state = new State([
+      ["o", " ", "x"],
+      [" ", "x", " "],
+      ["x", "o", "o"]
+    ]);
+    expect(state.reward()).toBe(-1);
+  });
+
+  test('draw', () => {
+    const state = new State([
+      ["o", "x", "o"],
+      ["x", "o", "o"],
+      ["x", "o", "x"]
+    ]);
+    expect(state.reward()).toBe(0);
+  });
+});
