@@ -61,18 +61,12 @@ describe('#trainOnePlayer', () => {
       return state;
     }));
 
-    const episodeO = new Episode();
-    episodeO.push(states[0], actions[0], 0)
-    episodeO.push(states[2], actions[2], 0)
-    episodeO.push(states[4], actions[4], 0)
-    episodeO.push(states[5], null, 1)
-
-    const episodeX = new Episode();
-    episodeX.push(states[1], actions[1], 0)
-    episodeX.push(states[3], actions[3], 0)
-    episodeX.push(states[5], null, -1)
-
-    game.trainOnePlayer(episodeO);
+    game.trainOnePlayer([
+      { state: states[0], action: actions[0], reward: 0 },
+      { state: states[2], action: actions[2], reward: 0 },
+      { state: states[4], action: actions[4], reward: 0 },
+      { state: states[5], action: null, reward: 1 }
+    ]);
 
     expect(game.quality.get(states[0], actions[0])).toBe(0.2**3);
     expect(game.quality.get(states[1], actions[1])).toBe(0);
@@ -80,7 +74,11 @@ describe('#trainOnePlayer', () => {
     expect(game.quality.get(states[3], actions[3])).toBe(0);
     expect(game.quality.get(states[4], actions[4])).toBe(0.2);
 
-    game.trainOnePlayer(episodeX);
+    game.trainOnePlayer([
+      { state: states[1], action: actions[1], reward: 0 },
+      { state: states[3], action: actions[3], reward: 0 },
+      { state: states[5], action: null, reward: -1 }
+    ]);
 
     expect(game.quality.get(states[0], actions[0])).toBe(0.2**3);
     expect(game.quality.get(states[1], actions[1])).toBe(0);
@@ -106,19 +104,12 @@ describe('#trainOnePlayer', () => {
       return state;
     }));
 
-    const episodeO = new Episode();
-    episodeO.push(states[0], actions[0], 0)
-    episodeO.push(states[2], actions[2], 0)
-    episodeO.push(states[4], actions[4], 0)
-    episodeO.push(states[6], null, -1)
-
-    const episodeX = new Episode();
-    episodeX.push(states[1], actions[1], 0)
-    episodeX.push(states[3], actions[3], 0)
-    episodeX.push(states[5], actions[5], 0)
-    episodeX.push(states[6], null, 1)
-
-    game.trainOnePlayer(episodeO);
+    game.trainOnePlayer([
+      { state: states[0], action: actions[0], reward: 0 },
+      { state: states[2], action: actions[2], reward: 0 },
+      { state: states[4], action: actions[4], reward: 0 },
+      { state: states[6], action: null, reward: -1 }
+    ]);
 
     expect(game.quality.get(states[0], actions[0])).toBe(0);
     expect(game.quality.get(states[1], actions[1])).toBe(0);
@@ -127,7 +118,12 @@ describe('#trainOnePlayer', () => {
     expect(game.quality.get(states[4], actions[4])).toBe(-0.2);
     expect(game.quality.get(states[5], actions[5])).toBe(0);
 
-    game.trainOnePlayer(episodeX);
+    game.trainOnePlayer([
+      { state: states[1], action: actions[1], reward: 0 },
+      { state: states[3], action: actions[3], reward: 0 },
+      { state: states[5], action: actions[5], reward: 0 },
+      { state: states[6], action: null, reward: 1 }
+    ]);
 
     expect(game.quality.get(states[0], actions[0])).toBe(0);
     expect(game.quality.get(states[1], actions[1])).toBe(0.2**3);
@@ -172,7 +168,14 @@ describe('#trainOnePlayer', () => {
     episodeX.push(states[7], actions[7], 0)
     episodeX.push(states[9], null, 0)
 
-    game.trainOnePlayer(episodeO);
+    game.trainOnePlayer([
+      { state: states[0], action: actions[0], reward: 0 },
+      { state: states[2], action: actions[2], reward: 0 },
+      { state: states[4], action: actions[4], reward: 0 },
+      { state: states[6], action: actions[6], reward: 0 },
+      { state: states[8], action: actions[8], reward: 0 },
+      { state: states[9], action: null, reward: 0 }
+    ]);
 
     expect(game.quality.get(states[0], actions[0])).toBe(0);
     expect(game.quality.get(states[1], actions[1])).toBe(0);
@@ -184,7 +187,13 @@ describe('#trainOnePlayer', () => {
     expect(game.quality.get(states[7], actions[7])).toBe(0);
     expect(game.quality.get(states[8], actions[8])).toBe(0);
 
-    game.trainOnePlayer(episodeX);
+    game.trainOnePlayer([
+      { state: states[1], action: actions[1], reward: 0 },
+      { state: states[3], action: actions[3], reward: 0 },
+      { state: states[5], action: actions[5], reward: 0 },
+      { state: states[7], action: actions[7], reward: 0 },
+      { state: states[9], action: null, reward: 0 }
+    ]);
 
     expect(game.quality.get(states[0], actions[0])).toBe(0);
     expect(game.quality.get(states[1], actions[1])).toBe(0);

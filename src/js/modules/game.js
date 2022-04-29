@@ -18,12 +18,12 @@ export class Game {
     this.quality.set(state0, action0, q0);
   }
 
-  trainOnePlayer(episode) {
-    const events = episode.events.slice().reverse();
+  trainOnePlayer(events) {
+    const eventsR = events.slice().reverse();
 
-    events.forEach((event0, i) => {
+    eventsR.forEach((event0, i) => {
       if (0 < i) {
-        const event1 = events[i - 1];
+        const event1 = eventsR[i - 1];
         this.trainEvent(event0.state, event0.action, event1.state, event1.reward);
       }
     });
