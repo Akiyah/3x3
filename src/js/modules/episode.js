@@ -1,6 +1,30 @@
+import { State } from './state.js';
+
 export class Episode {
   constructor() {
     this.events = [];
+  }
+
+  static findAction(state, epsilon, quality) {
+    if (Math.random() < epsilon) {
+      return state.randomAction();
+    } else {
+      return quality.policy(state);
+    }
+  }
+
+  static find(epsilon, quality) {
+    let state = new State();
+    const episode = new Episode();
+
+    while(state.winner() === null) {
+      const action = this.findAction(state, epsilon, quality);
+      episode.push(state, action, state.reward());
+      state = state.step(action);
+    }
+
+    episode.push(state, null, state.reward());
+    return episode;
   }
 
   push(state, action, reward) {
