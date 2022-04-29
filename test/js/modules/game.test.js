@@ -210,8 +210,8 @@ describe('#train', () => {
     }));
 
     const episode = new Episode();
-    states.forEach((state, i) => {
-      episode.step(actions[i]);
+    actions.forEach((action) => {
+      episode.step(action);
     });
 
     game.train(episode);
@@ -253,8 +253,8 @@ describe('#train', () => {
     }));
 
     const episode = new Episode();
-    states.forEach((state, i) => {
-      episode.step(actions[i]);
+    actions.forEach((action) => {
+      episode.step(action);
     });
 
     game.train(episode);
@@ -301,8 +301,8 @@ describe('#train', () => {
     }));
 
     const episode = new Episode();
-    states.forEach((state, i) => {
-      episode.step(actions[i]);
+    actions.forEach((action) => {
+      episode.step(action);
     });
 
     game.train(episode);

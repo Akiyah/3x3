@@ -144,10 +144,9 @@ describe('#step', () => {
       [" ", " ", "o"]
     ]);
 
-    for (let i = 0; i < 5; i++) {
-      episode.step(actions[i]);
-    }
-    episode.step(null);
+    actions.forEach((action) => {
+      episode.step(action);
+    });
 
     expect(episode.events[0]).toEqual([
       { state: states[0], action: actions[0], reward: 0 },
@@ -185,10 +184,9 @@ describe('#step', () => {
       ["x", " ", " "]
     ]);
 
-    for (let i = 0; i < 6; i++) {
-      episode.step(actions[i]);
-    }
-    episode.step(null);
+    actions.forEach((action) => {
+      episode.step(action);
+    });
 
     expect(episode.events[0]).toEqual([
       { state: states[0], action: actions[0], reward: 0 },
@@ -230,10 +228,9 @@ describe('#step', () => {
       ["x", "o", "x"]
     ]);
 
-    for (let i = 0; i < 9; i++) {
-      episode.step(actions[i]);
-    }
-    episode.step(null);
+    actions.forEach((action) => {
+      episode.step(action);
+    });
 
     expect(episode.events[0]).toEqual([
       { state: states[0], action: actions[0], reward: 0 },

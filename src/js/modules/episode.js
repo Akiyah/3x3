@@ -16,28 +16,27 @@ export class Episode {
       state = state.step(action);
     }
 
-    episode.step(null);
     return episode;
   }
 
   step(action) {
     const reward = this.state.reward();
-    const state = this.state;
+    let state = this.state;
 
-    if (!state.winner()) {
-      const i = state.nextPlayerIndex();
-      this.events[i].push({
-        state: state,
-        action: action,
-        reward: i == 0 ? reward : -reward
-      });
+    const i = state.nextPlayerIndex();
+    this.events[i].push({
+      state: state,
+      action: action,
+      reward: i == 0 ? reward : -reward
+    });
 
-      this.state = state.step(action);
-      return;
+    state = state.step(action);
+    this.state = state;
+
+    if (state.winner()) {
+      // last state
+      this.events[0].push({ state: state, action: null, reward: state.reward() });
+      this.events[1].push({ state: state, action: null, reward: -state.reward() });
     }
-
-    // last state
-    this.events[0].push({ state: state, action: null, reward: state.reward() });
-    this.events[1].push({ state: state, action: null, reward: -state.reward() });
   }
 }
