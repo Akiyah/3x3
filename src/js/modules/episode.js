@@ -39,4 +39,17 @@ export class Episode {
       this.events[1].push({ state: state, action: null, reward: -state.reward() });
     }
   }
+
+  eachStep(callback) {
+    this.events.forEach((events) => {
+      const eventsR = events.slice().reverse();
+
+      eventsR.forEach((event0, i) => {
+        if (0 < i) {
+          const event1 = eventsR[i - 1];
+          callback(event0, event1);
+        }
+      });
+    });
+  }
 }

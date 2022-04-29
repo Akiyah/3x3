@@ -249,3 +249,51 @@ describe('#step', () => {
     ]);
   });
 });
+
+test('#eachStep', () => {
+  const episode = new Episode();
+  const actions = [
+    new Action(1, 1),
+    new Action(1, 0),
+    new Action(0, 0),
+    new Action(2, 1),
+    new Action(2, 2)
+  ];
+
+  let state = new State();
+  const states = [state].concat(actions.map((action) => {
+    state = state.step(action);
+    return state;
+  }));
+
+  expect(states[5].marks).toEqual([
+    ["o", "x", " "],
+    [" ", "o", "x"],
+    [" ", " ", "o"]
+  ]);
+
+  actions.forEach((action) => {
+    episode.step(action);
+  });
+
+  const results = [];
+  episode.eachStep((event0, event1) => {
+    results.push([event0, event1]);
+  });
+
+  const event0 = { state: states[0], action: actions[0], reward: 0 };
+  const event1 = { state: states[1], action: actions[1], reward: -0 };
+  const event2 = { state: states[2], action: actions[2], reward: 0 };
+  const event3 = { state: states[3], action: actions[3], reward: -0 };
+  const event4 = { state: states[4], action: actions[4], reward: 0 };
+  const event50 = { state: states[5], action: null, reward: 1 };
+  const event51 = { state: states[5], action: null, reward: -1 };
+
+  expect(results).toEqual([
+    [event4, event50],
+    [event2, event4],
+    [event0, event2],
+    [event3, event51],
+    [event1, event3]
+  ]);
+});
