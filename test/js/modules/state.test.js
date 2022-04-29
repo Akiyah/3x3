@@ -61,17 +61,14 @@ test('#mark', () => {
   expect(state.mark(new Action(0, 1))).toEqual("x");
 });
 
-test('#currentPlayer/#nextPlayer', () => {
+test('#nextPlayer', () => {
   let state = new State();
-  expect(state.currentPlayer()).toBe("x");
   expect(state.nextPlayer()).toBe("o");
 
   state = state.step(new Action(1, 1));
-  expect(state.currentPlayer()).toBe("o");
   expect(state.nextPlayer()).toBe("x");
 
   state = state.step(new Action(0, 0));
-  expect(state.currentPlayer()).toBe("x");
   expect(state.nextPlayer()).toBe("o");
 });
 

@@ -21,10 +21,6 @@ export class State {
     return this.marks[y][x];
   }
 
-  currentPlayer() {
-    return (this.actions().length % 2 == 0) ? 'o' : 'x';
-  }
-
   nextPlayer() {
     return (this.actions().length % 2 == 0) ? 'x' : 'o';
   }

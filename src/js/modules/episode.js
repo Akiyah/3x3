@@ -29,6 +29,7 @@ export class Episode {
       return;
     }
 
+    // last state
     this.events[0].push({ state: state, action: null, reward: reward });
     this.events[1].push({ state: state, action: null, reward: -reward });
   }
