@@ -11,28 +11,6 @@ export class Game {
     this.trainCount = 0;
   }
 
-  findAction(state, epsilon) {
-    if (Math.random() < epsilon) {
-      return state.randomAction();
-    } else {
-      return this.quality.policy(state);
-    }
-  }
-
-  findEpisode(epsilon) {
-    let state = new State();
-    const episode = new Episode();
-
-    while(state.winner() === null) {
-      const action = this.findAction(state, epsilon);
-      episode.push(state, action, state.reward());
-      state = state.step(action);
-    }
-
-    episode.push(state, null, state.reward());
-    return episode;
-  }
-
   trainEvent(state0, action0, state1, reward) {
     let q0 = this.quality.get(state0, action0);
     const q1 = this.quality.value(state1);

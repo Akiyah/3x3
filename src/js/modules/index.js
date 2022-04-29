@@ -1,6 +1,7 @@
 import { Game } from './game.js';
 import { State } from './state.js';
 import { Action } from './action.js';
+import { Episode } from './episode.js';
 
 function td(x, y) {
   const boardDiv = document.getElementById("board");
@@ -45,7 +46,7 @@ function click(env, x, y) {
     return;
   }
 
-  const action = env.game.findAction(env.state, 0);
+  const action = Episode.findAction(env.state, 0, env.game.quality);
   env.state = env.state.step(action);
   refresh(env.state);
 };
@@ -65,7 +66,7 @@ function initialize() {
 
   const timer = setInterval(() => {
     for (let i = 0; i < 100; i++) {
-      const episode = env.game.findEpisode(0.1);
+      const episode = Episode.find(0.1, env.game.quality);
       env.game.train(episode);
     }
     document.getElementById("train_count").innerText = env.game.trainCount;
