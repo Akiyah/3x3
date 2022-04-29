@@ -5,7 +5,7 @@ export class Episode {
     this.events = [];
   }
 
-  static findAction(state, epsilon, quality) {
+  static findAction(state, quality, epsilon) {
     if (Math.random() < epsilon) {
       return state.randomAction();
     } else {
@@ -13,12 +13,12 @@ export class Episode {
     }
   }
 
-  static find(epsilon, quality) {
+  static find(quality, epsilon) {
     let state = new State();
     const episode = new Episode();
 
     while(state.winner() === null) {
-      const action = this.findAction(state, epsilon, quality);
+      const action = this.findAction(state, quality, epsilon);
       episode.push(state, action, state.reward());
       state = state.step(action);
     }

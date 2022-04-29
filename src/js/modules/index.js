@@ -24,7 +24,7 @@ function clear(env) {
   env.state = new State();
 
   if (document.getElementById("player").value == "x") {
-    const action = env.game.findAction(env.state, 0);
+    const action = Episode.findAction(env.state, env.game.quality, 0);
     env.state = env.state.step(action);
   }
 }
@@ -46,7 +46,7 @@ function click(env, x, y) {
     return;
   }
 
-  const action = Episode.findAction(env.state, 0, env.game.quality);
+  const action = Episode.findAction(env.state, env.game.quality, 0);
   env.state = env.state.step(action);
   refresh(env.state);
 };
@@ -66,7 +66,7 @@ function initialize() {
 
   const timer = setInterval(() => {
     for (let i = 0; i < 100; i++) {
-      const episode = Episode.find(0.1, env.game.quality);
+      const episode = Episode.find(env.game.quality, 0.1);
       env.game.train(episode);
     }
     document.getElementById("train_count").innerText = env.game.trainCount;

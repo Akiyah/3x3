@@ -13,7 +13,7 @@ describe('findAction', () => {
     const state = new State();
     const quuality = new Quality();
 
-    const action = Episode.findAction(state, 1, quuality);
+    const action = Episode.findAction(state, quuality, 1);
     expect([0, 1, 2]).toContain(action.x);
     expect([0, 1, 2]).toContain(action.y);
   });
@@ -23,7 +23,7 @@ describe('findAction', () => {
     const quality = new Quality();
     quality.set(state, new Action(2, 1), 1);
 
-    const action = Episode.findAction(state, 0, quality);
+    const action = Episode.findAction(state, quality, 0);
     expect(action).toEqual(new Action(2, 1));
   });
 });
@@ -31,7 +31,7 @@ describe('findAction', () => {
 describe('find', () => {
   test('epsilon = 1', () => {
     const quality = new Quality();
-    const episode = Episode.find(1, quality);
+    const episode = Episode.find(quality, 1);
 
     const l = episode.events.length;
     expect(l).toBeGreaterThanOrEqual(6);
@@ -93,7 +93,7 @@ describe('find', () => {
     quality.set(state3, action3, 1);
     quality.set(state4, action4, 1);
 
-    const episode = Episode.find(0, quality);
+    const episode = Episode.find(quality, 0);
 
     expect(episode.events.length).toBe(6);
 
