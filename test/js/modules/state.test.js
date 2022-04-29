@@ -61,15 +61,18 @@ test('#mark', () => {
   expect(state.mark(new Action(0, 1))).toEqual("x");
 });
 
-test('#nextPlayer', () => {
+test('#nextPlayerIndex/#nextPlayerMark', () => {
   let state = new State();
-  expect(state.nextPlayer()).toBe("o");
+  expect(state.nextPlayerIndex()).toBe(0);
+  expect(state.nextPlayerMark()).toBe("o");
 
   state = state.step(new Action(1, 1));
-  expect(state.nextPlayer()).toBe("x");
+  expect(state.nextPlayerIndex()).toBe(1);
+  expect(state.nextPlayerMark()).toBe("x");
 
   state = state.step(new Action(0, 0));
-  expect(state.nextPlayer()).toBe("o");
+  expect(state.nextPlayerIndex()).toBe(0);
+  expect(state.nextPlayerMark()).toBe("o");
 });
 
 test('#step', () => {

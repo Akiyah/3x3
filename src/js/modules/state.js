@@ -21,8 +21,12 @@ export class State {
     return this.marks[y][x];
   }
 
-  nextPlayer() {
-    return (this.actions().length % 2 == 0) ? 'x' : 'o';
+  nextPlayerIndex() {
+    return (this.actions().length % 2 == 0) ? 1 : 0;
+  }
+
+  nextPlayerMark() {
+    return (this.nextPlayerIndex() == 0) ? 'o' : 'x';
   }
 
   step(action) {
@@ -30,7 +34,7 @@ export class State {
     const y = action.y;
 
     let marks = this.mapPoints((action0) => this.mark(action0));
-    marks[y][x] = this.nextPlayer();
+    marks[y][x] = this.nextPlayerMark();
     return new State(marks);
   }
 
