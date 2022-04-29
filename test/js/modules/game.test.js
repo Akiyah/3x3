@@ -153,21 +153,6 @@ describe('#trainOnePlayer', () => {
       return state;
     }));
 
-    const episodeO = new Episode();
-    episodeO.push(states[0], actions[0], 0)
-    episodeO.push(states[2], actions[2], 0)
-    episodeO.push(states[4], actions[4], 0)
-    episodeO.push(states[6], actions[6], 0)
-    episodeO.push(states[8], actions[8], 0)
-    episodeO.push(states[9], null, 0)
-
-    const episodeX = new Episode();
-    episodeX.push(states[1], actions[1], 0)
-    episodeX.push(states[3], actions[3], 0)
-    episodeX.push(states[5], actions[5], 0)
-    episodeX.push(states[7], actions[7], 0)
-    episodeX.push(states[9], null, 0)
-
     game.trainOnePlayer([
       { state: states[0], action: actions[0], reward: 0 },
       { state: states[2], action: actions[2], reward: 0 },
@@ -226,7 +211,7 @@ describe('#train', () => {
 
     const episode = new Episode();
     states.forEach((state, i) => {
-      episode.push(state, actions[i], i == states.length - 1 ? 1 : 0);
+      episode.step(actions[i]);
     });
 
     game.train(episode);
@@ -269,7 +254,7 @@ describe('#train', () => {
 
     const episode = new Episode();
     states.forEach((state, i) => {
-      episode.push(state, actions[i], i == states.length - 1 ? -1 : 0);
+      episode.step(actions[i]);
     });
 
     game.train(episode);
@@ -317,7 +302,7 @@ describe('#train', () => {
 
     const episode = new Episode();
     states.forEach((state, i) => {
-      episode.push(state, actions[i], 0);
+      episode.step(actions[i]);
     });
 
     game.train(episode);

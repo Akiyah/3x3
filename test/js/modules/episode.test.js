@@ -97,13 +97,13 @@ describe('find', () => {
   });
 });
 
-describe('#push new', () => {
+describe('#step', () => {
   test('first 2 steps', () => {
     const episode = new Episode();
 
     const state0 = new State();
     const action0 = new Action(1, 2);
-    episode.push(state0, action0, 0);
+    episode.step(action0);
 
     expect(episode.events[0]).toEqual([
       { state: state0, action: action0, reward: 0 }
@@ -112,7 +112,7 @@ describe('#push new', () => {
 
     const state1 = state0.step(action0);
     const action1 = new Action(2, 2);
-    episode.push(state1, action1, 0);
+    episode.step(action1);
 
     expect(episode.events[0]).toEqual([
       { state: state0, action: action0, reward: 0 }
@@ -145,9 +145,9 @@ describe('#push new', () => {
     ]);
 
     for (let i = 0; i < 5; i++) {
-      episode.push(states[i], actions[i], 0);
+      episode.step(actions[i]);
     }
-    episode.push(states[5], null, 1);
+    episode.step(null);
 
     expect(episode.events[0]).toEqual([
       { state: states[0], action: actions[0], reward: 0 },
@@ -186,9 +186,9 @@ describe('#push new', () => {
     ]);
 
     for (let i = 0; i < 6; i++) {
-      episode.push(states[i], actions[i], 0);
+      episode.step(actions[i]);
     }
-    episode.push(states[6], null, -1);
+    episode.step(null);
 
     expect(episode.events[0]).toEqual([
       { state: states[0], action: actions[0], reward: 0 },
@@ -231,9 +231,9 @@ describe('#push new', () => {
     ]);
 
     for (let i = 0; i < 9; i++) {
-      episode.push(states[i], actions[i], 0);
+      episode.step(actions[i]);
     }
-    episode.push(states[9], null, 0);
+    episode.step(null);
 
     expect(episode.events[0]).toEqual([
       { state: states[0], action: actions[0], reward: 0 },
