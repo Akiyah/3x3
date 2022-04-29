@@ -1,6 +1,4 @@
-import { State } from './state.js';
 import { Quality } from './quality.js';
-import { Episode } from './episode.js';
 
 const α = 0.2;
 const γ = 1;
