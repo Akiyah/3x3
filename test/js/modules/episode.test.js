@@ -8,26 +8,6 @@ test('constructor', () => {
   expect(episode.events).toEqual([]);
 });
 
-describe('findAction', () => {
-  test('epsilon = 1', () => {
-    const state = new State();
-    const quuality = new Quality();
-
-    const action = Episode.findAction(state, quuality, 1);
-    expect([0, 1, 2]).toContain(action.x);
-    expect([0, 1, 2]).toContain(action.y);
-  });
-
-  test('epsilon = 0', () => {
-    const state = new State();
-    const quality = new Quality();
-    quality.set(state, new Action(2, 1), 1);
-
-    const action = Episode.findAction(state, quality, 0);
-    expect(action).toEqual(new Action(2, 1));
-  });
-});
-
 describe('find', () => {
   test('epsilon = 1', () => {
     const quality = new Quality();

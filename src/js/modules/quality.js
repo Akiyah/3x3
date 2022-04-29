@@ -38,6 +38,14 @@ export class Quality {
     }).shift();
   }
 
+  findAction(state, epsilon) {
+    if (Math.random() < epsilon) {
+      return state.randomAction();
+    } else {
+      return this.policy(state);
+    }
+  }
+
   count() {
     return Object.entries(this.map).reduce((sum, [stateString, qs]) => {
       return sum + Object.entries(qs).length;

@@ -24,7 +24,7 @@ function clear(env) {
   env.state = new State();
 
   if (document.getElementById("player").value == "x") {
-    const action = Episode.findAction(env.state, env.game.quality, 0);
+    const action = env.game.quality.findAction(env.state, 0);
     env.state = env.state.step(action);
   }
 }
@@ -46,7 +46,7 @@ function click(env, x, y) {
     return;
   }
 
-  const action = Episode.findAction(env.state, env.game.quality, 0);
+  const action = env.game.quality.findAction(env.state, 0);
   env.state = env.state.step(action);
   refresh(env.state);
 };

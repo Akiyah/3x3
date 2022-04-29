@@ -102,6 +102,25 @@ test('#policy', () => {
   expect(quality.policy(state)).toEqual(new Action(2, 1));
 });
 
+describe('#findAction', () => {
+  test('epsilon = 1', () => {
+    const quality = new Quality();
+    const state = new State();
+    const action = quality.findAction(state, 1);
+    expect([0, 1, 2]).toContain(action.x);
+    expect([0, 1, 2]).toContain(action.y);
+  });
+
+  test('epsilon = 0', () => {
+    const quality = new Quality();
+    const state = new State();
+    quality.set(state, new Action(2, 1), 1);
+
+    const action = quality.findAction(state, 0);
+    expect(action).toEqual(new Action(2, 1));
+  });
+});
+
 test('#count', () => {
   const quality = new Quality();
   const state0 = new State();
