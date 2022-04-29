@@ -16,21 +16,10 @@ export class Game {
     this.quality.set(state0, action0, q0);
   }
 
-  trainOnePlayer(events) {
-    const eventsR = events.slice().reverse();
-
-    eventsR.forEach((event0, i) => {
-      if (0 < i) {
-        const event1 = eventsR[i - 1];
-        this.trainEvent(event0.state, event0.action, event1.state, event1.reward);
-      }
-    });
-  }
-
   train(episode) {
-    this.trainOnePlayer(episode.events[0]);
-    this.trainOnePlayer(episode.events[1]);
-
+    episode.eachStep((event0, event1) => {
+      this.trainEvent(event0.state, event0.action, event1.state, event1.reward);
+    });
     this.trainCount++;
   }
 }
