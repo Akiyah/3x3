@@ -21,11 +21,12 @@ export class Episode {
 
   push(state, action, reward) {
     if (!state.winner()) {
-      if (state.nextPlayerIndex() == 0) {
-        this.events[0].push({ state: state, action: action, reward: reward });
-      } else {
-        this.events[1].push({ state: state, action: action, reward: -reward });
-      }
+      const i = state.nextPlayerIndex();
+      this.events[i].push({
+        state: state,
+        action: action,
+        reward: i == 0 ? reward : -reward
+      });
       return;
     }
 
