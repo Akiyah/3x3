@@ -5,8 +5,7 @@ import { Quality } from '../../../src/js/modules/quality.js';
 
 test('constructor', () => {
   const episode = new Episode();
-  expect(episode.eventsO).toEqual([]);
-  expect(episode.eventsX).toEqual([]);
+  expect(episode.events).toEqual([[], []]);
 });
 
 describe('find', () => {
@@ -14,19 +13,19 @@ describe('find', () => {
     const quality = new Quality();
     const episode = Episode.find(quality, 1);
 
-    const lO = episode.eventsO.length;
-    expect(lO).toBeGreaterThanOrEqual(4);
-    expect(lO).toBeLessThanOrEqual(6);
+    const l0 = episode.events[0].length;
+    expect(l0).toBeGreaterThanOrEqual(4);
+    expect(l0).toBeLessThanOrEqual(6);
 
-    const lX = episode.eventsX.length;
-    expect(lX).toBeGreaterThanOrEqual(3);
-    expect(lX).toBeLessThanOrEqual(5);
+    const l1 = episode.events[1].length;
+    expect(l1).toBeGreaterThanOrEqual(3);
+    expect(l1).toBeLessThanOrEqual(5);
 
-    expect(episode.eventsO[lO - 1].state.winner()).not.toBe(null);
-    expect(episode.eventsO[lO - 1].action).toBe(null);
+    expect(episode.events[0][l0 - 1].state.winner()).not.toBe(null);
+    expect(episode.events[0][l0 - 1].action).toBe(null);
 
-    expect(episode.eventsX[lX - 1].state.winner()).not.toBe(null);
-    expect(episode.eventsX[lX - 1].action).toBe(null);
+    expect(episode.events[1][l1 - 1].state.winner()).not.toBe(null);
+    expect(episode.events[1][l1 - 1].action).toBe(null);
   });
 
   test('epsilon = 0', () => {
@@ -75,26 +74,26 @@ describe('find', () => {
 
     const episode = Episode.find(quality, 0);
 
-    expect(episode.eventsO.length).toBe(4);
-    expect(episode.eventsX.length).toBe(3);
+    expect(episode.events[0].length).toBe(4);
+    expect(episode.events[1].length).toBe(3);
 
-    expect(episode.eventsO[0].state.toString()).toBe(state0.toString());
-    expect(episode.eventsO[1].state.toString()).toBe(state2.toString());
-    expect(episode.eventsO[2].state.toString()).toBe(state4.toString());
-    expect(episode.eventsO[3].state.toString()).toBe(state5.toString());
+    expect(episode.events[0][0].state.toString()).toBe(state0.toString());
+    expect(episode.events[0][1].state.toString()).toBe(state2.toString());
+    expect(episode.events[0][2].state.toString()).toBe(state4.toString());
+    expect(episode.events[0][3].state.toString()).toBe(state5.toString());
 
-    expect(episode.eventsO[0].action).toEqual(action0);
-    expect(episode.eventsO[1].action).toEqual(action2);
-    expect(episode.eventsO[2].action).toEqual(action4);
-    expect(episode.eventsO[3].action).toEqual(null);
+    expect(episode.events[0][0].action).toEqual(action0);
+    expect(episode.events[0][1].action).toEqual(action2);
+    expect(episode.events[0][2].action).toEqual(action4);
+    expect(episode.events[0][3].action).toEqual(null);
 
-    expect(episode.eventsX[0].state.toString()).toBe(state1.toString());
-    expect(episode.eventsX[1].state.toString()).toBe(state3.toString());
-    expect(episode.eventsX[2].state.toString()).toBe(state5.toString());
+    expect(episode.events[1][0].state.toString()).toBe(state1.toString());
+    expect(episode.events[1][1].state.toString()).toBe(state3.toString());
+    expect(episode.events[1][2].state.toString()).toBe(state5.toString());
 
-    expect(episode.eventsX[0].action).toEqual(action1);
-    expect(episode.eventsX[1].action).toEqual(action3);
-    expect(episode.eventsX[2].action).toEqual(null);
+    expect(episode.events[1][0].action).toEqual(action1);
+    expect(episode.events[1][1].action).toEqual(action3);
+    expect(episode.events[1][2].action).toEqual(null);
   });
 });
 
@@ -106,19 +105,19 @@ describe('#push new', () => {
     const action0 = new Action(1, 2);
     episode.push(state0, action0, 0);
 
-    expect(episode.eventsO).toEqual([
+    expect(episode.events[0]).toEqual([
       { state: state0, action: action0, reward: 0 }
     ]);
-    expect(episode.eventsX).toEqual([]);
+    expect(episode.events[1]).toEqual([]);
 
     const state1 = state0.step(action0);
     const action1 = new Action(2, 2);
     episode.push(state1, action1, 0);
 
-    expect(episode.eventsO).toEqual([
+    expect(episode.events[0]).toEqual([
       { state: state0, action: action0, reward: 0 }
     ]);
-    expect(episode.eventsX).toEqual([
+    expect(episode.events[1]).toEqual([
       { state: state1, action: action1, reward: -0 }
     ]);
   });
@@ -150,13 +149,13 @@ describe('#push new', () => {
     }
     episode.push(states[5], null, 1);
 
-    expect(episode.eventsO).toEqual([
+    expect(episode.events[0]).toEqual([
       { state: states[0], action: actions[0], reward: 0 },
       { state: states[2], action: actions[2], reward: 0 },
       { state: states[4], action: actions[4], reward: 0 },
       { state: states[5], action: null, reward: 1 }
     ]);
-    expect(episode.eventsX).toEqual([
+    expect(episode.events[1]).toEqual([
       { state: states[1], action: actions[1], reward: -0 },
       { state: states[3], action: actions[3], reward: -0 },
       { state: states[5], action: null, reward: -1 }
@@ -191,13 +190,13 @@ describe('#push new', () => {
     }
     episode.push(states[6], null, -1);
 
-    expect(episode.eventsO).toEqual([
+    expect(episode.events[0]).toEqual([
       { state: states[0], action: actions[0], reward: 0 },
       { state: states[2], action: actions[2], reward: 0 },
       { state: states[4], action: actions[4], reward: 0 },
       { state: states[6], action: null, reward: -1 }
     ]);
-    expect(episode.eventsX).toEqual([
+    expect(episode.events[1]).toEqual([
       { state: states[1], action: actions[1], reward: -0 },
       { state: states[3], action: actions[3], reward: -0 },
       { state: states[5], action: actions[5], reward: -0 },
@@ -236,7 +235,7 @@ describe('#push new', () => {
     }
     episode.push(states[9], null, 0);
 
-    expect(episode.eventsO).toEqual([
+    expect(episode.events[0]).toEqual([
       { state: states[0], action: actions[0], reward: 0 },
       { state: states[2], action: actions[2], reward: 0 },
       { state: states[4], action: actions[4], reward: 0 },
@@ -244,7 +243,7 @@ describe('#push new', () => {
       { state: states[8], action: actions[8], reward: 0 },
       { state: states[9], action: null, reward: 0 }
     ]);
-    expect(episode.eventsX).toEqual([
+    expect(episode.events[1]).toEqual([
       { state: states[1], action: actions[1], reward: -0 },
       { state: states[3], action: actions[3], reward: -0 },
       { state: states[5], action: actions[5], reward: -0 },

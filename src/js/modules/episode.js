@@ -2,8 +2,7 @@ import { State } from './state.js';
 
 export class Episode {
   constructor() {
-    this.eventsO = [];
-    this.eventsX = [];
+    this.events = [[], []];
   }
 
   static find(quality, epsilon) {
@@ -23,14 +22,14 @@ export class Episode {
   push(state, action, reward) {
     if (!state.winner()) {
       if (state.nextPlayer() == "o") {
-        this.eventsO.push({ state: state, action: action, reward: reward });
+        this.events[0].push({ state: state, action: action, reward: reward });
       } else {
-        this.eventsX.push({ state: state, action: action, reward: -reward });
+        this.events[1].push({ state: state, action: action, reward: -reward });
       }
       return;
     }
 
-    this.eventsO.push({ state: state, action: null, reward: reward });
-    this.eventsX.push({ state: state, action: null, reward: -reward });
+    this.events[0].push({ state: state, action: null, reward: reward });
+    this.events[1].push({ state: state, action: null, reward: -reward });
   }
 }
