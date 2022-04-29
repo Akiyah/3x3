@@ -30,17 +30,7 @@ export class Episode {
       return;
     }
 
-    const lO = this.eventsO.length;
-    const lX = this.eventsX.length;
-
     this.eventsO.push({ state: state, action: null, reward: reward });
     this.eventsX.push({ state: state, action: null, reward: -reward });
-  }
-
-  playerEpisode(player) {
-    if (player == "o") {
-      return this.eventsO;
-    }
-    return this.eventsX;
   }
 }
