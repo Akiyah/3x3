@@ -1,5 +1,6 @@
 import { Episode } from './episode.js';
 import { Quality } from './quality.js';
+import { State } from './state.js';
 
 function td(action) {
   const boardDiv = document.getElementById("board");
@@ -17,7 +18,7 @@ function refresh(env) {
 }
 
 function clear(env) {
-  env.episode = new Episode();
+  env.episode = new Episode(State);
 
   if (document.getElementById("player").value == "x") {
     const action = env.quality.findAction(env.episode.state, 0);
@@ -57,7 +58,7 @@ function initialize() {
 
   const timer = setInterval(() => {
     for (let i = 0; i < 100; i++) {
-      const episode = Episode.find(env.quality, 0.1);
+      const episode = Episode.find(State, env.quality, 0.1);
       env.quality.train(episode);
     }
     document.getElementById("train_count").innerText = env.quality.trainCount;

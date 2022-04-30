@@ -175,7 +175,7 @@ describe('#train', () => {
       return state;
     }));
 
-    const episode = new Episode();
+    const episode = new Episode(State);
     actions.forEach((action) => {
       episode.step(action);
     });
@@ -218,7 +218,7 @@ describe('#train', () => {
       return state;
     }));
 
-    const episode = new Episode();
+    const episode = new Episode(State);
     actions.forEach((action) => {
       episode.step(action);
     });
@@ -266,7 +266,7 @@ describe('#train', () => {
       return state;
     }));
 
-    const episode = new Episode();
+    const episode = new Episode(State);
     actions.forEach((action) => {
       episode.step(action);
     });

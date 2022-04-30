@@ -1,14 +1,12 @@
-import { State } from './state.js';
-
 export class Episode {
-  constructor() {
+  constructor(State) {
     this.events = [[], []];
     this.state = new State();
   }
 
-  static find(quality, epsilon) {
+  static find(State, quality, epsilon) {
     let state = new State();
-    const episode = new Episode();
+    const episode = new Episode(State);
 
     while(state.winner() === null) {
       const action = quality.findAction(state, epsilon);
