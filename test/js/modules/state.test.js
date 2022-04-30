@@ -5,6 +5,7 @@ describe('constructor', () => {
   test('no params', () => {
     const state = new State();
 
+    expect(state.count).toBe(0);
     expect(state.marks).toEqual([
       [" ", " ", " "],
       [" ", " ", " "],
@@ -17,8 +18,9 @@ describe('constructor', () => {
       [" ", " ", " "],
       [" ", " ", " "],
       [" ", "o", " "]
-    ]);
+    ], 1);
 
+    expect(state.count).toBe(1);
     expect(state.marks).toEqual([
       [" ", " ", " "],
       [" ", " ", " "],
@@ -78,6 +80,7 @@ test('#nextPlayerIndex/#nextPlayerMark', () => {
 test('#step', () => {
   let state = new State();
   state = state.step(new Action(1, 2));
+  expect(state.count).toBe(1);
   expect(state.marks).toEqual([
     [" ", " ", " "],
     [" ", " ", " "],
@@ -85,6 +88,7 @@ test('#step', () => {
   ]);
 
   state = state.step(new Action(0, 1));
+  expect(state.count).toBe(2);
   expect(state.marks).toEqual([
     [" ", " ", " "],
     ["x", " ", " "],

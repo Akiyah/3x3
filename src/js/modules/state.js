@@ -1,8 +1,9 @@
 import { Action } from "./action.js";
 
 export class State {
-  constructor(marks = this.mapPoints(() => " ")) {
+  constructor(marks = this.mapPoints(() => " "), count = 0) {
     this.marks = marks;
+    this.count = count;
   }
 
   toString() {
@@ -35,7 +36,7 @@ export class State {
 
     let marks = this.mapPoints((action0) => this.mark(action0));
     marks[y][x] = this.nextPlayerMark();
-    return new State(marks);
+    return new State(marks, this.count + 1);
   }
 
   enable(action) {
