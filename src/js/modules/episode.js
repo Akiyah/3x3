@@ -1,17 +1,15 @@
 export class Episode {
-  constructor(State) {
+  constructor(state) {
     this.events = [[], []];
-    this.state = new State();
+    this.state = state;
   }
 
-  static find(State, quality, epsilon) {
-    let state = new State();
-    const episode = new Episode(State);
+  static find(state, quality, epsilon) {
+    const episode = new Episode(state);
 
-    while(state.winner() === null) {
-      const action = quality.findAction(state, epsilon);
+    while(episode.state.winner() === null) {
+      const action = quality.findAction(episode.state, epsilon);
       episode.step(action);
-      state = state.step(action);
     }
 
     return episode;

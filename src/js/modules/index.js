@@ -18,7 +18,7 @@ function refresh(env) {
 }
 
 function clear(env) {
-  env.episode = new Episode(State);
+  env.episode = new Episode(new State());
 
   if (document.getElementById("player").value == "x") {
     const action = env.quality.findAction(env.episode.state, 0);
@@ -58,7 +58,7 @@ function initialize() {
 
   const timer = setInterval(() => {
     for (let i = 0; i < 100; i++) {
-      const episode = Episode.find(State, env.quality, 0.1);
+      const episode = Episode.find(new State(), env.quality, 0.1);
       env.quality.train(episode);
     }
     document.getElementById("train_count").innerText = env.quality.trainCount;

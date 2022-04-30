@@ -170,15 +170,15 @@ describe('#train', () => {
     ];
 
     let state = new State();
+    const episode = new Episode(state);
+    actions.forEach((action) => {
+      episode.step(action);
+    });
+
     const states = [state].concat(actions.map((action) => {
       state = state.step(action);
       return state;
     }));
-
-    const episode = new Episode(State);
-    actions.forEach((action) => {
-      episode.step(action);
-    });
 
     quality.train(episode);
 
@@ -213,15 +213,15 @@ describe('#train', () => {
     ];
 
     let state = new State();
+    const episode = new Episode(state);
+    actions.forEach((action) => {
+      episode.step(action);
+    });
+
     const states = [state].concat(actions.map((action) => {
       state = state.step(action);
       return state;
     }));
-
-    const episode = new Episode(State);
-    actions.forEach((action) => {
-      episode.step(action);
-    });
 
     quality.train(episode);
 
@@ -261,15 +261,15 @@ describe('#train', () => {
     ];
 
     let state = new State();
+    const episode = new Episode(state);
+    actions.forEach((action) => {
+      episode.step(action);
+    });
+
     const states = [state].concat(actions.map((action) => {
       state = state.step(action);
       return state;
     }));
-
-    const episode = new Episode(State);
-    actions.forEach((action) => {
-      episode.step(action);
-    });
 
     quality.train(episode);
 

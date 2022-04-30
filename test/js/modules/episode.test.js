@@ -4,14 +4,17 @@ import { State } from '../../../src/js/modules/state.js';
 import { Quality } from '../../../src/js/modules/quality.js';
 
 test('constructor', () => {
-  const episode = new Episode(State);
+  const state = new State();
+  const episode = new Episode(state);
   expect(episode.events).toEqual([[], []]);
+  expect(episode.state).toBe(state);
 });
 
 describe('find', () => {
   test('epsilon = 1', () => {
+    const state = new State();
     const quality = new Quality();
-    const episode = Episode.find(State, quality, 1);
+    const episode = Episode.find(state, quality, 1);
 
     const l0 = episode.events[0].length;
     expect(l0).toBeGreaterThanOrEqual(4);
@@ -72,7 +75,8 @@ describe('find', () => {
     quality.set(state3, action3, 1);
     quality.set(state4, action4, 1);
 
-    const episode = Episode.find(State, quality, 0);
+    const state = new State();
+    const episode = Episode.find(state, quality, 0);
 
     expect(episode.events[0].length).toBe(4);
     expect(episode.events[1].length).toBe(3);
@@ -99,9 +103,9 @@ describe('find', () => {
 
 describe('#step', () => {
   test('first 2 steps', () => {
-    const episode = new Episode(State);
-
     const state0 = new State();
+    const episode = new Episode(state0);
+
     const action0 = new Action(1, 2);
     episode.step(action0);
 
@@ -123,7 +127,8 @@ describe('#step', () => {
   });
 
   test('o win', () => {
-    const episode = new Episode(State);
+    let state = new State();
+    const episode = new Episode(state);
     const actions = [
       new Action(1, 1),
       new Action(1, 0),
@@ -132,7 +137,6 @@ describe('#step', () => {
       new Action(2, 2)
     ];
 
-    let state = new State();
     const states = [state].concat(actions.map((action) => {
       state = state.step(action);
       return state;
@@ -162,7 +166,8 @@ describe('#step', () => {
   });
 
   test('x win', () => {
-    const episode = new Episode(State);
+    let state = new State();
+    const episode = new Episode(state);
     const actions = [
       new Action(0, 0),
       new Action(1, 1),
@@ -172,7 +177,6 @@ describe('#step', () => {
       new Action(2, 0)
     ];
 
-    let state = new State();
     const states = [state].concat(actions.map((action) => {
       state = state.step(action);
       return state;
@@ -203,7 +207,8 @@ describe('#step', () => {
   });
 
   test('draw', () => {
-    const episode = new Episode(State);
+    let state = new State();
+    const episode = new Episode(state);
     const actions = [
       new Action(0, 0),
       new Action(1, 1),
@@ -216,7 +221,6 @@ describe('#step', () => {
       new Action(2, 0)
     ];
 
-    let state = new State();
     const states = [state].concat(actions.map((action) => {
       state = state.step(action);
       return state;
@@ -251,7 +255,8 @@ describe('#step', () => {
 });
 
 test('#eachStep', () => {
-  const episode = new Episode(State);
+  let state = new State();
+  const episode = new Episode(state);
   const actions = [
     new Action(1, 1),
     new Action(1, 0),
@@ -260,7 +265,6 @@ test('#eachStep', () => {
     new Action(2, 2)
   ];
 
-  let state = new State();
   const states = [state].concat(actions.map((action) => {
     state = state.step(action);
     return state;
