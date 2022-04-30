@@ -1,6 +1,10 @@
+const α = 0.2;
+const γ = 1;
+
 export class Quality {
   constructor() {
     this.map = {};
+    this.trainCount = 0;
   }
 
   m(state) {
@@ -44,6 +48,20 @@ export class Quality {
     } else {
       return this.policy(state);
     }
+  }
+
+  trainEvent(state0, action0, state1, reward) {
+    let q0 = this.get(state0, action0);
+    const q1 = this.value(state1);
+    q0 = q0 + α * (reward + γ * q1 - q0);
+    this.set(state0, action0, q0);
+  }
+
+  train(episode) {
+    episode.eachStep((event0, event1) => {
+      this.trainEvent(event0.state, event0.action, event1.state, event1.reward);
+    });
+    this.trainCount++;
   }
 
   count() {
