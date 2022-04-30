@@ -10,10 +10,8 @@ function td(x, y) {
 };
 
 function refresh(env) {
-  [0, 1, 2].forEach(y => {
-    [0, 1, 2].forEach(x => {
-      td(x, y).innerText = env.episode.state.mark(new Action(x, y));
-    });
+  env.episode.state.mapPoints((action) => {
+    td(action.x, action.y).innerText = env.episode.state.mark(action);
   });
 
   document.getElementById("winner").innerText = env.episode.state.winner();
@@ -56,12 +54,10 @@ function initialize() {
     episode: null
   };
 
-  [0, 1, 2].forEach(y => {
-    [0, 1, 2].forEach(x => {
-      td(x, y).addEventListener("click", () => click(env, x, y))
-    });
-  });
   clear(env);
+  env.episode.state.mapPoints((action) => {
+    td(action.x, action.y).addEventListener("click", () => click(env, action.x, action.y));
+  });
 
   const timer = setInterval(() => {
     for (let i = 0; i < 100; i++) {
