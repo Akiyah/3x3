@@ -1,7 +1,7 @@
-import { Game } from './game.js';
 import { State } from './state.js';
 import { Action } from './action.js';
 import { Episode } from './episode.js';
+import { Quality } from './quality.js';
 
 function td(x, y) {
   const boardDiv = document.getElementById("board");
@@ -24,7 +24,7 @@ function clear(env) {
   env.state = new State();
 
   if (document.getElementById("player").value == "x") {
-    const action = env.game.quality.findAction(env.state, 0);
+    const action = env.quality.findAction(env.state, 0);
     env.state = env.state.step(action);
   }
 }
@@ -46,14 +46,14 @@ function click(env, x, y) {
     return;
   }
 
-  const action = env.game.quality.findAction(env.state, 0);
+  const action = env.quality.findAction(env.state, 0);
   env.state = env.state.step(action);
   refresh(env.state);
 };
 
 function initialize() {
   const env = {
-    game: new Game(),
+    quality: new Quality(),
     state: null
   };
 
@@ -66,12 +66,12 @@ function initialize() {
 
   const timer = setInterval(() => {
     for (let i = 0; i < 100; i++) {
-      const episode = Episode.find(env.game.quality, 0.1);
-      env.game.train(episode);
+      const episode = Episode.find(env.quality, 0.1);
+      env.quality.train(episode);
     }
-    document.getElementById("train_count").innerText = env.game.trainCount;
-    document.getElementById("q_table_count").innerText = env.game.quality.count();
-    if (100 * 1000 <= env.game.trainCount) {
+    document.getElementById("train_count").innerText = env.quality.trainCount;
+    document.getElementById("q_table_count").innerText = env.quality.count();
+    if (100 * 1000 <= env.quality.trainCount) {
       clearInterval(timer);
     }
   }, 100);
