@@ -10,14 +10,14 @@ function td(x, y) {
   return tdDivs[x];
 };
 
-function refresh(state) {
+function refresh(env) {
   [0, 1, 2].forEach(y => {
     [0, 1, 2].forEach(x => {
-      td(x, y).innerText = state.mark(new Action(x, y));
+      td(x, y).innerText = env.state.mark(new Action(x, y));
     });
   });
 
-  document.getElementById("winner").innerText = state.winner();
+  document.getElementById("winner").innerText = env.state.winner();
 }
 
 function clear(env) {
@@ -32,7 +32,7 @@ function clear(env) {
 function click(env, x, y) {
   if (env.state.winner()) {
     clear(env);
-    refresh(env.state);
+    refresh(env);
     return;
   }
 
@@ -42,13 +42,13 @@ function click(env, x, y) {
 
   env.state = env.state.step(new Action(x, y));
   if (env.state.winner()) {
-    refresh(env.state);
+    refresh(env);
     return;
   }
 
   const action = env.quality.findAction(env.state, 0);
   env.state = env.state.step(action);
-  refresh(env.state);
+  refresh(env);
 };
 
 function initialize() {
