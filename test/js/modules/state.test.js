@@ -105,15 +105,35 @@ test('#enable', () => {
   expect(state.enable(new Action(0, 1))).toBeFalsy();
 });
 
-test('#actions', () => {
-  let state = new State();
-  state = state.step(new Action(1, 2));
-  state = state.step(new Action(0, 1));
-  expect(state.actions()).toEqual([
-    new Action(0, 0), new Action(1, 0), new Action(2, 0),
-    new Action(1, 1), new Action(2, 1),
-    new Action(0, 2), new Action(2, 2)
-  ]);
+describe('#actions', () => {
+  test('no param', () => {
+    let state = new State();
+    state = state.step(new Action(1, 2));
+    state = state.step(new Action(0, 1));
+    expect(state.actions()).toEqual([
+      new Action(0, 0), new Action(1, 0), new Action(2, 0),
+      new Action(1, 1), new Action(2, 1),
+      new Action(0, 2), new Action(2, 2)
+    ]);
+  });
+
+  test('o', () => {
+    let state = new State();
+    state = state.step(new Action(1, 2));
+    state = state.step(new Action(0, 1));
+    expect(state.actions("o")).toEqual([
+      new Action(1, 2)
+    ]);
+  });
+
+  test('x', () => {
+    let state = new State();
+    state = state.step(new Action(1, 2));
+    state = state.step(new Action(0, 1));
+    expect(state.actions("x")).toEqual([
+      new Action(0, 1)
+    ]);
+  });
 });
 
 test('#randomAction', () => {

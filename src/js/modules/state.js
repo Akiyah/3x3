@@ -23,7 +23,7 @@ export class State {
   }
 
   nextPlayerIndex() {
-    return (this.actions().length % 2 == 0) ? 1 : 0;
+    return (this.count % 2 == 0) ? 0 : 1;
   }
 
   nextPlayerMark() {
@@ -43,8 +43,8 @@ export class State {
     return this.mark(action) === " ";
   }
 
-  actions() {
-    return this.mapPoints((action) => this.enable(action) ? action : null).flat().filter(p => p);
+  actions(mark = " ") {
+    return this.mapPoints((action) => this.mark(action) === mark ? action : null).flat().filter(p => p);
   }
 
   randomAction() {
