@@ -1,4 +1,3 @@
-import { State } from './state.js';
 import { Action } from './action.js';
 import { Episode } from './episode.js';
 import { Quality } from './quality.js';
@@ -13,48 +12,48 @@ function td(x, y) {
 function refresh(env) {
   [0, 1, 2].forEach(y => {
     [0, 1, 2].forEach(x => {
-      td(x, y).innerText = env.state.mark(new Action(x, y));
+      td(x, y).innerText = env.episode.state.mark(new Action(x, y));
     });
   });
 
-  document.getElementById("winner").innerText = env.state.winner();
+  document.getElementById("winner").innerText = env.episode.state.winner();
 }
 
 function clear(env) {
-  env.state = new State();
+  env.episode = new Episode();
 
   if (document.getElementById("player").value == "x") {
-    const action = env.quality.findAction(env.state, 0);
-    env.state = env.state.step(action);
+    const action = env.quality.findAction(env.episode.state, 0);
+    env.episode.step(action);
   }
 }
 
 function click(env, x, y) {
-  if (env.state.winner()) {
+  if (env.episode.state.winner()) {
     clear(env);
     refresh(env);
     return;
   }
 
-  if (!env.state.enable(new Action(x, y))) {
+  if (!env.episode.state.enable(new Action(x, y))) {
     return;
   }
 
-  env.state = env.state.step(new Action(x, y));
-  if (env.state.winner()) {
+  env.episode.step(new Action(x, y));
+  if (env.episode.state.winner()) {
     refresh(env);
     return;
   }
 
-  const action = env.quality.findAction(env.state, 0);
-  env.state = env.state.step(action);
+  const action = env.quality.findAction(env.episode.state, 0);
+  env.episode.step(action);
   refresh(env);
 };
 
 function initialize() {
   const env = {
     quality: new Quality(),
-    state: null
+    episode: null
   };
 
   [0, 1, 2].forEach(y => {
