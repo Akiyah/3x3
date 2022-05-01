@@ -1,6 +1,6 @@
 import { State } from "./state.js";
 
-export class ThreeState extends State {
+export class RandomThreeState extends State {
   step(action) {
     const x = action.x;
     const y = action.y;
@@ -18,6 +18,6 @@ export class ThreeState extends State {
 
     marks[action.y][action.x] = mark;
 
-    return new ThreeState(marks, this.count + 1);
+    return new RandomThreeState(marks, this.count + 1);
   }
 }

@@ -1,8 +1,8 @@
 import { Action } from '../../../src/js/modules/action.js';
-import { ThreeState } from '../../../src/js/modules/three_state.js';
+import { RandomThreeState } from '../../../src/js/modules/random_three_state.js';
 
 test('#step', () => {
-  let state = new ThreeState();
+  let state = new RandomThreeState();
 
   const actions = [
     new Action(0, 0),
