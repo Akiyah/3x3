@@ -2,14 +2,21 @@ import { Episode } from './episode.js';
 import { Quality } from './quality.js';
 import { State } from './state.js';
 import { RandomThreeState } from './random_three_state.js';
+import { ThreeState } from './three_state.js';
 
 function createState() {
   const url = window.location.href;
   const regex = new RegExp("[?&]type=([^&#]*)");
   const results = regex.exec(url);
   if (results) {
+    if (results[1] == "State") {
+      return new State();
+    }
     if (results[1] == "RandomThreeState") {
       return new RandomThreeState();
+    }
+    if (results[1] == "ThreeState") {
+      return new ThreeState();
     }
   }
   return new State();
