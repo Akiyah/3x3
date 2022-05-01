@@ -21,13 +21,10 @@ export class ThreeState extends State {
     const orders = this.mapPoints((action0) => {
       let order = this.orders[action0.y][action0.x];
       if (order != 0) {
-        order++;
-      }
-      if (6 < order) {
-        order = 0;
+        order--;
       }
       if (action0.x == x && action0.y == y) {
-        order = 1;
+        order = 6;
       }
       return order;
     });

@@ -87,9 +87,9 @@ test('#step', () => {
     [" ", "o", "x"]
   ]);
   expect(state.orders).toEqual([
-    [6, 1, 0],
-    [3, 0, 4],
-    [0, 2, 5]
+    [1, 6, 0],
+    [4, 0, 3],
+    [0, 5, 2]
   ]);
 
   state = state.step(new Action(2, 0));
@@ -100,9 +100,9 @@ test('#step', () => {
     [" ", "o", "x"]
   ]);
   expect(state.orders).toEqual([
-    [0, 2, 1],
-    [4, 0, 5],
-    [0, 3, 6]
+    [0, 5, 6],
+    [3, 0, 2],
+    [0, 4, 1]
   ]);
 
   state = state.step(new Action(0, 2));
@@ -113,8 +113,8 @@ test('#step', () => {
     ["x", "o", " "]
   ]);
   expect(state.orders).toEqual([
-    [0, 3, 2],
-    [5, 0, 6],
-    [1, 4, 0]
+    [0, 4, 5],
+    [2, 0, 1],
+    [6, 3, 0]
   ]);
 });

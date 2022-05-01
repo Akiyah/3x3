@@ -30,11 +30,18 @@ function td(action) {
 };
 
 function refresh(env) {
-  env.episode.state.mapPoints((action) => {
-    td(action).innerText = env.episode.state.mark(action);
+  const state = env.episode.state;
+  state.mapPoints((action) => {
+    td(action).innerText = state.mark(action);
+    if (state.orders) {
+      const order = state.orders[action.y][action.x];
+      if (order != 0) {
+        td(action).style.fontSize = `${25 + 25 * order / 6}px`
+      }
+    }
   });
 
-  document.getElementById("winner").innerText = env.episode.state.winner();
+  document.getElementById("winner").innerText = state.winner();
 }
 
 function refreshWithDelay(env, delay) {
