@@ -39,6 +39,16 @@ function refresh(env) {
         td(action).style.fontSize = `${25 + 25 * order / 6}px`
       }
     }
+    const q = env.quality.get(state, action);
+    if (q == 0) {
+      td(action).style.backgroundColor = `rgb(255, 255, 255)`;
+    }
+    if (0 < q) {
+      td(action).style.backgroundColor = `rgb(${255 * (1 - q)}, 255, 255)`;
+    }
+    if (q < 0) {
+      td(action).style.backgroundColor = `rgb(255, ${255 * (1 + q)}, 255)`;
+    }
   });
 
   document.getElementById("winner").innerText = state.winner();
