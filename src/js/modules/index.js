@@ -30,6 +30,12 @@ function refresh(env) {
   document.getElementById("winner").innerText = env.episode.state.winner();
 }
 
+function refreshWithDelay(env, delay) {
+  setTimeout(() => {
+    refresh(env);
+  }, delay);
+}
+
 function clear(env) {
   env.initialState = createState();
   env.episode = new Episode(env.initialState);
@@ -52,14 +58,14 @@ function click(env, action) {
   }
 
   env.episode.step(action);
+  refresh(env);
   if (env.episode.state.winner()) {
-    refresh(env);
     return;
   }
 
   const action1 = env.quality.findAction(env.episode.state, 0);
   env.episode.step(action1);
-  refresh(env);
+  refreshWithDelay(env, 1000);
 };
 
 function initialize() {
