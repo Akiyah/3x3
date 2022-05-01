@@ -8,7 +8,7 @@ export class State {
 
   toString() {
     return this.marks.map(row =>
-      row.map(mark => mark).join("")
+      row.join("")
     ).join("\n");
   }
 
