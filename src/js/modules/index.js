@@ -96,6 +96,7 @@ function initialize() {
   const env = { quality: new Quality(), episode: null, initialState: null };
 
   clear(env);
+  refresh(env);
   env.episode.state.mapPoints((action) => {
     td(action).addEventListener("click", () => click(env, action));
   });
