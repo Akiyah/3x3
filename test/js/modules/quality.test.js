@@ -9,7 +9,7 @@ test('constructor', () => {
   expect(quality.trainCount).toBe(0);
 });
 
-test('#get/#set/#m', () => {
+test('#get/#set/#m/#updateCount', () => {
   const quality = new Quality();
   const state = new State([
     [" ", " ", " "],
@@ -24,6 +24,12 @@ test('#get/#set/#m', () => {
   expect(quality.get(state, new Action(0, 1))).toBe(0); // not enable action
   expect(quality.get(state, new Action(2, 1))).toBe(0);
 
+  expect(quality.updateCount(state, new Action(0, 0))).toBe(0);
+  expect(quality.updateCount(state, new Action(1, 0))).toBe(0);
+  expect(quality.updateCount(state, new Action(0, 1))).toBe(0); // not enable action
+  expect(quality.updateCount(state, new Action(2, 1))).toBe(0);
+
+  quality.set(state, new Action(0, 0), 0.05);
   quality.set(state, new Action(0, 0), 0.1);
   quality.set(state, new Action(1, 0), 0.2);
   quality.set(state, new Action(2, 1), 0.3);
@@ -33,10 +39,15 @@ test('#get/#set/#m', () => {
   expect(quality.get(state, new Action(0, 1))).toBe(0); // not enable action
   expect(quality.get(state, new Action(2, 1))).toBe(0.3);
 
+  expect(quality.updateCount(state, new Action(0, 0))).toBe(2);
+  expect(quality.updateCount(state, new Action(1, 0))).toBe(1);
+  expect(quality.updateCount(state, new Action(0, 1))).toBe(0); // not enable action
+  expect(quality.updateCount(state, new Action(2, 1))).toBe(1);
+
   expect(quality.m(state)).toEqual({
-    "[0, 0]": 0.1,
-    "[1, 0]": 0.2,
-    "[2, 1]": 0.3
+    "[0, 0]": { q: 0.1, updateCount: 2 },
+    "[1, 0]": { q: 0.2, updateCount: 1 },
+    "[2, 1]": { q: 0.3, updateCount: 1 }
   });
 });
 

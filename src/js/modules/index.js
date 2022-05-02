@@ -32,7 +32,7 @@ function td(action) {
 function refresh(env) {
   const state = env.episode.state;
   state.mapPoints((action) => {
-    td(action).innerText = state.mark(action);
+    td(action).innerHTML = state.mark(action) + '<div>' + env.quality.updateCount(state, action) + '</div>';
     if (state.orders) {
       const order = state.orders[action.y][action.x];
       if (order != 0) {

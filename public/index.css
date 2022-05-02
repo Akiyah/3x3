@@ -5,3 +5,7 @@ td {
   font-size: 50px;
   text-align: center;
 }
+
+td div {
+  font-size: 10px;
+}

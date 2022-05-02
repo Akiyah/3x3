@@ -16,12 +16,21 @@ export class Quality {
   }
 
   get(state, action) {
-    const q = this.m(state)[action.toString()];
-    return q ? q : 0;
+    const d = this.m(state)[action.toString()];
+    return d ? d.q : 0;
+  }
+
+  updateCount(state, action) {
+    const d = this.m(state)[action.toString()];
+    return d ? d.updateCount : 0;
   }
 
   set(state, action, q) {
-    this.m(state)[action.toString()] = q;
+    let d = this.m(state)[action.toString()];
+    d ||= { q: 0, updateCount: 0 };
+    d.q = q;
+    d.updateCount++;
+    this.m(state)[action.toString()] = d;
   }
 
   value(state) {
