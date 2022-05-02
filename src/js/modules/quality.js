@@ -3,16 +3,16 @@ const γ = 1;
 
 export class Quality {
   constructor() {
-    this.map = {};
+    this.table = {};
     this.trainCount = 0;
   }
 
   m(state) {
     const s = state.toString();
-    if (!this.map[s]) {
-      this.map[s] = {};
+    if (!this.table[s]) {
+      this.table[s] = {};
     }
-    return this.map[s];
+    return this.table[s];
   }
 
   get(state, action) {
@@ -65,7 +65,7 @@ export class Quality {
   }
 
   count() {
-    return Object.entries(this.map).reduce((sum, [stateString, qs]) => {
+    return Object.entries(this.table).reduce((sum, [_stateString, qs]) => {
       return sum + Object.entries(qs).length;
     }, 0);
   }

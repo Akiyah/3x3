@@ -5,7 +5,7 @@ import { Episode } from '../../../src/js/modules/episode.js';
 
 test('constructor', () => {
   const quality = new Quality();
-  expect(quality.map).toEqual({});
+  expect(quality.table).toEqual({});
   expect(quality.trainCount).toBe(0);
 });
 
