@@ -64,7 +64,7 @@ export class Quality {
     this.trainCount++;
   }
 
-  count() {
+  qTableCount() {
     return Object.entries(this.table).reduce((sum, [_stateString, qs]) => {
       return sum + Object.entries(qs).length;
     }, 0);

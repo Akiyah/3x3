@@ -301,7 +301,7 @@ describe('#train', () => {
   });
 });
 
-test('#count', () => {
+test('#qTableCount', () => {
   const quality = new Quality();
   const state0 = new State();
   const state1 = new State([
@@ -310,17 +310,17 @@ test('#count', () => {
     [" ", "o", " "]
   ]);
 
-  expect(quality.count()).toBe(0);
+  expect(quality.qTableCount()).toBe(0);
 
   quality.set(state0, new Action(0, 0), 0.1);
-  expect(quality.count()).toBe(1);
+  expect(quality.qTableCount()).toBe(1);
 
   quality.set(state0, new Action(1, 0), 0.2);
-  expect(quality.count()).toBe(2);
+  expect(quality.qTableCount()).toBe(2);
 
   quality.set(state1, new Action(2, 1), 0.3);
-  expect(quality.count()).toBe(3);
+  expect(quality.qTableCount()).toBe(3);
 
   quality.set(state1, new Action(2, 2), 0);
-  expect(quality.count()).toBe(4);
+  expect(quality.qTableCount()).toBe(4);
 });

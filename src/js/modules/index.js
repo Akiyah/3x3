@@ -106,7 +106,7 @@ function initialize() {
       env.quality.train(episode);
     }
     document.getElementById("train_count").innerText = env.quality.trainCount;
-    document.getElementById("q_table_count").innerText = env.quality.count();
+    document.getElementById("q_table_count").innerText = env.quality.qTableCount();
     if (100 * 1000 <= env.quality.trainCount) {
       clearInterval(timer);
     }
