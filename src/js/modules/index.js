@@ -92,26 +92,22 @@ function click(env, action) {
   refreshWithDelay(env, 1000);
 };
 
-function initialize() {
-  const env = { quality: new Quality(), episode: null, initialState: null };
+const env = { quality: new Quality(), episode: null, initialState: null };
 
-  clear(env);
-  refresh(env);
-  env.episode.state.mapPoints((action) => {
-    td(action).addEventListener("click", () => click(env, action));
-  });
+clear(env);
+refresh(env);
+env.episode.state.mapPoints((action) => {
+  td(action).addEventListener("click", () => click(env, action));
+});
 
-  const timer = setInterval(() => {
-    for (let i = 0; i < 100; i++) {
-      const episode = Episode.find(env.initialState, env.quality, 0.1);
-      env.quality.train(episode);
-    }
-    document.getElementById("train_count").innerText = env.quality.trainCount;
-    document.getElementById("q_table_count").innerText = env.quality.qTableCount();
-    if (1000 * 1000 <= env.quality.trainCount) {
-      clearInterval(timer);
-    }
-  }, 100);
-}
-
-initialize();
+const timer = setInterval(() => {
+  for (let i = 0; i < 100; i++) {
+    const episode = Episode.find(env.initialState, env.quality, 0.1);
+    env.quality.train(episode);
+  }
+  document.getElementById("train_count").innerText = env.quality.trainCount;
+  document.getElementById("q_table_count").innerText = env.quality.qTableCount();
+  if (1000 * 1000 <= env.quality.trainCount) {
+    clearInterval(timer);
+  }
+}, 100);
