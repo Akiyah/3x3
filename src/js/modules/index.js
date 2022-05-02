@@ -107,7 +107,7 @@ function initialize() {
     }
     document.getElementById("train_count").innerText = env.quality.trainCount;
     document.getElementById("q_table_count").innerText = env.quality.qTableCount();
-    if (100 * 1000 <= env.quality.trainCount) {
+    if (1000 * 1000 <= env.quality.trainCount) {
       clearInterval(timer);
     }
   }, 100);
