@@ -117,4 +117,17 @@ test('#step', () => {
     [2, 0, 1],
     [6, 3, 0]
   ]);
+
+  state = state.step(new Action(1, 1));
+  expect(state.count).toBe(9);
+  expect(state.marks).toEqual([
+    [" ", "x", "o"],
+    ["x", "o", " "],
+    ["x", "o", " "]
+  ]);
+  expect(state.orders).toEqual([
+    [0, 3, 4],
+    [1, 6, 0],
+    [5, 2, 0]
+  ]);
 });
