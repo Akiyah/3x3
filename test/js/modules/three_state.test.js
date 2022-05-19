@@ -23,13 +23,13 @@ describe('constructor', () => {
       [" ", " ", " "],
       ["x", " ", " "],
       [" ", "o", " "]
-    ], 1, [
+    ], 2, [
       [0, 0, 0],
-      [1, 0, 0],
-      [0, 2, 0]
+      [5, 0, 0],
+      [0, 6, 0]
     ]);
 
-    expect(state.count).toBe(1);
+    expect(state.count).toBe(2);
     expect(state.marks).toEqual([
       [" ", " ", " "],
       ["x", " ", " "],
@@ -37,8 +37,8 @@ describe('constructor', () => {
     ]);
     expect(state.orders).toEqual([
       [0, 0, 0],
-      [1, 0, 0],
-      [0, 2, 0]
+      [5, 0, 0],
+      [0, 6, 0]
     ]);
   });
 });
@@ -48,10 +48,10 @@ test('#toString', () => {
     [" ", " ", " "],
     ["x", " ", " "],
     [" ", "o", " "]
-  ], 1, [
+  ], 2, [
     [0, 0, 0],
-    [1, 0, 0],
-    [0, 2, 0]
+    [5, 0, 0],
+    [0, 6, 0]
   ]);
 
   expect(state.toString()).toEqual(
@@ -59,8 +59,8 @@ test('#toString', () => {
     "x  " + "\n" +
     " o " + "\n" +
     "000" + "\n" +
-    "100" + "\n" +
-    "020"
+    "500" + "\n" +
+    "060"
   );
 });
 
@@ -72,14 +72,26 @@ test('#step', () => {
     new Action(2, 2),
     new Action(2, 1),
     new Action(0, 1),
-    new Action(1, 2),
-    new Action(1, 0)
+    new Action(1, 2)
   ];
 
   actions.forEach((action) => {
     state = state.step(action);
   });
 
+  expect(state.count).toBe(5);
+  expect(state.marks).toEqual([
+    ["o", " ", " "],
+    ["x", " ", "o"],
+    [" ", "o", "x"]
+  ]);
+  expect(state.orders).toEqual([
+    [2, 0, 0],
+    [5, 0, 4],
+    [0, 6, 3]
+  ]);
+
+  state = state.step(new Action(1, 0));
   expect(state.count).toBe(6);
   expect(state.marks).toEqual([
     ["o", "x", " "],
