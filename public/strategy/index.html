@@ -1,0 +1,488 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1,maximum-scale=1,user-scalable=no,minimal-ui">
+  <title>3x3 strategy</title>
+  <link rel="stylesheet" type="text/css" href="./index.css">
+</head>
+
+<body>
+  <div class="row">
+    <div class="pattern">
+      <h1>パターン1 2手目が(1,1)</h1>
+      <div class="row">
+        <table>
+          <tr><td class="c0"> </td><td class="c6">o</td><td class="c0"> </td></tr>
+          <tr><td class="c0"> </td><td class="c0"> </td><td class="c0"> </td></tr>
+          <tr><td class="c0"> </td><td class="c0"> </td><td class="c0"> </td></tr>
+        </table>
+      </div>
+      <div class="row">
+        <table>
+          <tr><td class="c6">x</td><td class="c5">o</td><td class="c0"> </td></tr>
+          <tr><td class="c0"> </td><td class="c0"> </td><td class="c0"> </td></tr>
+          <tr><td class="c0"> </td><td class="c0"> </td><td class="c0"> </td></tr>
+        </table>
+      </div>
+      <div class="row">
+        <table>
+          <tr><td class="c5">x</td><td class="c4">o</td><td class="c0"> </td></tr>
+          <tr><td class="c0"> </td><td class="c6">o</td><td class="c0"> </td></tr>
+          <tr><td class="c0"> </td><td class="c0"> </td><td class="c0"> </td></tr>
+        </table>
+      </div>
+      <div class="row">
+        <table>
+          <tr><td class="c4">x</td><td class="c3">o</td><td class="c0"> </td></tr>
+          <tr><td class="c0"> </td><td class="c5">o</td><td class="c0"> </td></tr>
+          <tr><td class="c0"> </td><td class="c6">x</td><td class="c0"> </td></tr>
+        </table>
+      </div>
+      <div class="row">
+        <table>
+          <tr><td class="c3">x</td><td class="c2">o</td><td class="c0"> </td></tr>
+          <tr><td class="c0"> </td><td class="c4">o</td><td class="c0"> </td></tr>
+          <tr><td class="c6">o</td><td class="c5">x</td><td class="c0"> </td></tr>
+        </table>
+      </div>
+      <div class="row">
+        <table>
+          <tr><td class="c2">x</td><td class="c1">o</td><td class="c6">x</td></tr>
+          <tr><td class="c0"> </td><td class="c3">o</td><td class="c0"> </td></tr>
+          <tr><td class="c5">o</td><td class="c4">x</td><td class="c0"> </td></tr>
+        </table>
+      </div>
+      <div class="row">
+        <table>
+          <tr><td class="c1">x</td><td class="c0"> </td><td class="c5">x</td></tr>
+          <tr><td class="c6">o</td><td class="c2">o</td><td class="c0"> </td></tr>
+          <tr><td class="c4">o</td><td class="c3">x</td><td class="c0"> </td></tr>
+        </table>
+      </div>
+      <div class="row">
+        <table>
+          <tr><td class="c0"> </td><td class="c6">x</td><td class="c4">x</td></tr>
+          <tr><td class="c5">o</td><td class="c1">o</td><td class="c0"> </td></tr>
+          <tr><td class="c3">o</td><td class="c2">x</td><td class="c0"> </td></tr>
+        </table>
+        <table>
+          <tr><td class="c0"> </td><td class="c0"> </td><td class="c4">x</td></tr>
+          <tr><td class="c5">o</td><td class="c1">o</td><td class="c6">x</td></tr>
+          <tr><td class="c3">o</td><td class="c2">x</td><td class="c0"> </td></tr>
+        </table>
+        <table>
+          <tr><td class="c0"> </td><td class="c0"> </td><td class="c4">x</td></tr>
+          <tr><td class="c5">o</td><td class="c1">o</td><td class="c0"> </td></tr>
+          <tr><td class="c3">o</td><td class="c2">x</td><td class="c6">x</td></tr>
+        </table>
+      </div>
+      <div class="row">
+        <table>
+          <tr><td class="c6">o</td><td class="c5">x</td><td class="c3">x</td></tr>
+          <tr><td class="c4">o</td><td class="c0"> </td><td class="c0"> </td></tr>
+          <tr><td class="c2">o</td><td class="c1">x</td><td class="c0"> </td></tr>
+        </table>
+        <table>
+          <tr><td class="c6">o</td><td class="c0"> </td><td class="c3">x</td></tr>
+          <tr><td class="c4">o</td><td class="c0"> </td><td class="c5">x</td></tr>
+          <tr><td class="c2">o</td><td class="c1">x</td><td class="c0"> </td></tr>
+        </table>
+        <table>
+          <tr><td class="c6">o</td><td class="c0"> </td><td class="c3">x</td></tr>
+          <tr><td class="c4">o</td><td class="c0"> </td><td class="c0"> </td></tr>
+          <tr><td class="c2">o</td><td class="c1">x</td><td class="c5">x</td></tr>
+        </table>
+      </div>
+    </div>
+    <div class="pattern">
+      <h1>パターン2 2手目が(1,2)</h1>
+      <div class="row">
+        <table>
+          <tr><td class="c0"> </td><td class="c6">o</td><td class="c0"> </td></tr>
+          <tr><td class="c0"> </td><td class="c0"> </td><td class="c0"> </td></tr>
+          <tr><td class="c0"> </td><td class="c0"> </td><td class="c0"> </td></tr>
+        </table>
+      </div>
+      <div class="row">
+        <table>
+          <tr><td class="c0"> </td><td class="c5">o</td><td class="c0"> </td></tr>
+          <tr><td class="c6">x</td><td class="c0"> </td><td class="c0"> </td></tr>
+          <tr><td class="c0"> </td><td class="c0"> </td><td class="c0"> </td></tr>
+        </table>
+      </div>
+      <div class="row">
+        <table>
+          <tr><td class="c0"> </td><td class="c4">o</td><td class="c0"> </td></tr>
+          <tr><td class="c5">x</td><td class="c6">o</td><td class="c0"> </td></tr>
+          <tr><td class="c0"> </td><td class="c0"> </td><td class="c0"> </td></tr>
+        </table>
+      </div>
+      <div class="row">
+        <table>
+          <tr><td class="c0"> </td><td class="c3">o</td><td class="c0"> </td></tr>
+          <tr><td class="c4">x</td><td class="c5">o</td><td class="c0"> </td></tr>
+          <tr><td class="c0"> </td><td class="c6">x</td><td class="c0"> </td></tr>
+        </table>
+      </div>
+      <div class="row">
+        <table>
+          <tr><td class="c0"> </td><td class="c2">o</td><td class="c0"> </td></tr>
+          <tr><td class="c3">x</td><td class="c4">o</td><td class="c0"> </td></tr>
+          <tr><td class="c6">o</td><td class="c5">x</td><td class="c0"> </td></tr>
+        </table>
+      </div>
+      <div class="row">
+        <table>
+          <tr><td class="c0"> </td><td class="c1">o</td><td class="c6">x</td></tr>
+          <tr><td class="c2">x</td><td class="c3">o</td><td class="c0"> </td></tr>
+          <tr><td class="c5">o</td><td class="c4">x</td><td class="c0"> </td></tr>
+        </table>
+      </div>
+      <div class="row">
+        <table>
+          <tr><td class="c6">o</td><td class="c0"> </td><td class="c5">x</td></tr>
+          <tr><td class="c1">x</td><td class="c2">o</td><td class="c0"> </td></tr>
+          <tr><td class="c4">o</td><td class="c3">x</td><td class="c0"> </td></tr>
+        </table>
+      </div>
+      <div class="row">
+        <table>
+          <tr><td class="c5">o</td><td class="c6">x</td><td class="c4">x</td></tr>
+          <tr><td class="c0"> </td><td class="c1">o</td><td class="c0"> </td></tr>
+          <tr><td class="c3">o</td><td class="c2">x</td><td class="c0"> </td></tr>
+        </table>
+        <table>
+          <tr><td class="c5">o</td><td class="c0"> </td><td class="c4">x</td></tr>
+          <tr><td class="c0"> </td><td class="c1">o</td><td class="c6">x</td></tr>
+          <tr><td class="c3">o</td><td class="c2">x</td><td class="c0"> </td></tr>
+        </table>
+        <table>
+          <tr><td class="c5">o</td><td class="c0"> </td><td class="c4">x</td></tr>
+          <tr><td class="c0"> </td><td class="c1">o</td><td class="c0"> </td></tr>
+          <tr><td class="c3">o</td><td class="c2">x</td><td class="c6">x</td></tr>
+        </table>
+      </div>
+      <div class="row">
+        <table>
+          <tr><td class="c4">o</td><td class="c5">x</td><td class="c3">x</td></tr>
+          <tr><td class="c6">o</td><td class="c0"> </td><td class="c0"> </td></tr>
+          <tr><td class="c2">o</td><td class="c1">x</td><td class="c0"> </td></tr>
+        </table>
+        <table>
+          <tr><td class="c4">o</td><td class="c0"> </td><td class="c3">x</td></tr>
+          <tr><td class="c6">o</td><td class="c0"> </td><td class="c5">x</td></tr>
+          <tr><td class="c2">o</td><td class="c1">x</td><td class="c0"> </td></tr>
+        </table>
+        <table>
+          <tr><td class="c4">o</td><td class="c0"> </td><td class="c3">x</td></tr>
+          <tr><td class="c6">o</td><td class="c0"> </td><td class="c0"> </td></tr>
+          <tr><td class="c2">o</td><td class="c1">x</td><td class="c5">x</td></tr>
+        </table>
+      </div>
+    </div>
+    <div class="pattern">
+      <h1>パターン3 2手目が(2,3)</h1>
+      <div class="row">
+        <table>
+          <tr><td class="c0"> </td><td class="c6">o</td><td class="c0"> </td></tr>
+          <tr><td class="c0"> </td><td class="c0"> </td><td class="c0"> </td></tr>
+          <tr><td class="c0"> </td><td class="c0"> </td><td class="c0"> </td></tr>
+        </table>
+      </div>
+      <div class="row">
+        <table>
+          <tr><td class="c0"> </td><td class="c5">o</td><td class="c0"> </td></tr>
+          <tr><td class="c0"> </td><td class="c0"> </td><td class="c0"> </td></tr>
+          <tr><td class="c0"> </td><td class="c6">x</td><td class="c0"> </td></tr>
+        </table>
+      </div>
+      <div class="row">
+        <table>
+          <tr><td class="c6">o</td><td class="c4">o</td><td class="c0"> </td></tr>
+          <tr><td class="c0"> </td><td class="c0"> </td><td class="c0"> </td></tr>
+          <tr><td class="c0"> </td><td class="c5">x</td><td class="c0"> </td></tr>
+        </table>
+      </div>
+      <div class="row">
+        <table>
+          <tr><td class="c5">o</td><td class="c3">o</td><td class="c6">x</td></tr>
+          <tr><td class="c0"> </td><td class="c0"> </td><td class="c0"> </td></tr>
+          <tr><td class="c0"> </td><td class="c4">x</td><td class="c0"> </td></tr>
+        </table>
+      </div>
+      <div class="row">
+        <table>
+          <tr><td class="c4">o</td><td class="c2">o</td><td class="c5">x</td></tr>
+          <tr><td class="c0"> </td><td class="c0"> </td><td class="c0"> </td></tr>
+          <tr><td class="c6">o</td><td class="c3">x</td><td class="c0"> </td></tr>
+        </table>
+      </div>
+      <div class="row">
+        <table>
+          <tr><td class="c3">o</td><td class="c1">o</td><td class="c4">x</td></tr>
+          <tr><td class="c6">x</td><td class="c0"> </td><td class="c0"> </td></tr>
+          <tr><td class="c5">o</td><td class="c2">x</td><td class="c0"> </td></tr>
+        </table>
+      </div>
+      <div class="row">
+        <table>
+          <tr><td class="c2">o</td><td class="c0"> </td><td class="c3">x</td></tr>
+          <tr><td class="c5">x</td><td class="c0"> </td><td class="c0"> </td></tr>
+          <tr><td class="c4">o</td><td class="c1">x</td><td class="c6">o</td></tr>
+        </table>
+      </div>
+      <div class="row">
+        <table>
+          <tr><td class="c1">o</td><td class="c6">x</td><td class="c2">x</td></tr>
+          <tr><td class="c4">x</td><td class="c0"> </td><td class="c0"> </td></tr>
+          <tr><td class="c3">o</td><td class="c0"> </td><td class="c5">o</td></tr>
+        </table>
+        <table>
+          <tr><td class="c1">o</td><td class="c0"> </td><td class="c2">x</td></tr>
+          <tr><td class="c4">x</td><td class="c6">x</td><td class="c0"> </td></tr>
+          <tr><td class="c3">o</td><td class="c0"> </td><td class="c5">o</td></tr>
+        </table>
+        <table>
+          <tr><td class="c1">o</td><td class="c0"> </td><td class="c2">x</td></tr>
+          <tr><td class="c4">x</td><td class="c0"> </td><td class="c6">x</td></tr>
+          <tr><td class="c3">o</td><td class="c0"> </td><td class="c5">o</td></tr>
+        </table>
+      </div>
+      <div class="row">
+        <table>
+          <tr><td class="c0"> </td><td class="c5">x</td><td class="c1">x</td></tr>
+          <tr><td class="c3">x</td><td class="c0"> </td><td class="c0"> </td></tr>
+          <tr><td class="c2">o</td><td class="c6">o</td><td class="c4">o</td></tr>
+        </table>
+        <table>
+          <tr><td class="c0"> </td><td class="c0"> </td><td class="c1">x</td></tr>
+          <tr><td class="c3">x</td><td class="c5">x</td><td class="c0"> </td></tr>
+          <tr><td class="c2">o</td><td class="c6">o</td><td class="c4">o</td></tr>
+        </table>
+        <table>
+          <tr><td class="c0"> </td><td class="c0"> </td><td class="c1">x</td></tr>
+          <tr><td class="c3">x</td><td class="c0"> </td><td class="c5">x</td></tr>
+          <tr><td class="c2">o</td><td class="c6">o</td><td class="c4">o</td></tr>
+        </table>
+      </div>
+    </div>
+    <div class="pattern">
+      <h1>パターン4 2手目が(2,2)</h1>
+      <div class="row">
+        <table>
+          <tr><td class="c0"> </td><td class="c6">o</td><td class="c0"> </td></tr>
+          <tr><td class="c0"> </td><td class="c0"> </td><td class="c0"> </td></tr>
+          <tr><td class="c0"> </td><td class="c0"> </td><td class="c0"> </td></tr>
+        </table>
+      </div>
+      <div class="row">
+        <table>
+          <tr><td class="c0"> </td><td class="c5">o</td><td class="c0"> </td></tr>
+          <tr><td class="c0"> </td><td class="c6">x</td><td class="c0"> </td></tr>
+          <tr><td class="c0"> </td><td class="c0"> </td><td class="c0"> </td></tr>
+        </table>
+      </div>
+      <div class="row">
+        <table>
+          <tr><td class="c6">o</td><td class="c4">o</td><td class="c0"> </td></tr>
+          <tr><td class="c0"> </td><td class="c5">x</td><td class="c0"> </td></tr>
+          <tr><td class="c0"> </td><td class="c0"> </td><td class="c0"> </td></tr>
+        </table>
+      </div>
+      <div class="row">
+        <table>
+          <tr><td class="c5">o</td><td class="c3">o</td><td class="c6">x</td></tr>
+          <tr><td class="c0"> </td><td class="c4">x</td><td class="c0"> </td></tr>
+          <tr><td class="c0"> </td><td class="c0"> </td><td class="c0"> </td></tr>
+        </table>
+      </div>
+      <div class="row">
+        <table>
+          <tr><td class="c4">o</td><td class="c2">o</td><td class="c5">x</td></tr>
+          <tr><td class="c0"> </td><td class="c3">x</td><td class="c0"> </td></tr>
+          <tr><td class="c6">o</td><td class="c0"> </td><td class="c0"> </td></tr>
+        </table>
+      </div>
+      <div class="row">
+        <table>
+          <tr><td class="c3">o</td><td class="c1">o</td><td class="c4">x</td></tr>
+          <tr><td class="c6">x</td><td class="c2">x</td><td class="c0"> </td></tr>
+          <tr><td class="c5">o</td><td class="c0"> </td><td class="c0"> </td></tr>
+        </table>
+      </div>
+      <div class="row">
+        <table>
+          <tr><td class="c2">o</td><td class="c0"> </td><td class="c3">x</td></tr>
+          <tr><td class="c5">x</td><td class="c1">x</td><td class="c0"> </td></tr>
+          <tr><td class="c4">o</td><td class="c0"> </td><td class="c6">o</td></tr>
+        </table>
+      </div>
+      <div class="row">
+        <table>
+          <tr><td class="c1">o</td><td class="c0"> </td><td class="c2">x</td></tr>
+          <tr><td class="c4">x</td><td class="c0"> </td><td class="c0"> </td></tr>
+          <tr><td class="c3">o</td><td class="c6">x</td><td class="c5">o</td></tr>
+        </table>
+      </div>
+      <div class="row">
+        <table>
+          <tr><td class="c0"> </td><td class="c0"> </td><td class="c1">x</td></tr>
+          <tr><td class="c3">x</td><td class="c0"> </td><td class="c6">o</td></tr>
+          <tr><td class="c2">o</td><td class="c5">x</td><td class="c4">o</td></tr>
+        </table>
+      </div>
+      <div class="row">
+        <table>
+          <tr><td class="c6">x</td><td class="c0"> </td><td class="c0"> </td></tr>
+          <tr><td class="c2">x</td><td class="c0"> </td><td class="c5">o</td></tr>
+          <tr><td class="c1">o</td><td class="c4">x</td><td class="c3">o</td></tr>
+        </table>
+        <table>
+          <tr><td class="c0"> </td><td class="c6">x</td><td class="c0"> </td></tr>
+          <tr><td class="c2">x</td><td class="c0"> </td><td class="c5">o</td></tr>
+          <tr><td class="c1">o</td><td class="c4">x</td><td class="c3">o</td></tr>
+        </table>
+        <table>
+          <tr><td class="c0"> </td><td class="c0"> </td><td class="c0"> </td></tr>
+          <tr><td class="c2">x</td><td class="c6">x</td><td class="c5">o</td></tr>
+          <tr><td class="c1">o</td><td class="c4">x</td><td class="c3">o</td></tr>
+        </table>
+      </div>
+      <div class="row">
+        <table>
+          <tr><td class="c5">x</td><td class="c0"> </td><td class="c6">o</td></tr>
+          <tr><td class="c1">x</td><td class="c0"> </td><td class="c4">o</td></tr>
+          <tr><td class="c0"> </td><td class="c3">x</td><td class="c2">o</td></tr>
+        </table>
+        <table>
+          <tr><td class="c0"> </td><td class="c5">x</td><td class="c6">o</td></tr>
+          <tr><td class="c1">x</td><td class="c0"> </td><td class="c4">o</td></tr>
+          <tr><td class="c0"> </td><td class="c3">x</td><td class="c2">o</td></tr>
+        </table>
+        <table>
+          <tr><td class="c0"> </td><td class="c0"> </td><td class="c6">o</td></tr>
+          <tr><td class="c1">x</td><td class="c5">x</td><td class="c4">o</td></tr>
+          <tr><td class="c0"> </td><td class="c3">x</td><td class="c2">o</td></tr>
+        </table>
+      </div>
+    </div>
+    <div class="pattern">
+      <h1>パターン5 2手目が(1,3)</h1>
+      <div class="row">
+        <table>
+          <tr><td class="c0"> </td><td class="c6">o</td><td class="c0"> </td></tr>
+          <tr><td class="c0"> </td><td class="c0"> </td><td class="c0"> </td></tr>
+          <tr><td class="c0"> </td><td class="c0"> </td><td class="c0"> </td></tr>
+        </table>
+      </div>
+      <div class="row">
+        <table>
+          <tr><td class="c0"> </td><td class="c5">o</td><td class="c0"> </td></tr>
+          <tr><td class="c0"> </td><td class="c0"> </td><td class="c0"> </td></tr>
+          <tr><td class="c6">x</td><td class="c0"> </td><td class="c0"> </td></tr>
+        </table>
+      </div>
+      <div class="row">
+        <table>
+          <tr><td class="c0"> </td><td class="c4">o</td><td class="c0"> </td></tr>
+          <tr><td class="c0"> </td><td class="c6">o</td><td class="c0"> </td></tr>
+          <tr><td class="c5">x</td><td class="c0"> </td><td class="c0"> </td></tr>
+        </table>
+      </div>
+      <div class="row">
+        <table>
+          <tr><td class="c0"> </td><td class="c3">o</td><td class="c0"> </td></tr>
+          <tr><td class="c0"> </td><td class="c5">o</td><td class="c0"> </td></tr>
+          <tr><td class="c4">x</td><td class="c6">x</td><td class="c0"> </td></tr>
+        </table>
+      </div>
+      <div class="row">
+        <table>
+          <tr><td class="c0"> </td><td class="c2">o</td><td class="c0"> </td></tr>
+          <tr><td class="c0"> </td><td class="c4">o</td><td class="c0"> </td></tr>
+          <tr><td class="c3">x</td><td class="c5">x</td><td class="c6">o</td></tr>
+        </table>
+      </div>
+      <div class="row">
+        <table>
+          <tr><td class="c6">x</td><td class="c1">o</td><td class="c0"> </td></tr>
+          <tr><td class="c0"> </td><td class="c3">o</td><td class="c0"> </td></tr>
+          <tr><td class="c2">x</td><td class="c4">x</td><td class="c5">o</td></tr>
+        </table>
+      </div>
+      <div class="row">
+        <table>
+          <tr><td class="c5">x</td><td class="c0"> </td><td class="c6">o</td></tr>
+          <tr><td class="c0"> </td><td class="c2">o</td><td class="c0"> </td></tr>
+          <tr><td class="c1">x</td><td class="c3">x</td><td class="c4">o</td></tr>
+        </table>
+      </div>
+      <div class="row">
+        <table>
+          <tr><td class="c4">x</td><td class="c0"> </td><td class="c5">o</td></tr>
+          <tr><td class="c0"> </td><td class="c1">o</td><td class="c6">x</td></tr>
+          <tr><td class="c0"> </td><td class="c2">x</td><td class="c3">o</td></tr>
+        </table>
+      </div>
+      <div class="row">
+        <table>
+          <tr><td class="c3">x</td><td class="c0"> </td><td class="c4">o</td></tr>
+          <tr><td class="c0"> </td><td class="c0"> </td><td class="c5">x</td></tr>
+          <tr><td class="c6">o</td><td class="c1">x</td><td class="c2">o</td></tr>
+        </table>
+      </div>
+      <div class="row">
+        <table>
+          <tr><td class="c2">x</td><td class="c0"> </td><td class="c3">o</td></tr>
+          <tr><td class="c0"> </td><td class="c6">x</td><td class="c4">x</td></tr>
+          <tr><td class="c5">o</td><td class="c0"> </td><td class="c1">o</td></tr>
+        </table>
+      </div>
+      <div class="row">
+        <table>
+          <tr><td class="c1">x</td><td class="c0"> </td><td class="c2">o</td></tr>
+          <tr><td class="c6">o</td><td class="c5">x</td><td class="c3">x</td></tr>
+          <tr><td class="c4">o</td><td class="c0"> </td><td class="c0"> </td></tr>
+        </table>
+      </div>
+      <div class="row">
+        <table>
+          <tr><td class="c0"> </td><td class="c6">x</td><td class="c1">o</td></tr>
+          <tr><td class="c5">o</td><td class="c4">x</td><td class="c2">x</td></tr>
+          <tr><td class="c3">o</td><td class="c0"> </td><td class="c0"> </td></tr>
+        </table>
+        <table>
+          <tr><td class="c0"> </td><td class="c0"> </td><td class="c1">o</td></tr>
+          <tr><td class="c5">o</td><td class="c4">x</td><td class="c2">x</td></tr>
+          <tr><td class="c3">o</td><td class="c6">x</td><td class="c0"> </td></tr>
+        </table>
+        <table>
+          <tr><td class="c0"> </td><td class="c0"> </td><td class="c1">o</td></tr>
+          <tr><td class="c5">o</td><td class="c4">x</td><td class="c2">x</td></tr>
+          <tr><td class="c3">o</td><td class="c0"> </td><td class="c6">x</td></tr>
+        </table>
+      </div>
+      <div class="row">
+        <table>
+          <tr><td class="c6">o</td><td class="c5">x</td><td class="c0"> </td></tr>
+          <tr><td class="c4">o</td><td class="c3">x</td><td class="c1">x</td></tr>
+          <tr><td class="c2">o</td><td class="c0"> </td><td class="c0"> </td></tr>
+        </table>
+        <table>
+          <tr><td class="c6">o</td><td class="c0"> </td><td class="c0"> </td></tr>
+          <tr><td class="c4">o</td><td class="c3">x</td><td class="c1">x</td></tr>
+          <tr><td class="c2">o</td><td class="c5">x</td><td class="c0"> </td></tr>
+        </table>
+        <table>
+          <tr><td class="c6">o</td><td class="c0"> </td><td class="c0"> </td></tr>
+          <tr><td class="c4">o</td><td class="c3">x</td><td class="c1">x</td></tr>
+          <tr><td class="c2">o</td><td class="c0"> </td><td class="c5">x</td></tr>
+        </table>
+      </div>
+    </div>
+  </div>
+</body>
+
+</html>
