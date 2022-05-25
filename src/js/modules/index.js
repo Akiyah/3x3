@@ -22,6 +22,18 @@ function createState() {
   return new State();
 }
 
+function createEpsilon() {
+  const url = window.location.href;
+  const regex = new RegExp("[?&]type=([^&#]*)");
+  const results = regex.exec(url);
+  if (results) {
+    if (results[1] == "ThreeState") {
+      return 1;
+    }
+  }
+  return 0.1;
+}
+
 function td(action) {
   const boardDiv = document.getElementById("board");
   const trDivs = boardDiv.getElementsByTagName("tr");
@@ -102,7 +114,7 @@ env.episode.state.mapPoints((action) => {
 
 const timer = setInterval(() => {
   for (let i = 0; i < 100; i++) {
-    const episode = Episode.find(env.initialState, env.quality, 0.1);
+    const episode = Episode.find(env.initialState, env.quality, createEpsilon());
     env.quality.train(episode);
   }
   document.getElementById("train_count").innerText = env.quality.trainCount;
